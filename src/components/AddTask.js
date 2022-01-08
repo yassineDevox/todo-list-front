@@ -1,6 +1,7 @@
 
 export default function AddTask() {
     return (
+        
         <section>
             <h1 className="text-center mt-4 text-decoration-underline">Ajouter Task</h1>
             <div className="d-flex justify-content-center align-items-center">
