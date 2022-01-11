@@ -1,3 +1,4 @@
+import { Tache } from "../models/tache";
 import Task from "./Task";
 
 export default function ListTask() {
@@ -10,15 +11,31 @@ export default function ListTask() {
             </div>
 
             <ul className="list-group list-group-flush " id="listTsk">
-                {/* task
-               <Task title="first task"/>
-               <Task title="second task"/>
-               <Task title="third task" /> */}
                 {
-                    ["first task", "second task", "third task"]
-                    .map(
-                        t => (<Task title={t} />)
-                    )
+                    // ["first task", "second task", "third task"]
+                    // .map(
+                    //     (t,index) => (<Task key={index} title={t} />)
+                    // )
+                    // [
+
+                    //     { id: 1, title: "first task"},
+                    //     { id: 2, title: "second task" },
+                    //     { id: 3, title: "third task" }
+                    // ]
+                    // .map(
+                    //     t => (<Task key={t.id} title={t.title} />)
+                    // )
+
+                    [
+
+                        new Tache(1, "first task"),
+                        new Tache(2, "second task"),
+                        new Tache(3, "third task")
+                    ]
+                        .map(
+                            t => (<Task key={t.id} title={t.title} />)
+                        )
+
                 }
             </ul>
         </section>
