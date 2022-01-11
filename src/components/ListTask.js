@@ -1,7 +1,26 @@
+import { useState } from "react";
 import { Tache } from "../models/tache";
 import Task from "./Task";
 
 export default function ListTask() {
+
+    //  const tableau = useState("")
+    //  const etat = tableau[0]
+    //  const setEtat = tableau[1]
+
+    //  const [etat, setEtat] = useState("")
+
+    //  console.log(useState(""))
+
+    const [listTaches, setListTaches] = useState(
+        [
+
+            new Tache(1, "titre 1", true),
+            new Tache(2, "titre 2", true),
+            new Tache(3, "titre 3", true),
+        ]
+    )
+
     return (
         <section>
             <h1 className="text-center mt-4 text-decoration-underline">List Task</h1>
@@ -12,31 +31,16 @@ export default function ListTask() {
 
             <ul className="list-group list-group-flush " id="listTsk">
                 {
-                    // ["first task", "second task", "third task"]
-                    // .map(
-                    //     (t,index) => (<Task key={index} title={t} />)
-                    // )
-                    // [
-
-                    //     { id: 1, title: "first task"},
-                    //     { id: 2, title: "second task" },
-                    //     { id: 3, title: "third task" }
-                    // ]
-                    // .map(
-                    //     t => (<Task key={t.id} title={t.title} />)
-                    // )
-
-                    [
-
-                        new Tache(1, "first task"),
-                        new Tache(2, "second task"),
-                        new Tache(3, "third task")
-                    ]
+                    listTaches
                         .map(
                             t => (<Task key={t.id} title={t.title} />)
                         )
-
                 }
+                {/* il va etre creer en se basent sur le tableau setListTache
+                qui contient 3 elements
+                <Task key={1} title="titre 1" />
+                <Task key={2} title="titre 2" />
+                <Task key={3} title="titre 3" /> */}
             </ul>
         </section>
 

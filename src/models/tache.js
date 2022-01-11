@@ -1,10 +1,10 @@
 //creer un type dobjet tache
 export class Tache {
-    constructor(id, title, description) {
+    constructor(id, title,isCompleted ) {
         //this pour dire objet courant 
         this.id = id
         this.title = title
-        this.description = description
+        this.isCompleted =isCompleted 
     }
 }
 
