@@ -1,6 +1,6 @@
 import { useRef } from "react"
 
-export default function AddTask() {
+export default function AddTask(props) {
 
     
     //creer une reference taskRef avec useRef hook
@@ -14,7 +14,10 @@ export default function AddTask() {
         let taskValue  = taskRef.current.value
         if(taskValue=="") alert(" invalid task")
         else {
-            
+            //vider l'input 
+            taskRef.current.value=""
+            //appel la fonction addNewTask du comp App
+            props.addNewTask(taskValue)
         }
     }
 
