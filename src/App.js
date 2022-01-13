@@ -1,12 +1,9 @@
 import { useState } from "react";
 import AddTask from "./components/AddTask";
 import ListTask from "./components/ListTask";
-import { Tache } from "./models/tache";
 
 function App() {
-  const [listTaches, setListTaches] = useState([
-    new Tache(1,"dadad")
-  ])
+  const [listTaches, setListTaches] = useState()
   return (
     <main className="w-75 mx-auto">
       {/* AJOUTER TASK SECTION */}
