@@ -16,7 +16,7 @@ export default function ListTask(props) {
                 {
                     props.list
                         .map(
-                            t => (<Task key={t.id} title={t.title} desc={t.description} />)
+                            t => (<Task key={t.id} id={t.id} title={t.title} desc={t.description} deleteTaskById={props.deleteTaskById} />)
                         )
                 }
                 {/* il va etre creer en se basent sur le tableau setListTache

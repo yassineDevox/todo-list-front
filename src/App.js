@@ -19,14 +19,27 @@ function App() {
     setListTaches([...newListTach])
   }
 
+  const deleteTaskById = (idTask)=>{
+    // alert(idTask)
+    //copier la list pred
+    let newListTach = listTaches
+    //faire le changement sur la new list
+    newListTach = newListTach.filter(t=>t.id!=idTask)
+    //on ecrase notre state avec la new list 
+    setListTaches([...newListTach])
+  }
 
   return (
     <main className="w-75 mx-auto">
       {/* AJOUTER TASK SECTION */}
-      <AddTask addNewTask={addNewTask} />
+      <AddTask 
+        addNewTask={addNewTask}
+       />
       <hr />
       {/* LIST TASK  */}
-      <ListTask list={listTaches} />
+      <ListTask 
+        list={listTaches}
+        deleteTaskById={deleteTaskById} />
     </main>
 
   );
