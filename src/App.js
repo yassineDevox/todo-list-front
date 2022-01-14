@@ -7,14 +7,14 @@ import { Tache } from "./models/tache";
 function App() {
   const [listTaches, setListTaches] = useState(LIST_TASK)
 
-  const addNewTask = (titleTask) => {
+  const addNewTask = (titleTask,descTask) => {
     //  alert(titleTask)
     // it wont display the data because we didnt use setListTaches 
     // listTaches.push(new Tache(1,titleTask))
     // console.log(listTaches)
     let newListTach = listTaches
     
-    newListTach.push(new Tache(listTaches.length+1,titleTask))
+    newListTach.push(new Tache(listTaches.length+1,titleTask,descTask))
     console.log(newListTach);
     setListTaches([...newListTach])
   }
