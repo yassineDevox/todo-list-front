@@ -6,7 +6,12 @@ export default function Task(props) {
         if (window.confirm("Are you sure ?"))
             props.deleteTaskById(props.id)
     }
-    console.log(props);//afficher la liste des attributs(props)
+
+    const handleClickEdit = ()=>{
+        props.editTask(props.title,props.desc,props.id)
+    }
+
+
     return (
         <li className="list-group-item listup">
             <span className="fs-4 tasklist">{props.title}
@@ -16,8 +21,12 @@ export default function Task(props) {
                 className="btn btn-danger float-end m-3" >
                 <i className="fas fa-trash" />
             </button>
-            <button className="btn btn-success float-end m-3">
-                <i className="fas fa-edit" />
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal"
+                className="btn btn-success float-end m-3"
+                onClick={handleClickEdit}>
+                <i className="fas fa-edit"
+                
+                />
             </button>
         </li>
     )
