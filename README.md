@@ -7,5 +7,5 @@ Todo App for managing tasks
 + React ( props,useState hook, useRef )
 
 ## Take A look on My website here : 
- [https://keen-snyder-e3edee.netlify.app/](Todo App website )
+ <a href="https://keen-snyder-e3edee.netlify.app/"> Todo App website </a>
 
