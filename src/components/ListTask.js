@@ -8,23 +8,36 @@ export default function ListTask(props) {
     //reference 
     const titleRef = useRef()
     const descRef = useRef()
-    const editTask = (title,desc,id)=>{
+    const filterQueryRef = useRef()
+
+
+    const editTask = (title, desc, id) => {
         // alert(title+" et "+desc)
         titleRef.current.value = title
         descRef.current.value = desc
         setSelectedId(id)
     }
-    const handleClickUpdate = ()=>{
+    const handleClickUpdate = () => {
 
         // alert(titleRef.current.value+' '+descRef.current.value)
-        props.updateTask(titleRef.current.value,descRef.current.value,selectedId)
+        props.updateTask(titleRef.current.value, descRef.current.value, selectedId)
     }
+    const handleKeyUp = ()=>{
+        // console.log(filterQueryRef.current.value)
+        props.filterTaskByTitle(filterQueryRef.current.value)
+    } 
 
     return (
         <section>
             <h1 className="text-center mt-4 text-decoration-underline">List Task</h1>
+            {/* INPUT FILTER  */}
             <div className="d-flex justify-content-center align-items-center">
-                <input id="inpCle" type="text" className="form-control w-50" placeholder="Filter Task by title" />
+                <input
+                    type="text"
+                    className="form-control w-50"
+                    placeholder="Filter Task by title" 
+                    onKeyUp={handleKeyUp}
+                    ref={filterQueryRef}/>
                 <span className="input-group-text m-3"><i className="fas fa-search" /></span>
             </div>
 
@@ -36,7 +49,7 @@ export default function ListTask(props) {
                                 key={t.id}
                                 id={t.id}
                                 title={t.title}
-                                desc={t.description} 
+                                desc={t.description}
                                 deleteTaskById={props.deleteTaskById}
                                 editTask={editTask} />)
                         )
@@ -62,12 +75,12 @@ export default function ListTask(props) {
                                 <input type="text"
                                     className="form-control w-50"
                                     placeholder="Type new Task"
-                                    ref={titleRef}    
+                                    ref={titleRef}
                                 />
                                 <textarea type="text"
                                     className="form-control w-50"
                                     placeholder="Description de la tache"
-                                    ref={descRef}    
+                                    ref={descRef}
                                 ></textarea>
 
 
