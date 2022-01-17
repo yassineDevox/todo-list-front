@@ -18,6 +18,8 @@ function App() {
     newListTach.push(new Tache(listTaches.length + 1, titleTask, descTask))
     console.log(newListTach);
     setListTaches([...newListTach])
+    //tu va changer aussi la copie 
+    setListTachesOrigine([...newListTach])
   }
 
   const deleteTaskById = (idTask) => {
@@ -28,6 +30,8 @@ function App() {
     newListTach = newListTach.filter(t => t.id != idTask)
     //on ecrase notre state avec la new list 
     setListTaches([...newListTach])
+    //tu va changer aussi la copie 
+    setListTachesOrigine([...newListTach])
   }
   const updateTask = (newTitle, newDesc, idTask) => {
     // alert(newTitle+' '+newDesc+" "+idTask)
@@ -42,6 +46,7 @@ function App() {
     })
     //on ecrase notre state avec la new list 
     setListTaches([...newListTach])
+    setListTachesOrigine([...newListTach])
   }
   const filterTaskByTitle = (queryTitle) => {
     if (queryTitle == "") {
