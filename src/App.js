@@ -27,7 +27,7 @@ function App() {
     //copier la list pred
     let newListTach = listTaches
     //faire le changement sur la new list
-    newListTach = newListTach.filter(t => t.id != idTask)
+    newListTach = newListTach.filter(t => t.id !== idTask)
     //on ecrase notre state avec la new list 
     setListTaches([...newListTach])
     //tu va changer aussi la copie 
@@ -39,7 +39,7 @@ function App() {
     let newListTach = listTaches
     //faire le changement sur la new list
     newListTach.forEach(t => {
-      if (t.id == idTask) {
+      if (t.id === idTask) {
         t.title = newTitle
         t.description = newDesc
       }
@@ -49,7 +49,7 @@ function App() {
     setListTachesOrigine([...newListTach])
   }
   const filterTaskByTitle = (queryTitle) => {
-    if (queryTitle == "") {
+    if (queryTitle === "") {
       setListTaches([...listTachesOrigine])
     } else {
 

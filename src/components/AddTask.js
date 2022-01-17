@@ -14,7 +14,7 @@ export default function AddTask(props) {
         // console.log(taskRef.current.value)
         let taskValue = taskRef.current.value
         let descValue = descRef.current.value
-        if (taskValue == "" || descValue==="") alert(" invalid task")
+        if (taskValue === "" || descValue==="") alert(" invalid task")
         else {
             //vider l'input 
             taskRef.current.value = ""
