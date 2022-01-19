@@ -1,84 +1,48 @@
-import { useState } from "react";
-import AddTask from "./components/AddTask";
-import ListTask from "./components/ListTask";
-import { LIST_TASK } from "./data/taches";
-import { Tache } from "./models/tache";
+import React, { Component } from 'react'
+import Child from './components/child'
 
-function App() {
-  const [listTaches, setListTaches] = useState(LIST_TASK)
-  const [listTachesOrigine, setListTachesOrigine] = useState(LIST_TASK)
+export default class App extends Component {
 
-  const addNewTask = (titleTask, descTask) => {
-    //  alert(titleTask)
-    // it wont display the data because we didnt use setListTaches 
-    // listTaches.push(new Tache(1,titleTask))
-    // console.log(listTaches)
-    let newListTach = listTaches
-
-    newListTach.push(new Tache(listTaches.length + 1, titleTask, descTask))
-    console.log(newListTach);
-    setListTaches([...newListTach])
-    //tu va changer aussi la copie 
-    setListTachesOrigine([...newListTach])
+  constructor() {
+    super()//pour appeler le constructeur de la class parent(component)
+    this.state = { counter: 0 ,showChild:true}
+    console.log("constructeur")
   }
 
-  const deleteTaskById = (idTask) => {
-    // alert(idTask)
-    //copier la list pred
-    let newListTach = listTaches
-    //faire le changement sur la new list
-    newListTach = newListTach.filter(t => t.id !== idTask)
-    //on ecrase notre state avec la new list 
-    setListTaches([...newListTach])
-    //tu va changer aussi la copie 
-    setListTachesOrigine([...newListTach])
-  }
-  const updateTask = (newTitle, newDesc, idTask) => {
-    // alert(newTitle+' '+newDesc+" "+idTask)
-    //copier la list pred
-    let newListTach = listTaches
-    //faire le changement sur la new list
-    newListTach.forEach(t => {
-      if (t.id === idTask) {
-        t.title = newTitle
-        t.description = newDesc
-      }
-    })
-    //on ecrase notre state avec la new list 
-    setListTaches([...newListTach])
-    setListTachesOrigine([...newListTach])
-  }
-  const filterTaskByTitle = (queryTitle) => {
-    if (queryTitle === "") {
-      setListTaches([...listTachesOrigine])
-    } else {
-
-      // console.log(queryTitle)
-      //copier la list pred
-      let newListTach = listTaches
-      //faire le changement sur la new list
-      newListTach = newListTach.filter(t => t.title.includes(queryTitle))
-      //on ecrase notre state avec la new list 
-      setListTaches([...newListTach])
-    }
+  componentDidMount() {
+    console.log("component did mount")
   }
 
-  return (
-    <main className="w-75 mx-auto">
-      {/* AJOUTER TASK SECTION */}
-      <AddTask
-        addNewTask={addNewTask}
-      />
-      <hr />
-      {/* LIST TASK  */}
-      <ListTask
-        list={listTaches}
-        deleteTaskById={deleteTaskById}
-        updateTask={updateTask}
-        filterTaskByTitle={filterTaskByTitle} />
-    </main>
+  handleClick = ()=>{
+    // this.state.counter++; walo
+    this.setState({counter:this.state.counter+1})
+  }
+  handleClickHideChild = ()=>{
+    // this.state.counter++; walo
+    this.setState({showChild:false})
+  }
 
-  );
+  //si ya un changement au niveau des states (counter)
+  componentDidUpdate(){
+    console.log("counter changed")
+  }
+
+
+  render() {
+    return (
+      <div className='text-center'>
+        
+        <span className='fs-1'>{this.state.counter}</span><br />
+        <button
+        onClick={this.handleClick} 
+        className='btn btn-success'>Incrementer</button>
+
+        <h1>List des childs </h1>
+       {this.state.showChild ?  <Child /> : null}
+        <button 
+        onClick={this.handleClickHideChild}
+        className='btn btn-danger'>Hide Child</button>
+      </div>
+    )
+  }
 }
-
-export default App;
