@@ -1,16 +1,22 @@
-import React, { Component } from 'react'
+import { useEffect } from "react"
 
-export default class Child extends Component {
+const Child = () => {
 
-    //si le child est debrancher
-    componentWillUnmount(){
-        console.log(" au revoir les amis 😢 !! ")
-    }
-    render() {
-        return (
-            <div className=' border w-25 p-1 text-danger mx-auto m-1'>
-                child Component
-            </div>
-        )
-    }
+    // component will unmount 
+    useEffect(()=>{
+        //stp react tu voila je te retourn la fonction a executer
+        //lorsque tu va debrancher le composant child 
+        return ()=>{
+            console.log("au revoir les amis 😢 !!")    
+        }
+
+    },[])  
+    return (
+        <div className=' border w-25 p-1 text-danger mx-auto m-1'>
+            child Component
+        </div>
+    )
+
 }
+
+export default Child

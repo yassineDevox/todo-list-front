@@ -1,48 +1,62 @@
-import React, { Component } from 'react'
+import { useEffect, useState } from 'react'
 import Child from './components/child'
 
-export default class App extends Component {
+export default function App() {
 
-  constructor() {
-    super()//pour appeler le constructeur de la class parent(component)
-    this.state = { counter: 0 ,showChild:true}
-    console.log("constructeur")
-  }
+  const [counter, setCounter] = useState(0)
+  const [showChild, setShowChild] = useState(true)
 
-  componentDidMount() {
-    console.log("component did mount")
-  }
+  //when component did mount
+  //arg1:fonction flechée
+  //arg2:tableau des dependances
+  useEffect(
+    () => {
+      console.log("component did mount")
+    }
+  ,[])
 
-  handleClick = ()=>{
+  // component did update sur toutes les states
+  useEffect(
+    ()=>{
+      if(counter!=0)
+      console.log("component did update for all states");
+    }
+  )
+
+  
+  //component did update sur juste le compteur
+  useEffect(
+    ()=>{
+      if(counter!=0)
+      console.log("component did update just for reda counter");
+    }
+  ,[counter])
+
+
+  const handleClick = () => {
     // this.state.counter++; walo
-    this.setState({counter:this.state.counter+1})
+    setCounter(counter + 1)
   }
-  handleClickHideChild = ()=>{
-    // this.state.counter++; walo
-    this.setState({showChild:false})
-  }
-
-  //si ya un changement au niveau des states (counter)
-  componentDidUpdate(){
-    console.log("counter changed")
+  const handleClickHideChild = () => {
+    //counter++; walo
+    setShowChild(false)
   }
 
 
-  render() {
-    return (
-      <div className='text-center'>
-        
-        <span className='fs-1'>{this.state.counter}</span><br />
-        <button
-        onClick={this.handleClick} 
+  return (
+    <div className='text-center'>
+
+      <span className='fs-1'>{counter}</span><br />
+      <button
+        onClick={handleClick}
         className='btn btn-success'>Incrementer</button>
 
-        <h1>List des childs </h1>
-       {this.state.showChild ?  <Child /> : null}
-        <button 
-        onClick={this.handleClickHideChild}
+      <h1>List des childs </h1>
+      {showChild ? <Child /> : null}
+      <button
+        onClick={handleClickHideChild}
         className='btn btn-danger'>Hide Child</button>
-      </div>
-    )
-  }
+    </div>
+  )
+
 }
