@@ -4,32 +4,34 @@ import AddTask from "./components/AddTask";
 import ListTask from "./components/ListTask";
 import Task from "./components/Task";
 import { LIST_TASK } from "./data/taches";
-import { Tache } from "./models/tache";
+import { TacheModel } from "./models/tache";
 
 function App() {
   const [listTaches, setListTaches] = useState(LIST_TASK)
   const [listTachesOrigine, setListTachesOrigine] = useState(LIST_TASK)
 
 
-  //add-task
+  //______________add-task
+
   const addNewTask = (titleTask) => {
     //ajouter sur le serveur 
     axios.post(
       "http://jsonplaceholder.typicode.com/todos",
-      new Tache(null, titleTask)
+      new TacheModel(null, titleTask)
     ).then(response => {
       if (response.status === 201) {
         alert("task added successfully : " + response.data.id)
         //modifier linterface
-        setListTaches([new Tache(response.data.id, titleTask), ...listTaches])
+        setListTaches([new TacheModel(response.data.id, titleTask), ...listTaches])
         //tu va changer aussi la copie 
-        setListTachesOrigine([new Tache(response.data.id, titleTask), ...listTaches])
+        setListTachesOrigine([new TacheModel(response.data.id, titleTask), ...listTaches])
       }
     })
 
   }
 
-  //delete-task
+  //______________delete-task
+
   const deleteTaskById = (idTask) => {
     // // alert(idTask)
 
@@ -93,6 +95,7 @@ function App() {
   }
 
   //_________________CALL_API______
+
   //au chargement de la page 
   useEffect(() => {
     //communiquer avec l api json place holder 

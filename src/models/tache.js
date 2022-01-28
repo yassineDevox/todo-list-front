@@ -1,5 +1,5 @@
 //creer un type dobjet tache
-export class Tache {
+export class TacheModel {
     //ajouter des valeurs par defauts au paramettres ES6
     constructor(id=0, title="" ,completed=false,userId=1) {
         //this pour dire objet courant 
