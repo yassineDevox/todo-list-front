@@ -31,7 +31,7 @@ export default function App() {
             <Route path="/checkpoints" element={<Checkpoints />} />
             <Route path="/workshops" element={<Workshops />} />
             <Route path="/store" element={<Store />} />
-            <Route path="/tracks/:id" element={<TrackDetails />} />
+            <Route path="/tracks/:id/curriculum" element={<TrackDetails />} />
             
           </Routes>
           </div>
