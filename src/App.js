@@ -18,7 +18,7 @@ function App() {
       "http://jsonplaceholder.typicode.com/todos",
       new Tache(null, titleTask)
     ).then(response => {
-      if (response.status == 201) {
+      if (response.status === 201) {
         alert("task added successfully : " + response.data.id)
         //modifier linterface
         setListTaches([new Tache(response.data.id, titleTask), ...listTaches])
