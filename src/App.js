@@ -1,6 +1,8 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import AddTask from "./components/AddTask";
 import ListTask from "./components/ListTask";
+import Task from "./components/Task";
 import { LIST_TASK } from "./data/taches";
 import { Tache } from "./models/tache";
 
@@ -8,46 +10,73 @@ function App() {
   const [listTaches, setListTaches] = useState(LIST_TASK)
   const [listTachesOrigine, setListTachesOrigine] = useState(LIST_TASK)
 
-  const addNewTask = (titleTask, descTask) => {
-    //  alert(titleTask)
-    // it wont display the data because we didnt use setListTaches 
-    // listTaches.push(new Tache(1,titleTask))
-    // console.log(listTaches)
-    let newListTach = listTaches
 
-    newListTach.push(new Tache(listTaches.length + 1, titleTask, descTask))
-    console.log(newListTach);
-    setListTaches([...newListTach])
-    //tu va changer aussi la copie 
-    setListTachesOrigine([...newListTach])
-  }
-
-  const deleteTaskById = (idTask) => {
-    // alert(idTask)
-    //copier la list pred
-    let newListTach = listTaches
-    //faire le changement sur la new list
-    newListTach = newListTach.filter(t => t.id !== idTask)
-    //on ecrase notre state avec la new list 
-    setListTaches([...newListTach])
-    //tu va changer aussi la copie 
-    setListTachesOrigine([...newListTach])
-  }
-  const updateTask = (newTitle, newDesc, idTask) => {
-    // alert(newTitle+' '+newDesc+" "+idTask)
-    //copier la list pred
-    let newListTach = listTaches
-    //faire le changement sur la new list
-    newListTach.forEach(t => {
-      if (t.id === idTask) {
-        t.title = newTitle
-        t.description = newDesc
+  //add-task
+  const addNewTask = (titleTask) => {
+    //ajouter sur le serveur 
+    axios.post(
+      "http://jsonplaceholder.typicode.com/todos",
+      new Tache(null, titleTask)
+    ).then(response => {
+      if (response.status == 201) {
+        alert("task added successfully : " + response.data.id)
+        //modifier linterface
+        setListTaches([new Tache(response.data.id, titleTask), ...listTaches])
+        //tu va changer aussi la copie 
+        setListTachesOrigine([new Tache(response.data.id, titleTask), ...listTaches])
       }
     })
-    //on ecrase notre state avec la new list 
-    setListTaches([...newListTach])
-    setListTachesOrigine([...newListTach])
+
   }
+
+  //delete-task
+  const deleteTaskById = (idTask) => {
+    // // alert(idTask)
+
+    //supprimmer au niveau du serveur
+    axios.delete("http://jsonplaceholder.typicode.com/todos/" + idTask)
+      .then(response => {
+        if (response.status === 200) {
+
+          alert("deleted successfully 😢 !!")
+
+          //copier la list pred
+          let newListTach = listTaches
+          //faire le changement sur la new list
+          newListTach = newListTach.filter(t => t.id !== idTask)
+          //on ecrase notre state avec la new list 
+          setListTaches([...newListTach])
+          //tu va changer aussi la copie 
+          setListTachesOrigine([...newListTach])
+
+        }
+      })
+  }
+
+  const updateTask = (newTitle, idTask) => {
+    //modifier au niveau du serveur 
+    axios.put("http://jsonplaceholder.typicode.com/todos/" + idTask,
+              new Task(idTask,newTitle))
+      .then(response => {
+        if(response.status===200){
+          alert("task : "+ response.data.id+" updated successfully 😄 !")
+          //modifier linterface ui 
+              setListTaches([...listTaches.map(
+                t=>{
+                  if(t.id===idTask){
+                    t.title = newTitle
+                  }
+                  return t
+                }
+              )])
+              setListTachesOrigine([...listTaches])
+
+        }
+      })
+  }
+
+
+  //filter 
   const filterTaskByTitle = (queryTitle) => {
     if (queryTitle === "") {
       setListTaches([...listTachesOrigine])
@@ -62,6 +91,17 @@ function App() {
       setListTaches([...newListTach])
     }
   }
+
+  //_________________CALL_API______
+  //au chargement de la page 
+  useEffect(() => {
+    //communiquer avec l api json place holder 
+    axios.get("http://jsonplaceholder.typicode.com/todos")
+      .then((response) => {
+        setListTaches(response.data)
+        setListTachesOrigine(response.data)
+      })
+  }, [])
 
   return (
     <main className="w-75 mx-auto">

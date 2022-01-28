@@ -8,14 +8,13 @@ export default function Task(props) {
     }
 
     const handleClickEdit = ()=>{
-        props.editTask(props.title,props.desc,props.id)
+        props.editTask(props.title,props.id)
     }
 
 
     return (
         <li className="list-group-item listup">
-            <span className="fs-4 tasklist">{props.title}
-                <br /> desc : {props.desc}</span>
+            <span className="fs-4 tasklist">{props.title}</span>
             <button
                 onClick={handleClick}
                 className="btn btn-danger float-end m-3" >

@@ -7,20 +7,18 @@ export default function ListTask(props) {
     const [selectedId, setSelectedId] = useState()
     //reference 
     const titleRef = useRef()
-    const descRef = useRef()
     const filterQueryRef = useRef()
 
 
-    const editTask = (title, desc, id) => {
+    const editTask = (title, id) => {
         // alert(title+" et "+desc)
         titleRef.current.value = title
-        descRef.current.value = desc
         setSelectedId(id)
     }
     const handleClickUpdate = () => {
 
         // alert(titleRef.current.value+' '+descRef.current.value)
-        props.updateTask(titleRef.current.value, descRef.current.value, selectedId)
+        props.updateTask(titleRef.current.value, selectedId)
     }
     const handleKeyUp = ()=>{
         // console.log(filterQueryRef.current.value)
@@ -49,16 +47,10 @@ export default function ListTask(props) {
                                 key={t.id}
                                 id={t.id}
                                 title={t.title}
-                                desc={t.description}
                                 deleteTaskById={props.deleteTaskById}
                                 editTask={editTask} />)
                         )
                 }
-                {/* il va etre creer en se basent sur le tableau setListTache
-                qui contient 3 elements
-                <Task key={1} title="titre 1" />
-                <Task key={2} title="titre 2" />
-                <Task key={3} title="titre 3" /> */}
             </ul>
 
             <div>
@@ -77,11 +69,7 @@ export default function ListTask(props) {
                                     placeholder="Type new Task"
                                     ref={titleRef}
                                 />
-                                <textarea type="text"
-                                    className="form-control w-50"
-                                    placeholder="Description de la tache"
-                                    ref={descRef}
-                                ></textarea>
+                               
 
 
                             </div>
