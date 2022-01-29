@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 import NavBar from "./components/navbar";
 import Checkpoints from "./pages/checkpoints";
