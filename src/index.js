@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import App from './App';
-import { DoCodeApp } from './doCodeApp';
+import  DoCodeApp  from './doCodeApp';
 
 ReactDOM.render(
   <React.StrictMode>

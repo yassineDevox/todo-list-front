@@ -1,3 +1,6 @@
+/* utilities */
+.d-none{display: none}
+/* utilities :end */
 * {
     margin: 0;
     font-family: 'Poppins', sans-serif;

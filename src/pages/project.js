@@ -1,4 +1,4 @@
-export default  function Workshops() {
+export default  function Projects() {
 
     return (
       <>

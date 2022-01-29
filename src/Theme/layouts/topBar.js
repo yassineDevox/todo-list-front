@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const TopBar = () => {
+const TopBar = ({ page }) => {
+    const [showUserInfos, setShowUserInfos] = useState(false)
     return (
         <>
             <header className="top-bar">
-                <span className="title-page">Dashboard</span>
+                <span className="title-page">{page}</span>
                 <div className="top-bar-right">
                     <div className="toggle-theme-mode">
                         <div className="circle-icon"><i className="fas fa-moon" /></div>
@@ -19,9 +20,11 @@ const TopBar = () => {
                     {/* USER INFOS  */}
                     <div className="user-infos-continer">
                         <div className="avatar-continer">
-                            <img className="circle-avatar" src="https://gomycodelearn.blob.core.windows.net/profiles/2b3edd8c-98c9-4a15-8b05-e6c92ab73a00-132735634787447366.jpg" />
+                            <img className="circle-avatar"
+                                src="https://gomycodelearn.blob.core.windows.net/profiles/2b3edd8c-98c9-4a15-8b05-e6c92ab73a00-132735634787447366.jpg" />
                         </div>
-                        <div className="user-infos">
+                        <div className="user-infos"
+                            onClick={() => setShowUserInfos(!showUserInfos)}>
                             <span>Yassine</span>
                             <i className="fa fa-arrow-down" />
                         </div>
@@ -30,7 +33,7 @@ const TopBar = () => {
                 </div>
             </header>
             {/* USER INFOS DETAILS  */}
-            <div className="user-infos-details ">
+            <div className={showUserInfos ? "user-infos-details" : "d-none"} >
                 <ul>
                     <li className="user-infos-item-disabled">
                         <h3>Yassine Rassy</h3>
