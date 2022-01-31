@@ -19,7 +19,7 @@ export default function DoCodeApp() {
 
     <Router>
       <Theme>
-        <Routes>
+      <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/checkpoints" element={<Checkpoints />} />
           <Route path="/projects" element={<Projects />} />
