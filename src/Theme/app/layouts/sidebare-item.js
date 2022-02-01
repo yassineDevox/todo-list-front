@@ -9,6 +9,7 @@ function SideBareItem({data,setPage}) {
 
   useEffect(()=>{
     if(match) setPage(data.page)
+    
   },[match])
 
   return (

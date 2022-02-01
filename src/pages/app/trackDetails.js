@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function TrackDetails() {
+export  function TrackDetails() {
     const params = useParams()
     return <div>
         Recuperer les donnees du track qui a l'id :

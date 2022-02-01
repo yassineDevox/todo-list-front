@@ -1,8 +1,7 @@
 import { useState } from "react";
-import Track from "../components/track";
-import { TrackModel } from "../model/track";
+import Track from "../../components/track";
 
-export default function Store() {
+export  function Store() {
 
   const [listTrack,setListTrack] = useState([])
   

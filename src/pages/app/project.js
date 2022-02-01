@@ -1,4 +1,4 @@
-export default  function Projects() {
+export   function Projects() {
 
     return (
       <>
