@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./../../assets/style/auth.css"
 import logo from "./../../assets/img/loginLogo.svg"
 
 export const ThemeAUTH = () => {
+  
+  const [error, setError] = useState(false);
+
   return (
 
     <main className='d-flex'>
       <section className='joinUs'>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'relative', zIndex: 4 }}>
-          <h1 className="joinUs" style={{ textAlign: 'center', color: '#29e7d6', fontSize: '4em', width: '50%' }}>
+        <div className='joinUs-container'>
+          <h1 className="joinUs" >
             Join our <br /> community and learn fast on LEARN
           </h1>
         </div>
@@ -22,11 +25,16 @@ export const ThemeAUTH = () => {
             </div>
             <div className="form-body">
               <form>
-                <input type="text" placeholder="Email address" />
+                <input className={error && "input-error"} type="text" placeholder="Email address" />
+                <span className={error && "msg-error"}>Please enter your email !</span>
                 <br />
-                <input type="password" placeholder="Password " />
+                <input type="password" className={error && "input-error"} placeholder="Password " />
+                <span className={error && "msg-error"} >Please enter your Password !</span>
                 <br />
-                <button onclick="return false" type="submit">Login</button>
+                <button onClick={(e)=>{
+                  e.preventDefault()
+                  setError(true)
+                }} type="submit">Login</button>
               </form>
             </div>
             <div className="form-footer">

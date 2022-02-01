@@ -6,7 +6,6 @@ import "../../assets/style/doCodeApp.css"
 export const ThemeAPP = ({ children }) => {
 
     const [page, setPage] = useState("");
-    console.log(window.location.href);
     return (
         
         <main className="admin-layout">

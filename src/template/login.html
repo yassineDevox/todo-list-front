@@ -42,6 +42,15 @@
             background-color: rgba(0, 0, 0, 0.75);
         }
 
+        .joinUs-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            z-index: 4;
+        }
+
         body>main>section:last-child {
             flex: 34%;
         }
@@ -62,14 +71,14 @@
             align-items: center;
             justify-content: center;
             /* border: solid; */
-            
+
         }
 
 
         .form-heading {
             text-align: center;
             margin: 15px 0 3px 0;
-            zoom:1.1;
+            zoom: 1.1;
         }
 
         .form-heading img {
@@ -85,10 +94,9 @@
         }
 
         .form-body {
-            text-align: center;
             width: 97%;
-            zoom:1.1;
             height: fit-content;
+            text-align: center;
         }
 
         .form-body form input {
@@ -144,7 +152,7 @@
 
         .form-footer {
             width: 92%;
-            zoom:1.1;
+            zoom: 1.1;
         }
 
         .form-footer button {
@@ -153,22 +161,33 @@
             margin-top: 5px;
             color: blue;
             font-weight: 400;
-            border:solid .5px blue;
+            border: solid .5px blue;
             outline: none;
             cursor: pointer;
         }
     </style>
     <main>
         <section>
-            <div
-                style="display: flex;justify-content: center;align-items: center;height: 100vh;position: relative;z-index: 4;">
-                <h1 class="joinUs" style="text-align: center;color:#29e7d6;font-size: 4em;width:50%">
+            <div class="joinUs-container">
+                <h1 class="joinUs">
                     Join our <br> community and learn fast on LEARN
                 </h1>
             </div>
         </section>
         <section>
+            <style>
+                .input-error {
+                    border-bottom-color: red !important;
+                }
 
+                .msg-error {
+                    color: #c7163c !important;
+                    font-size: 13px !important;
+                    float: left;
+                    margin-left: 15px;
+                    margin-top: -8px;
+                }
+            </style>
             <main>
                 <div class="form-container">
                     <div class="form-heading">
@@ -177,9 +196,11 @@
                     </div>
                     <div class="form-body">
                         <form>
-                            <input type="text" placeholder="Email address" />
+                            <input class="input-error" type="text" placeholder="Email address" />
+                            <span class="msg-error">Please enter your email !</span>
                             <br>
                             <input type="password" placeholder="Password " />
+                            <span class="msg-error">Please enter your Password !</span>
                             <br>
                             <button onclick="return false" type="submit">Login</button>
                         </form>

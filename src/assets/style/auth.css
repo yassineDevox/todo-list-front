@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 body {
@@ -20,7 +21,14 @@ section.joinUs {
     background-blend-mode: soft-light;
     background-color: rgba(0, 0, 0, 0.75);
 }
-
+.joinUs-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    z-index: 4;
+}
 section.form{
     flex: 34%;
 }
@@ -66,7 +74,6 @@ h1.joinUs {
 .form-body {
     text-align: center;
     width: 97%;
-    zoom:1.1;
     height: fit-content;
 }
 
@@ -79,7 +86,19 @@ h1.joinUs {
     transition: all .5s;
     width: 90%;
     margin: 15px 0 15px 0;
+    transition : color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1)
 }
+
+.form-body form span{
+    transition: all;
+    color:transparent;
+    font-size: 13px !important;
+    float: left;
+    margin-left: 25px;
+    margin-top: -8px;
+    transition : color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1)
+}
+
 
 .form-body form input::placeholder {
     color: rgba(43, 42, 42, 0.376)
@@ -135,4 +154,14 @@ h1.joinUs {
     border:solid .5px blue;
     outline: none;
     cursor: pointer;
+}
+
+/* utilities  */
+.input-error {
+    border-bottom-color: #c7163c !important;
+    
+} 
+
+ .msg-error {
+    color: #c7163c !important;
 }
