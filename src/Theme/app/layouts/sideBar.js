@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Menu from '../constants/menu';
 
 const SideBar = ({setPage}) => {
@@ -15,7 +16,7 @@ const SideBar = ({setPage}) => {
                         <div className="item-icon">
                             <i className="fas fa-book-reader" />
                         </div>
-                        <a href>Read</a>
+                        <Link to="/read"> Read</Link>
                     </li>
                 </ul>
             </div>

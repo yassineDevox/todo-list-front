@@ -9,7 +9,6 @@ const DoCodeAppTheme = ({ children }) => {
 
     useEffect(() => {
         let cP = window.location.href
-        console.log(cP[cP.length-1])
         setShowAuthTheme(
             cP.includes("Pass") ||
             cP[cP.length-1]=="/"
