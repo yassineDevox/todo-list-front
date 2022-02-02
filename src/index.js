@@ -37,4 +37,21 @@ const store  = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
+//tu affiche le state lors du changement 
+// store.subscribe((store)=>{
+//   console.log(store.getState())
+// })
+
+//add 
+store.dispatch({
+  type:TODO_ADD,
+  payload:new TodoModel(1,"task 1")
+})
+
+store.dispatch({
+  type:TODO_ADD,
+  payload:new TodoModel(2,"task 2")
+})
+
+
 
