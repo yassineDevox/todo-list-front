@@ -1,3 +1,4 @@
+import { createStore } from "redux"
 import { TodoModel } from "./model/todo"
 
 const stateTodos = []
@@ -6,8 +7,8 @@ const stateTodos = []
 const TODO_ADD = "todo/add"
 const TODO_DEL = "todo/del"
 
-//todo reducer def
-const todoReducer = (prevState, action) => {
+//todo reducer def avec initialisation de prevState 
+const todoReducer = (prevState=stateTodos, action) => {
 
   switch (action.type) {
     case TODO_ADD:
@@ -30,31 +31,10 @@ const todoReducer = (prevState, action) => {
 
 
 //utilisation de la fonction 
-const stateTodos1 = todoReducer(stateTodos,
-  {
-    type: TODO_ADD,
-    payload: new TodoModel(1, "title 1")
-  }
+const store  = createStore(
+  todoReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && 
+  window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
-console.log(stateTodos1)
-
-// appel add todo 
-const stateTodos2 = todoReducer(stateTodos1,
-  {
-    type: TODO_ADD,
-    payload: new TodoModel(2, "title 2")
-  }
-)
-console.log(stateTodos2)
-
-//suppression dun todo id = 2
-const stateTodos3 = todoReducer(stateTodos2,
-  {
-    type: TODO_DEL,
-    payload: { deletedID: 2 }
-  }
-)
-
-console.log(stateTodos3);
 
