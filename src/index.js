@@ -1,61 +1,60 @@
-const state = {
-  todos:[]
-}
+import { TodoModel } from "./model/todo"
+
+const stateTodos = []
 
 //types todo
 const TODO_ADD = "todo/add"
 const TODO_DEL = "todo/del"
 
-//todo reducer 
-const todoReducer = (prevState,action)=>{
+//todo reducer def
+const todoReducer = (prevState, action) => {
 
   switch (action.type) {
-
     case TODO_ADD:
-        return {
-              todos:
-              [
-                ...prevState.todos,
-                { ...action.payload.newTask }
-              ]
-            }
-                
-    case TODO_DEL:
-      return {
-        todos:[
-          ...prevState.todos.
-          filter(t=>t.id!=action.payload.deletedId)
-        ]
-      }
+      return [
+        ...prevState, { ...action.payload }
+      ]
 
-    default: return {
-      todos:[ ...prevState.todos]
-    }
+    case TODO_DEL:
+      return [
+        ...prevState.filter(
+          t => t.id != action.payload.deletedID
+        )
+      ]
+    default:
+      return prevState
   }
+
 }
 
 
-//use the reducer 
-const state1 = todoReducer(state,{type:"",payload:{}})
-console.log(state1)
 
-const state2 = 
-todoReducer(state1,
-  { 
-    type:TODO_ADD,
-    payload:{
-      newTask : {id:1,title:"title 1",completed:false}
-    }
+//utilisation de la fonction 
+const stateTodos1 = todoReducer(stateTodos,
+  {
+    type: TODO_ADD,
+    payload: new TodoModel(1, "title 1")
   }
 )
-console.log(state2)
-const state3 = 
-todoReducer(state2,
-  { 
-    type:TODO_ADD,
-    payload:{
-      newTask : {id:2,title:"title 2",completed:false}
-    }
+
+console.log(stateTodos1)
+
+// appel add todo 
+const stateTodos2 = todoReducer(stateTodos1,
+  {
+    type: TODO_ADD,
+    payload: new TodoModel(2, "title 2")
   }
 )
-console.log(state3)
+console.log(stateTodos2)
+
+//suppression dun todo id = 2
+const stateTodos3 = todoReducer(stateTodos2,
+  {
+    type: TODO_DEL,
+    payload: { deletedID: 2 }
+  }
+)
+
+console.log(stateTodos3);
+
