@@ -1,17 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TodoModel } from '../model/todo';
-import { delTodo, editTodo } from '../redux/ducks/todo';
+import { delTodo, editTodo, getAllTodos } from '../redux/ducks/todo';
 import Todo from './Todo';
 
 const ListTodo = () => {
 
-    //get the todos state from the reducer todo
-    const todos = useSelector((state) => state.todo)
-
     //usedispatch to call reducer's actions 
     const dispatch = useDispatch()
+
+    //when component did mount call get all todo actions 
+    //that will invoke the handler (using the watcher) and then call the request 
+    useEffect(()=>{
+        dispatch(getAllTodos())
+    },[dispatch])
+
+
+    //get the todos state from the reducer todo
+    const todos = useSelector((state) => state.todo)
 
     //ref on input title 
     const titleRef = useRef()

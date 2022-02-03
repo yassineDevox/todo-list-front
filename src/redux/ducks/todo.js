@@ -4,6 +4,9 @@ import { TodoModel } from "../../model/todo"
 const ADD_TODO = "todo/add"
 const DEL_TODO = "todo/del"
 const EDIT_TODO = "todo/edit"
+export const GET_ALL_TODOS = "todo/get-all"
+const SET_LIST_TODOS = "todo/set-list"
+
 
 // define actions as a functions
 export const addTodo = (titleTask) => ({
@@ -13,12 +16,21 @@ export const addTodo = (titleTask) => ({
 
 export const delTodo = (deletedID) => ({
     type: DEL_TODO,
-    payload: {deletedID}
+    payload: { deletedID }
 })
 
 export const editTodo = (updatedTask) => ({
     type: EDIT_TODO,
     payload: updatedTask
+})
+
+export const setAllTodos = (todos) => ({
+    type: SET_LIST_TODOS,
+    payload: todos
+})
+
+export const getAllTodos = () => ({
+    type: GET_ALL_TODOS,
 })
 
 //define the initial state : array of todos 
@@ -51,6 +63,9 @@ const todoReducer = (state = initialState, action) => {
                     return t
                 })
             ]
+        case SET_LIST_TODOS:
+            return [...payload]
+
         default:
             return state
     }
