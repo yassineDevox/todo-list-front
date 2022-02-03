@@ -1,18 +1,20 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import AddTodoStore from './components/AddTodo';
-import ListTodoStore from './components/ListTodo';
-import store from './shared/store';
+import AddTodo from './components/AddTodo';
+import ListTodo from './components/ListTodo';
+import store from './redux/store';
 
 const App = () => {
     return (
 
         <Provider store={store}>
-            <AddTodoStore/>
-            <hr />
-            <h1>List des Taches </h1>
-            <ListTodoStore />
-            
+            <div className='text-center'>
+                <AddTodo />
+                <hr />
+                <h1>List des Taches </h1>
+                <ListTodo />
+            </div>
+
         </Provider>
     );
 };
