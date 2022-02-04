@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../redux/ducks/todo";
 
@@ -8,12 +9,21 @@ const AddTodo = () => {
     const title = useRef()
     //use dispatch hook to call the reducer's actions
     const dispatch = useDispatch()
+    //get todo state from the store 
+    const todos = useSelector(
+        (StateStore)=>StateStore.todo
+    )
 
     //on submit form 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (title.current.value !== "") {
-            dispatch(addTodo(title.current.value))
+            dispatch(
+                addTodo(
+                    title.current.value,
+                    todos.length + 1
+                    )
+            )
             title.current.value = ""
         }
         else

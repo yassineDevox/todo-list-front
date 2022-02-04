@@ -6,14 +6,14 @@ const DEL_TODO = "todo/del"
 const EDIT_TODO = "todo/edit"
 
 // define actions as a functions
-export const addTodo = (titleTask) => ({
+export const addTodo = (titleTask,id) => ({
     type: ADD_TODO,
-    payload: new TodoModel(1, titleTask)
+    payload: new TodoModel(id, titleTask)
 })
 
 export const delTodo = (deletedID) => ({
     type: DEL_TODO,
-    payload: {deletedID}
+    payload: deletedID
 })
 
 export const editTodo = (updatedTask) => ({
@@ -34,13 +34,15 @@ const todoReducer = (state = initialState, action) => {
     switch (type) {
 
         case ADD_TODO:
+            
             return [
                 ...state, { ...payload }
             ]
 
+
         case DEL_TODO:
             return [
-                ...state.filter(t => t.id != payload.deletedID)
+                ...state.filter(t => t.id != payload)
             ]
 
         case EDIT_TODO:
