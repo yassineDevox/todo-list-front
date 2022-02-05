@@ -1,11 +1,11 @@
 import { takeLatest } from "redux-saga/effects";
 
 import {
-    ADD_TODO,
-    DEL_TODO,
-    EDIT_TODO,
-    GET_ALL_TODOS
-} from "../ducks/todo";
+    addTodo,
+    delTodo,
+    editTodo,
+    getAllTodos
+} from "../slices/todo";
 
 import {
     handleDeleteTodoById,
@@ -15,8 +15,8 @@ import {
 } from "./handlers/todo";
 
 export function* watcherSaga() {
-    yield takeLatest(GET_ALL_TODOS, handleGetAllTodos)
-    yield takeLatest(ADD_TODO, handlePostTodo)
-    yield takeLatest(DEL_TODO, handleDeleteTodoById)
-    yield takeLatest(EDIT_TODO, handleEditTodoById)
+    yield takeLatest(getAllTodos.type, handleGetAllTodos)
+    yield takeLatest(addTodo.type, handlePostTodo)
+    yield takeLatest(delTodo.type, handleDeleteTodoById)
+    yield takeLatest(editTodo.type, handleEditTodoById)
 }

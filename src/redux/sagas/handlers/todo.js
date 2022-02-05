@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects"
-import { addTodo, delTodo, editTodo, setAllTodos } from "../../ducks/todo"
+import { addTodo, delTodo, editTodo, setAllTodos } from "../../slices/todo"
 import { requestDeleteTodoById, requestEditTodoById, requestGetAllTodos, requestPostTodo } from "../requests/todo"
 
 export function* handleGetAllTodos() {
@@ -15,7 +15,7 @@ export function* handleGetAllTodos() {
 export function* handleDeleteTodoById(action) {
     const { payload: { deletedID } } = action
     try {
-        const response = yield call(requestDeleteTodoById(deletedID))
+        yield call(requestDeleteTodoById(deletedID))
         yield put(delTodo(deletedID))
     } catch (error) {
         console.log(error);

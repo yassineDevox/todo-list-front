@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../redux/ducks/todo";
+import { addTodo } from "../redux/slices/todo";
 
 const AddTodo = () => {
 

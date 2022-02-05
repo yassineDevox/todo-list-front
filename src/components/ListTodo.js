@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TodoModel } from '../model/todo';
-import { delTodo, editTodo, getAllTodos } from '../redux/ducks/todo';
+import { delTodo, editTodo, getAllTodos } from '../redux/slices/todo';
 import Todo from './Todo';
 
 const ListTodo = () => {
