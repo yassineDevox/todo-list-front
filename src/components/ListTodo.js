@@ -21,7 +21,7 @@ const ListTodo = () => {
     const todos = useSelector((state) => state.todo)
 
     //ref on input title 
-    const titleRef = useRef()
+    const titleRef = useRef("")
 
     //use state to define completed 
     const [isTaskCompleted, setTaskCompleted] = useState(0);

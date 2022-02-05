@@ -1,9 +1,9 @@
 import { TodoModel } from "../../model/todo"
 
 //types first 
-const ADD_TODO = "todo/add"
-const DEL_TODO = "todo/del"
-const EDIT_TODO = "todo/edit"
+export const ADD_TODO = "todo/add"
+export const DEL_TODO = "todo/del"
+export const EDIT_TODO = "todo/edit"
 export const GET_ALL_TODOS = "todo/get-all"
 const SET_LIST_TODOS = "todo/set-list"
 
@@ -19,7 +19,7 @@ export const delTodo = (deletedID) => ({
     payload: { deletedID }
 })
 
-export const editTodo = (updatedTask) => ({
+export const editTodo = (updatedTask=new TodoModel()) => ({
     type: EDIT_TODO,
     payload: updatedTask
 })
