@@ -7,6 +7,6 @@ export function* handleGetAllTodos(action) {
         const { data } = response
         yield put(setAllTodos(data))
     } catch (error) {
-
+        console.log(error);
     }
 }

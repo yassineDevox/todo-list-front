@@ -1,13 +1,14 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga"
 import todoReducer from "./ducks/todo";
+import { watcherSaga } from "./sagas/rootSaga";
 
 //middle wares
 const sagaMiddleware = createSagaMiddleware()
 const devToolMiddleware = 
 window.__REDUX_DEVTOOLS_EXTENSION__ &&
 window.__REDUX_DEVTOOLS_EXTENSION__()
-const middleWares = [sagaMiddleware]
 //reducers
 const reducers = combineReducers({
     todo: todoReducer
@@ -16,11 +17,11 @@ const reducers = combineReducers({
 //store config
 const store = createStore(
     reducers,
-    devToolMiddleware,
-    applyMiddleware(...middleWares)
+    devToolMiddleware
+    ? composeWithDevTools(applyMiddleware(sagaMiddleware))
+    : compose(applyMiddleware(sagaMiddleware))
 )
-
 // then run the saga
-sagaMiddleware.run(mySaga)
+sagaMiddleware.run(watcherSaga)
 
 export default store 
