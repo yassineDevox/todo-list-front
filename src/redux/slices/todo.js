@@ -7,22 +7,22 @@ const todoSlice = createSlice({
         addTodo(state, { payload }) {
             state.push(payload)
         },
-        delTodo(state, { payload: { deletedID } }) {
-            state = [...state.filter(
-                t => t !== deletedID
+        delTodo(state, { payload }) {
+            return [...state.filter(
+                t => t.id !== payload
             )]
         },
-        editTodo(state, { updatedTodo }) {
-            const todo = state.find(
-                t => t.id === updatedTodo.id
+        editTodo(state, { payload }) {
+            let todo = state.find(
+                t => t.id === payload.id
             )
             if (todo) {
-                todo = { ...updatedTodo }
+                todo.title=payload.title
             }
         },
         getAllTodos() { },
-        setAllTodos(state, { payload }) {
-            state = payload
+        setAllTodos(_, { payload }) {
+            return [...payload]
         }
     }
 })

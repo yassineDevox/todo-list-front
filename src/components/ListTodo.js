@@ -24,7 +24,7 @@ const ListTodo = () => {
     const titleRef = useRef("")
 
     //use state to define completed 
-    const [isTaskCompleted, setTaskCompleted] = useState(0);
+    const [isTaskCompleted, setTaskCompleted] = useState(false);
 
     //use state to store the selected id for editTask
     const [selectedID, setSelectedID] = useState(0);

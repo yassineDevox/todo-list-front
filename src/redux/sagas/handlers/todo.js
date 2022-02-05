@@ -13,10 +13,10 @@ export function* handleGetAllTodos() {
 }
 
 export function* handleDeleteTodoById(action) {
-    const { payload: { deletedID } } = action
+    const { payload } = action
     try {
-        yield call(requestDeleteTodoById(deletedID))
-        yield put(delTodo(deletedID))
+        yield call(requestDeleteTodoById(payload))
+        yield put(delTodo(payload))
     } catch (error) {
         console.log(error);
     }
@@ -34,9 +34,9 @@ export function* handleEditTodoById(action) {
 }
 
 export function* handlePostTodo(action) {
-    const { payload: { titleTask } } = action
+    const { payload } = action
     try {
-        const response = yield call(requestPostTodo(titleTask))
+        const response = yield call(requestPostTodo(payload))
         const { data } = response
         yield put(addTodo(data))
     } catch (error) {

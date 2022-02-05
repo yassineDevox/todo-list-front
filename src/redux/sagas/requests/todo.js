@@ -16,6 +16,7 @@ export function requestDeleteTodoById(idTodo) {
 }
 
 export function requestEditTodoById(updatedTodo) {
+    console.log(updatedTodo);
     return axios.request({
         method: "put",
         url: "https://jsonplaceholder.typicode.com/todos/" + updatedTodo?.id,
