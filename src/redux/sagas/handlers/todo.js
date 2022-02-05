@@ -1,12 +1,22 @@
 import { call, put } from "redux-saga/effects"
-import { addTodo, delTodo, editTodo, setAllTodos } from "../../slices/todo"
-import { requestDeleteTodoById, requestEditTodoById, requestGetAllTodos, requestPostTodo } from "../requests/todo"
+import {
+    addTodo,
+    delTodo,
+    editTodo,
+    setAllTodos
+} from "../../slices/todo"
+import {
+    requestDeleteTodoById,
+    requestEditTodoById,
+    requestGetAllTodos,
+    requestPostTodo
+} from "../requests/todo"
 
 export function* handleGetAllTodos() {
     try {
         const response = yield call(requestGetAllTodos)
-        const { data } = response
-        yield put(setAllTodos(data))
+        console.log(response);
+        yield put(setAllTodos(response?.data))
     } catch (error) {
         console.log(error);
     }
@@ -15,7 +25,7 @@ export function* handleGetAllTodos() {
 export function* handleDeleteTodoById(action) {
     const { payload } = action
     try {
-        yield call(requestDeleteTodoById(payload))
+        yield call(requestDeleteTodoById, payload)
         yield put(delTodo(payload))
     } catch (error) {
         console.log(error);
@@ -36,8 +46,9 @@ export function* handleEditTodoById(action) {
 export function* handlePostTodo(action) {
     const { payload } = action
     try {
-        const response = yield call(requestPostTodo(payload))
+        const response = yield call(requestPostTodo,payload)
         const { data } = response
+        console.log(data);
         yield put(addTodo(data))
     } catch (error) {
         console.log(error)

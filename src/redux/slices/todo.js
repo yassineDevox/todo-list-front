@@ -1,9 +1,11 @@
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const todoSlice = createSlice({
     name: "todo",
     initialState: [],
     reducers: {
+
         addTodo(state, { payload }) {
             state.push(payload)
         },
@@ -12,12 +14,13 @@ const todoSlice = createSlice({
                 t => t.id !== payload
             )]
         },
-        editTodo(state, { payload }) {
+        editTodo(state, { payload: { title, completed, id } }) {
             let todo = state.find(
-                t => t.id === payload.id
+                t => t.id === id
             )
             if (todo) {
-                todo.title=payload.title
+                todo.title = title
+                todo.completed = completed
             }
         },
         getAllTodos() { },
@@ -27,5 +30,11 @@ const todoSlice = createSlice({
     }
 })
 
-export const { addTodo, delTodo, editTodo,getAllTodos,setAllTodos } = todoSlice.actions
+export const {
+    addTodo,
+    delTodo,
+    editTodo,
+    getAllTodos,
+    setAllTodos
+} = todoSlice.actions
 export default todoSlice.reducer

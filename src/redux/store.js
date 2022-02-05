@@ -1,5 +1,4 @@
 import { configureStore, getDefaultMiddleware, combineReducers, compose ,applyMiddleware} from "@reduxjs/toolkit";
-import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga"
 import { watcherSaga } from "./sagas/rootSaga";
 import todoReducer from "./slices/todo"
