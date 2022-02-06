@@ -1,22 +1,11 @@
 import { call, put } from "redux-saga/effects"
-import {
-    addTodo,
-    delTodo,
-    editTodo,
-    setAllTodos
-} from "../../slices/todo"
-import {
-    requestDeleteTodoById,
-    requestEditTodoById,
-    requestGetAllTodos,
-    requestPostTodo
-} from "../requests/todo"
+import * as REQ from "./../requests/todo"
+import * as ACTION from "./../../slices/todo"
 
 export function* handleGetAllTodos() {
     try {
-        const response = yield call(requestGetAllTodos)
-        console.log(response);
-        yield put(setAllTodos(response?.data))
+        const response = yield call(REQ.requestGetAllTodos)
+        yield put(ACTION.todosLoadded(response?.data))
     } catch (error) {
         console.log(error);
     }
@@ -25,8 +14,8 @@ export function* handleGetAllTodos() {
 export function* handleDeleteTodoById(action) {
     const { payload } = action
     try {
-        yield call(requestDeleteTodoById, payload)
-        yield put(delTodo(payload))
+        yield call(REQ.requestDeleteTodoById(payload))
+        yield put(ACTION.todoDeleted(payload))
     } catch (error) {
         console.log(error);
     }
@@ -35,21 +24,20 @@ export function* handleDeleteTodoById(action) {
 export function* handleEditTodoById(action) {
     const { payload } = action
     try {
-        const response = yield call(requestEditTodoById(payload))
+        const response = yield call(REQ.requestEditTodoById(payload))
         const { data } = response
-        yield put(editTodo(data))
+        yield put(ACTION.todoUpdated(data))
     } catch (error) {
         console.log(error)
     }
 }
 
 export function* handlePostTodo(action) {
-    const { payload } = action
+    console.log("handlePost called",action)
     try {
-        const response = yield call(requestPostTodo,payload)
+        const response = yield call(REQ.requestPostTodo,action.payload)
         const { data } = response
-        console.log(data);
-        yield put(addTodo(data))
+          yield put(ACTION.todoAdded(data))
     } catch (error) {
         console.log(error)
     }

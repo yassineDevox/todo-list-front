@@ -1,20 +1,29 @@
 
-const { createSlice } = require("@reduxjs/toolkit");
+const { createSlice, createAction } = require("@reduxjs/toolkit");
+
+//actions for sagas
+export const addTodo = createAction("todos/add")
+export const delTodo = createAction("todos/del")
+export const editTodo = createAction("todos/edit")
+export const loadTodos = createAction("todos/load")
+
+
+
 
 const todoSlice = createSlice({
     name: "todo",
     initialState: [],
     reducers: {
-
-        addTodo(state, { payload }) {
+        todoAdded(state, { payload }) {
+            console.log(payload);
             state.push(payload)
         },
-        delTodo(state, { payload }) {
+        todoDeleted(state, { payload }) {
             return [...state.filter(
                 t => t.id !== payload
             )]
         },
-        editTodo(state, { payload: { title, completed, id } }) {
+        todoUpdated(state, { payload: { title, completed, id } }) {
             let todo = state.find(
                 t => t.id === id
             )
@@ -23,18 +32,16 @@ const todoSlice = createSlice({
                 todo.completed = completed
             }
         },
-        getAllTodos() { },
-        setAllTodos(_, { payload }) {
+        todosLoadded(_, { payload }) {
             return [...payload]
         }
     }
 })
 
 export const {
-    addTodo,
-    delTodo,
-    editTodo,
-    getAllTodos,
-    setAllTodos
+    todoAdded,
+    todoDeleted,
+    todoUpdated,
+    todosLoadded
 } = todoSlice.actions
 export default todoSlice.reducer

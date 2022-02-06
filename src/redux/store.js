@@ -1,6 +1,6 @@
-import { configureStore, getDefaultMiddleware, combineReducers, compose ,applyMiddleware} from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware, combineReducers } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga"
-import { watcherSaga } from "./sagas/rootSaga";
+import rootSaga from "./sagas/root";
 import todoReducer from "./slices/todo"
 //middle wares
 const sagaMiddleware = createSagaMiddleware()
@@ -10,13 +10,16 @@ const reducer = combineReducers({
     todo: todoReducer
 })
 
-const middlewares = [sagaMiddleware, ...getDefaultMiddleware({ thunk: false ,serializableCheck:false})]
+const middlewares = [sagaMiddleware,
+    ...getDefaultMiddleware(
+        { thunk: false, serializableCheck: false }
+    )]
 //store config
 const store = configureStore({
     reducer,
     middleware: [...middlewares]
 })
 // then run the saga
-sagaMiddleware.run(watcherSaga)
+sagaMiddleware.run(rootSaga)
 
 export default store 

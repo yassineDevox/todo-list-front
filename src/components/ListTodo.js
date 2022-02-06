@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TodoModel } from '../model/todo';
-import { delTodo, editTodo, getAllTodos } from '../redux/slices/todo';
+import { delTodo, editTodo, loadTodos } from '../redux/slices/todo';
 import Todo from './Todo';
 
 const ListTodo = () => {
@@ -12,9 +12,9 @@ const ListTodo = () => {
 
     //when component did mount call get all todo actions 
     //that will invoke the handler (using the watcher) and then call the request 
-    useEffect(()=>{
-        dispatch(getAllTodos())
-    },[dispatch])
+    useEffect(() => {
+        dispatch(loadTodos())
+    }, [dispatch])
 
 
     //get the todos state from the reducer todo
