@@ -11,18 +11,20 @@ const AddTodo = () => {
     const dispatch = useDispatch()
     //get todo state from the store 
     const todos = useSelector(
-        (StateStore)=>StateStore.todo
+        (StateStore) => StateStore.todos
     )
 
     //on submit form 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (title.current.value !== "") {
+        let newTitle = title.current.value
+        let newId = todos.length + 1
+        if (newTitle !== "") {
             dispatch(
                 addTodo(
-                    title.current.value,
-                    todos.length + 1
-                    )
+                    
+                    {newId,newTitle}
+                )
             )
             title.current.value = ""
         }

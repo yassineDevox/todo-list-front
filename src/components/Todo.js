@@ -13,8 +13,10 @@ const Todo = (props) => {
 
   return (
     <li className='list-group-item d-flex justify-content-between'
-      style={{ border: !props.isCompleted ? "" : "solid green" }}>
-      <span>{props.title}</span>
+      >
+      <span className={
+        props.isCompleted ? "text-decoration-line-through":""
+      }>{props.title}</span>
       <div>
         <button className='btn btn-danger me-1'
           onClick={handleClickDelete}>DEL</button>

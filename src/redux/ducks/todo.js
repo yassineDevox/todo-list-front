@@ -1,60 +1,38 @@
-import { TodoModel } from "../../model/todo"
+import { createSlice } from "@reduxjs/toolkit";
+import { TodoModel } from "../../model/todo";
 
-//types first 
-const ADD_TODO = "todo/add"
-const DEL_TODO = "todo/del"
-const EDIT_TODO = "todo/edit"
-
-// define actions as a functions
-export const addTodo = (titleTask,id) => ({
-    type: ADD_TODO,
-    payload: new TodoModel(id, titleTask)
-})
-
-export const delTodo = (deletedID) => ({
-    type: DEL_TODO,
-    payload: deletedID
-})
-
-export const editTodo = (updatedTask) => ({
-    type: EDIT_TODO,
-    payload: updatedTask
-})
-
-//define the initial state : array of todos 
-const initialState = []
-
-//define the todo reducer
-
-const todoReducer = (state = initialState, action) => {
-
-    //destruct type and payload from action obj
-    const { type, payload } = action
-
-    switch (type) {
-
-        case ADD_TODO:
-            return [
-                ...state, { ...payload }
-            ]
-
-
-        case DEL_TODO:
-            return [
-                ...state.filter(t => t.id != payload)
-            ]
-
-        case EDIT_TODO:
-            return [
-                ...state.map(t => {
-                    if (t.id === payload.id)
-                        t = { ...payload }
-                    return t
-                })
-            ]
-        default:
-            return state
+const todoSlice = createSlice({
+    name: "todo",
+    initialState: [],
+    reducers: {
+        addTodo(state, {payload}) {
+            state.push(new TodoModel(payload.newId, payload.newTitle))
+        },
+        delTodo(state, { payload }) {
+            console.log(payload)
+            state.forEach((t, index) => {
+                if (t.id === payload) {
+                    state.splice(index, 1)
+                }
+            })
+        },
+        editTodo(state, { payload }) {
+            console.log(payload)
+            const { title, id, completed } = payload
+            state.forEach(t => {
+                if (t.id === id) {
+                    t.title = title
+                    t.completed = completed
+                }
+            })
+        }
     }
-}
+})
 
-export default todoReducer
+export const {
+    addTodo,
+    delTodo,
+    editTodo
+} = todoSlice.actions
+
+export default todoSlice.reducer

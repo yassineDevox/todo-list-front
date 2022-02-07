@@ -1,14 +1,11 @@
-import { combineReducers, createStore } from "redux";
-import todoReducer from "./ducks/todo";
-import userReducer from "./ducks/user";
+import { configureStore,combineReducers } from "@reduxjs/toolkit";
+import todoReducer from "./ducks/todo"
 
-const store = createStore(
-    combineReducers({
-        todo: todoReducer,
-        user: userReducer,
-    }),
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+
+const store  = configureStore({
+    reducer: combineReducers({
+        todos:todoReducer
+    })
+})
 
 export default store 

@@ -8,7 +8,7 @@ import Todo from './Todo';
 const ListTodo = () => {
 
     //get the todos state from the reducer todo
-    const todos = useSelector((stateStore) => stateStore.todo)
+    const todos = useSelector((stateStore) => stateStore.todos)
 
     //usedispatch to call reducer's actions 
     const dispatch = useDispatch()
