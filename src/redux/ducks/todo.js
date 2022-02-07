@@ -34,7 +34,6 @@ const todoReducer = (state = initialState, action) => {
     switch (type) {
 
         case ADD_TODO:
-            
             return [
                 ...state, { ...payload }
             ]

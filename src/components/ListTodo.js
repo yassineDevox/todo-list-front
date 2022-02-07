@@ -8,7 +8,7 @@ import Todo from './Todo';
 const ListTodo = () => {
 
     //get the todos state from the reducer todo
-    const todos = useSelector((state) => state.todo)
+    const todos = useSelector((stateStore) => stateStore.todo)
 
     //usedispatch to call reducer's actions 
     const dispatch = useDispatch()
@@ -89,7 +89,9 @@ const ListTodo = () => {
                                             id="flexRadioDefault1"
                                             name="r"
                                             checked={isTaskCompleted}
-                                            onChange={() => setTaskCompleted(!isTaskCompleted)} />
+                                            onChange={
+                                                () => setTaskCompleted(!isTaskCompleted)
+                                            } />
                                         <label className="form-check-label"
                                             htmlFor="flexRadioDefault1">
                                             Completed
