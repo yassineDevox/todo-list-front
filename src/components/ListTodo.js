@@ -3,23 +3,31 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TodoModel } from '../model/todo';
-import { delTodo, editTodo, loadTodos } from '../redux/ducks/todo';
+import {
+    delTodo,
+    editTodo,
+    isLoadingSelector,
+    listTodoSelector,
+    loadTodos
+} from '../redux/ducks/todo';
+import Modal from '../shared/modal/modal';
+import Paggination from '../shared/paggination/paggination';
 import Spinner from '../shared/spinner/spinner';
 import Todo from './Todo';
 
 const ListTodo = () => {
 
-    
+
     //usedispatch to call reducer's actions 
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        dispatch(loadTodos({limit:5}))
-    },[dispatch])
+    useEffect(() => {
+        dispatch(loadTodos({limit:4}))
+    }, [dispatch])
 
     //get the todos state from the reducer todo
-    const todos = useSelector(s =>s.todos.list)
-    const isLoading = useSelector(s=>s.todos.isLoading)
+    const todos = useSelector(s => listTodoSelector(s.todos))
+    const isLoading = useSelector(s => isLoadingSelector(s.todos))
 
     //ref on input title 
     const titleRef = useRef()
@@ -61,7 +69,7 @@ const ListTodo = () => {
         <>
             <ul className='list-group w-50 mx-auto list-group-flush'>
                 {
-                    isLoading ? <Spinner/> : todos.map(
+                    isLoading ? <Spinner /> : todos.map(
                         t => <Todo
                             handleDelete={handleDelete}
                             handleEdit={showModalEdit}
@@ -73,61 +81,15 @@ const ListTodo = () => {
                     )
                 }
             </ul>
+            <Paggination />
             <div>
                 {/* Modal */}
-                <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-                            </div>
-                            <div className="modal-body">
-
-                                <input
-                                    className="form-control m-1"
-                                    type="text"
-                                    placeholder="title"
-                                    ref={titleRef} />
-
-                                <div>
-                                    <div className="form-check">
-                                        <input className="form-check-input"
-                                            type="radio"
-                                            id="flexRadioDefault1"
-                                            name="r"
-                                            checked={isTaskCompleted}
-                                            onChange={
-                                                () => setTaskCompleted(!isTaskCompleted)
-                                            } />
-                                        <label className="form-check-label"
-                                            htmlFor="flexRadioDefault1">
-                                            Completed
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input"
-                                            type="radio"
-                                            id="flexRadioDefault2"
-                                            name="r"
-                                            checked={!isTaskCompleted}
-                                            onChange={() => setTaskCompleted(!isTaskCompleted)} />
-                                        <label className="form-check-label"
-                                            htmlFor="flexRadioDefault2">
-                                            In Progress
-                                        </label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" className="btn btn-primary"
-                                    onClick={handleUpdate}>Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Modal
+                    handleUpdate={handleUpdate}
+                    setTaskCompleted={setTaskCompleted}
+                    isTaskCompleted={isTaskCompleted}
+                    titleRef={titleRef}
+                />
             </div>
 
         </>
