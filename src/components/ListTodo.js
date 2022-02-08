@@ -1,17 +1,25 @@
 import React, { useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TodoModel } from '../model/todo';
-import { delTodo, editTodo } from '../redux/ducks/todo';
+import { delTodo, editTodo, loadTodos } from '../redux/ducks/todo';
+import Spinner from '../shared/spinner/spinner';
 import Todo from './Todo';
 
 const ListTodo = () => {
 
-    //get the todos state from the reducer todo
-    const todos = useSelector((stateStore) => stateStore.todos)
-
+    
     //usedispatch to call reducer's actions 
     const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(loadTodos({limit:5}))
+    },[dispatch])
+
+    //get the todos state from the reducer todo
+    const todos = useSelector(s =>s.todos.list)
+    const isLoading = useSelector(s=>s.todos.isLoading)
 
     //ref on input title 
     const titleRef = useRef()
@@ -53,7 +61,7 @@ const ListTodo = () => {
         <>
             <ul className='list-group w-50 mx-auto list-group-flush'>
                 {
-                    todos.map(
+                    isLoading ? <Spinner/> : todos.map(
                         t => <Todo
                             handleDelete={handleDelete}
                             handleEdit={showModalEdit}
