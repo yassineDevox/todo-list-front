@@ -14,6 +14,7 @@ import Modal from '../shared/modal/modal';
 import Paggination from '../shared/paggination/paggination';
 import Spinner from '../shared/spinner/spinner';
 import Todo from './Todo';
+import "./../style/todo.css"
 
 const ListTodo = () => {
 
