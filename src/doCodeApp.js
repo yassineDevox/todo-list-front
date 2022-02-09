@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 import AppRoutes from "./routes/routes";
-import store from "./shared/store";
+
 
 //Le style global
 export default function DoCodeApp() {
