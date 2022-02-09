@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link id="roboto-css" media="all"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" rel="stylesheet">
+    <title>card track</title>
+</head>
+
+
+<style>
+    * {
+        margin: 0;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif !important;
+    }
+
+    .card-track {
+        border: solid 2px #e8e8e9;
+        padding-bottom: 20px;
+        border-radius: 6px;
+        width: 350px;
+        margin: 10px;
+        height: fit-content;
+    }
+
+    .card-thumbnail {
+        padding: 4px;
+        background-color: rgb(40, 170, 255)
+    }
+
+    .card-thumbnail img {
+        width: 100%;
+        height: 110%;
+    }
+
+    .card-track-body {
+        padding: 25px 25px 20px;
+    }
+
+    .track-title {
+        font-size: 14px;
+        font-weight: bold;
+        padding-bottom: 16px;
+    }
+
+    .track-description {
+        font-size: 14px;
+        font-size: .875rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        line-height: 20px;
+        
+    }
+
+    .card-track-footer {
+        padding-left: 25px;
+        display: flex;
+        align-items: center;
+    }
+
+    .card-track-footer span {
+        font-size: 14px;
+        /* font-size: .5625rem; */
+        /* font-weight: 500; */
+        margin-left: -21px;
+        color: #797979;
+    }
+
+    .list-participients {
+        position: relative;
+        display: flex;
+        width: fit-content;
+    }
+
+    .list-participients p {
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        background-color: black;
+        border: solid;
+        position: relative;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 16%);
+        border: solid 1px white;
+    }
+
+    .list-participients p:nth-child(1) {
+        background-color: rgb(74, 45, 134)
+    }
+
+    .list-participients p:nth-child(2) {
+        left: -10px;
+        background-color: rgb(197, 166, 135);
+    }
+
+    .list-participients p:nth-child(3) {
+        left: -20px;
+        background-color: rgb(158, 210, 121);
+    }
+
+    .list-participients p:nth-child(4) {
+        left: -30px;
+        background-color: black;
+    }
+</style>
+
+<body>
+    <div class="card-track">
+        <div class="card-thumbnail">
+            <img src="https://i.imgur.com/baPOMRv.png" />
+        </div>
+        <div class="card-track-body">
+            <h6 class="track-title">Introduction aux pratiques de gestion de projets</h6>
+            <p class="track-description">
+                "Connaître les étapes clés, le cycle de vie et les processus de la gestion d’un projet Savoir comment
+                démarrer un projet Apprendre à planifier un projet Définir l’équipe projet, son rôle et ses...
+            </p>
+        </div>
+        <div class="card-track-footer">
+            <div class="list-participients">
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+            <span>
+                87 student(s) and 17 instructor(s)
+            </span>
+        </div>
+    </div>
+</body>
+
+</html>
