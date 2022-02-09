@@ -22,7 +22,7 @@ const ListTodo = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(loadTodos({limit:4}))
+        dispatch(loadTodos({limit:10}))
     }, [dispatch])
 
     //get the todos state from the reducer todo
@@ -81,7 +81,7 @@ const ListTodo = () => {
                     )
                 }
             </ul>
-            <Paggination />
+            <Paggination currentPage={1}/>
             <div>
                 {/* Modal */}
                 <Modal
