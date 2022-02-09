@@ -6,9 +6,9 @@ import { TodoModel } from '../model/todo';
 import {
     delTodo,
     editTodo,
-    isLoadingSelector,
     listTodoSelector,
-    loadTodos
+    loadTodos,
+    setPage
 } from '../redux/ducks/todo';
 import Modal from '../shared/modal/modal';
 import Paggination from '../shared/paggination/paggination';
@@ -23,12 +23,12 @@ const ListTodo = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(loadTodos({limit:10}))
+        dispatch(loadTodos({ limit: 10 }))
     }, [dispatch])
 
     //get the todos state from the reducer todo
     const todos = useSelector(s => listTodoSelector(s.todos))
-    const isLoading = useSelector(s => isLoadingSelector(s.todos))
+    const { isLoading, page } = useSelector(s => s.todos)
 
     //ref on input title 
     const titleRef = useRef()
@@ -82,7 +82,10 @@ const ListTodo = () => {
                     )
                 }
             </ul>
-            <Paggination currentPage={1}/>
+            <Paggination
+                currentPage={page}
+                onPageIndexChange={(index) => dispatch(setPage(index))}
+            />
             <div>
                 {/* Modal */}
                 <Modal

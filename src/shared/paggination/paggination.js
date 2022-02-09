@@ -1,26 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Paggination = ({ currentPage }) => {
+const Paggination = ({ currentPage, onPageIndexChange }) => {
 
-    let list = []
-    for (let i = 1; i <= currentPage + 5; i++) {
-        list.push((
-            <li className={currentPage == i ? "page-item active" : "page-item"}>
-                <a className="page-link" href="#">
-                    {i}
-                </a>
-            </li>))
+    const [CP, setCP] = useState(currentPage);
+
+    const handleClickPrev = () => {
+        let newCurrentPage = currentPage - 1
+        if (newCurrentPage % 5 === 0) {
+            setCP(CP - 5)
+        }
+        onPageIndexChange(newCurrentPage)
     }
+    const handleClickNext = () => {
+
+        if (currentPage % 5 === 0) {
+            setCP(currentPage + 1)
+        }
+        onPageIndexChange(currentPage + 1)
+    }
+
+    const Goto = (pageIndex) => {
+        onPageIndexChange(pageIndex)
+    }
+
     return (
         <nav aria-label="Page navigation example">
             <br />
             <ul className="pagination justify-content-center">
-                <li className="page-item disabled">
-                    <a className="page-link">Previous</a>
+                <li
+                    onClick={handleClickPrev}
+                    className="page-item disabled">
+                    <button className="btn btn-light" >Previous</button>
                 </li>
-                {list}
-                <li className="page-item disabled">
-                    <a className="page-link" href="#">Next</a>
+                {[0, 1, 2, 3, 4].map(i => <li
+                    key={i}
+                    className={i + CP === currentPage ? "page-item active" : "page-item"}
+                    onClick={() => Goto(i + CP)}>
+                    <a className="page-link" style={{ cursor: "pointer" }}>
+                        {i + CP}
+                    </a>
+                </li>)}
+                <li className="page-item disabled"
+                    onClick={handleClickNext}>
+                    <button className='btn btn-light'>Next</button>
                 </li>
             </ul>
         </nav>

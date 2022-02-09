@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TodoModel } from "../../model/todo";
 
 //async thunk api 
-export const loadTodos = createAsyncThunk("loadTodos", async ({limit}) => {
+export const loadTodos = createAsyncThunk("loadTodos", async ({ limit }) => {
     return fetch('https://jsonplaceholder.typicode.com/todos/')
         .then(response => response.json())
         .then(list => ({ list, limit }))
@@ -14,7 +14,8 @@ const todoSlice = createSlice({
     initialState: {
         list: [],
         isLoading: true,
-        limitAt: 5
+        limitAt: 5,
+        page: 1
     },
     reducers: {
         addTodo(state, { payload }) {
@@ -36,7 +37,11 @@ const todoSlice = createSlice({
                     t.completed = completed
                 }
             })
+        },
+        setPage(state, { payload }) {
+            state.page = payload
         }
+
     }, extraReducers: {
         [loadTodos.fulfilled]: (state, { payload: { list, limit } }) => {
             state.isLoading = false
@@ -48,10 +53,8 @@ const todoSlice = createSlice({
 
 //selectors 
 
-export const listTodoSelector = s => [...s.list.filter((_, i) => i < s.limitAt)]
-
-export const isLoadingSelector = s => s.isLoading
-
+export const listTodoSelector = s =>
+    [...s.list.filter((_, i) => i < s.limitAt * s.page && i > s.limitAt * (s.page - 1))]
 
 
 //export 
@@ -59,6 +62,7 @@ export const {
     addTodo,
     delTodo,
     editTodo,
+    setPage
 } = todoSlice.actions
 
 export default todoSlice.reducer
