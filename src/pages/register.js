@@ -1,25 +1,58 @@
-import React from 'react'
-import "./../assets/style/register.css"
-import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css"
+
+import React, { useRef } from 'react'
 import imgSignup from './../assets/images/signup-image.jpg'
 import { registerUser } from '../redux/ducks/user'
 import { useDispatch } from 'react-redux'
 import { UserModel } from "./../model/user"
 import { ROLE } from '../model/role'
+import "./../assets/style/register.css"
+import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css"
+
+// https://api.multiavatar.com/fn1.ln2
 
 function RegisterPage() {
+
     const call = useDispatch()
+    //refs
+    const fn = useRef()
+    const ln = useRef()
+    const email = useRef()
+    const password = useRef()
+    const rPassword = useRef()
+    const avatarURL = useRef()
+
+
 
     const handleSubmitRegister = (e) => {
         e.preventDefault()
 
+        //get all typed values from inputs 
+        let data = {
+            f: fn.current.value,
+            l: ln.current.value,
+            e: email.current.value,
+            p: password.current.value,
+            rp: rPassword.current.value,
+            a: avatarURL.current.value
+        }
+
+        //validation of the data 
+        Object.keys(data).forEach(k => {
+            if (data[k] === "")
+                alert("Error Value empty 😥 !")
+        })
+
+        //send data to the server via redux thunk     
         let user = new UserModel(
-            1,
-            "fn1",
-            "ln2",
-            "fn1.ln1@gmail.com",
-            "https://api.multiavatar.com/fn1.ln2",
-            ROLE.DEV)
+            null,
+            data.f,
+            data.l,
+            data.e,
+            data.a,
+            ROLE.DEV,
+            data.p
+        )
+        
         call(registerUser({ user }))
 
 
@@ -33,20 +66,40 @@ function RegisterPage() {
                         <form method="POST" className="register-form" id="register-form"
                             onSubmit={handleSubmitRegister}>
                             <div className="form-group">
-                                <label htmlFor="name"><i className="zmdi zmdi-account material-icons-name" /></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name" />
+                                <label htmlFor="name">
+                                    <i className="zmdi zmdi-account material-icons-name" /></label>
+                                <input type="text" name="name" id="name"
+                                    placeholder="Firstname" ref={fn} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="email"><i className="zmdi zmdi-email" /></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email" />
+                                <label htmlFor="name">
+                                    <i className="zmdi zmdi-account material-icons-name" /></label>
+                                <input type="text" name="name" id="name"
+                                    placeholder="Lastname" ref={ln} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="pass"><i className="zmdi zmdi-lock" /></label>
-                                <input type="password" name="pass" id="pass" placeholder="Password" />
+                                <label htmlFor="email">
+                                    <i className="zmdi zmdi-email" /></label>
+                                <input type="email" name="email" id="email"
+                                    placeholder="Email" ref={email} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="re-pass"><i className="zmdi zmdi-lock-outline" /></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password" />
+                                <label htmlFor="name">
+                                    <i className="zmdi zmdi-account material-icons-name" /></label>
+                                <input type="text" name="name" id="name"
+                                    placeholder="Avatar URL" ref={avatarURL} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="pass">
+                                    <i className="zmdi zmdi-lock" /></label>
+                                <input type="password" name="pass" id="pass"
+                                    placeholder="Password" ref={password} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="re-pass">
+                                    <i className="zmdi zmdi-lock-outline" /></label>
+                                <input type="password" name="re_pass" id="re_pass"
+                                    placeholder="Repeat your password" ref={rPassword} />
                             </div>
                             <div className="form-group">
                                 <input type="checkbox" name="agree-term" id="agree-term" className="agree-term" />

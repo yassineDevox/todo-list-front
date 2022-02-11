@@ -5,7 +5,8 @@ export class UserModel {
         lastname = "",
         email = "",
         avatarURL = "",
-        role = "") {
+        role = "",
+        password="") {
 
         this.id = id
         this.firstname = firstname
@@ -13,5 +14,6 @@ export class UserModel {
         this.email = email
         this.avatarURL = avatarURL
         this.role=role
+        this.password=password
     }
 }
