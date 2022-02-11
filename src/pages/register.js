@@ -33,28 +33,31 @@ function RegisterPage() {
             e: email.current.value,
             p: password.current.value,
             rp: rPassword.current.value,
-            a: avatarURL.current.value
         }
 
         //validation of the data 
+        let error = false
         Object.keys(data).forEach(k => {
             if (data[k] === "")
-                alert("Error Value empty 😥 !")
+                error = true
         })
+        if (error) alert("Error Value empty 😥 !")
+        else if (data.p !== data.rp) alert("Error Password should match the repeated Password 😥 !")
+        else {
+            //send data to the server via redux thunk     
+            let user = new UserModel(
+                null,
+                data.f,
+                data.l,
+                data.e,
+                `https://api.multiavatar.com/${data.l}${data.f}`,
+                ROLE.DEV,
+                data.p
+            )
 
-        //send data to the server via redux thunk     
-        let user = new UserModel(
-            null,
-            data.f,
-            data.l,
-            data.e,
-            data.a,
-            ROLE.DEV,
-            data.p
-        )
-        
-        call(registerUser({ user }))
+            call(registerUser({ user }))
 
+        }
 
     }
     return (
@@ -87,7 +90,7 @@ function RegisterPage() {
                                 <label htmlFor="name">
                                     <i className="zmdi zmdi-account material-icons-name" /></label>
                                 <input type="text" name="name" id="name"
-                                    placeholder="Avatar URL" ref={avatarURL} />
+                                    placeholder="Avatar URL Optional ?" ref={avatarURL} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="pass">
@@ -107,7 +110,7 @@ function RegisterPage() {
                                     <a href="#" className="term-service">Terms of service</a></label>
                             </div>
                             <div className="form-group form-button">
-                                <input type="submit" name="signup" id="signup" className="form-submit" defaultValue="Register" />
+                                <input type="submit" name="signup" id="signup" className="form-submit" value="Register" />
                             </div>
                         </form>
                     </div>
