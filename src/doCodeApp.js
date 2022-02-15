@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import {
   BrowserRouter as Router
 } from "react-router-dom";
-
+import storeRedux from "./redux/store";
 import AppRoutes from "./routes/routes";
 
 
@@ -11,7 +11,7 @@ import AppRoutes from "./routes/routes";
 export default function DoCodeApp() {
   return (
     <Router>
-      <Provider store={store}>
+      <Provider store={storeRedux}>
         <AppRoutes />
       </Provider>
     </Router>
