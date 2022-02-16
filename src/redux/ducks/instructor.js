@@ -18,10 +18,10 @@ const instructorSlice = createSlice({
         page: 1
     },
     reducers: {
-        addTodo(state, { payload }) {
+        add(state, { payload }) {
             state.list.push(new InstructorModel())
         },
-        delTodo(state, { payload }) {
+        del(state, { payload }) {
             console.log(payload)
             state.list.forEach((t, index) => {
                 if (t.id === payload) {
@@ -29,7 +29,7 @@ const instructorSlice = createSlice({
                 }
             })
         },
-        editTodo(state, { payload }) {
+        edit(state, { payload }) {
             const { id } = payload
             state.list.forEach(t => {
                 if (t.id === id) {
@@ -58,9 +58,9 @@ export const listInstructorSelector = s =>
 
 //export 
 export const {
-    addTodo,
-    delTodo,
-    editTodo,
+    add,
+    del,
+    edit,
     setPage
 } = instructorSlice.actions
 

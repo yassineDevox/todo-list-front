@@ -10,7 +10,7 @@ const DoCodeAppTheme = ({ children }) => {
     useEffect(() => {
         let cP = window.location.href
         setShowAuthTheme(
-            cP.includes("Pass") ||
+            cP.toLocaleLowerCase().includes("pass") ||
             cP[cP.length-1]=="/"
         )
     }, [])
