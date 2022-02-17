@@ -406,7 +406,6 @@
         </div>
         <!-- TOP BAR END -->
         <style>
-
           .main-page-content {
             border-top: 0.5px solid transparent;
             /* background-color: white; */
@@ -414,7 +413,7 @@
           /* tabs */
           nav.tabs {
             border-bottom: 1px solid rgba(128, 128, 128, 0.281);
-            margin: 49px;
+            margin: 49px 49px 34px 49px;
           }
           nav.tabs ul {
             display: flex;
@@ -423,7 +422,7 @@
             padding: 10px 21px;
             cursor: pointer;
             border-bottom: 1px transparent;
-            zoom: .9;
+            zoom: 0.9;
           }
           nav.tabs ul li:first-child {
             border-bottom: 1px solid #1a0ab5 !important;
@@ -436,8 +435,8 @@
             font-weight: bold;
           }
           /* filter */
-          .filters-container{
-            margin: 40px 49px;
+          .filters-container {
+            margin: 0px 49px;
           }
           .filter {
             padding: 14px;
@@ -445,21 +444,21 @@
             border: 0.5px solid;
             cursor: pointer;
             border-radius: 4px;
-            transition: all .5s;
+            transition: all 0.5s;
           }
-          .filter:hover{
-              border-color:#1a0ab5
+          .filter:hover {
+            border-color: #1a0ab5;
           }
-          
-          .filter:hover span i{
-              color:#1a0ab5
+
+          .filter:hover span i {
+            color: #1a0ab5;
           }
 
           .filter span {
             font-size: 0.9em;
             font-weight: bold;
           }
-         
+
           .filter i {
             font-size: 0.8em;
             color: #8080809e;
@@ -477,11 +476,105 @@
               <li>Unlocked checkpoints</li>
             </ul>
           </nav>
+          <style>
+            .search-filter {
+              position: relative;
+            }
+            .search-filter i {
+              position: relative;
+              left: 20px;
+              top: 1px;
+              z-index: 1;
+              font-size: 13px;
+            }
+            .filter-values {
+              border: 0.5px solid;
+              width: fit-content;
+              padding: 5px;
+              margin-top: 5px;
+              border-radius: 3px;
+            }
+            .filter-choice-item label {
+              font-size: 11px;
+              font-weight: bold;
+              /* margin-top: -1px; */
+            }
+
+            .filter-choice-item {
+              display: flex;
+              align-items: center;
+              gap: 6px;
+            }
+            .filter-choices {
+              margin-top: 5px;
+              padding: 14px;
+              border: 0.5px solid;
+              border-radius: 4px;
+              margin: 7px auto;
+              width: 91%;
+            }
+            .search-filter input[type="search"] {
+              position: relative;
+              left: -9px;
+              border: 1px solid #d9d9d9;
+              border-radius: 4px;
+              padding: 4px 11px;
+              padding-left: 30px;
+              transition: all 0.3s;
+            }
+            .actions{
+                display: flex;
+                gap: 5px;
+                justify-content: flex-end;
+            }
+            .actions button.add {
+              color: rgba(0, 0, 0, 0.25) !important;
+              border-color: #d9d9d9 !important;
+              background-color: #f5f5f5 !important;
+              border: 2px solid #d9d9d9 !important;
+              color: #b4b4b4 !important;
+              min-width: 80px !important;
+              font-weight: normal !important;
+              cursor: pointer;
+              transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+              height: 39px;
+              box-shadow: unset !important;
+              outline: 0;
+              border-radius: 3px;
+              margin-right: 10px;
+            }
+            .actions button.cancel{
+                border:none;
+                background-color: transparent;
+                cursor: pointer;
+
+            }
+          </style>
           <!-- filters -->
           <div class="filters-container">
             <div class="filter">
               <span>Student Name</span>
               <span><i class="fas fa-arrow-down"></i></span>
+            </div>
+            <div class="filter-values">
+              <div class="search-filter">
+                <i class="fas fa-search"></i>
+                <input type="search" placeholder="Type in to search" />
+              </div>
+              <div class="filter-choices">
+                <div class="filter-choice-item">
+                  <input type="radio" name="a" id="a" />
+                  <label for="a">Contains</label>
+                </div>
+                <div class="filter-choice-item">
+                  <input type="radio" name="a" id="b" />
+                  <label for="b">Does not contains</label>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="cancel">Cancel</button>
+                <button class="add">Add</button>
+              </div>
             </div>
           </div>
         </section>
