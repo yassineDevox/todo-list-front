@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import logo from "./../../assets/img/loginLogo.svg";
 
 export const Login = () => {
@@ -15,7 +16,7 @@ export const Login = () => {
 
     if (email === "" || password === "") setError(true);
     else {
-
+      toast("login to the server ... !")
     }
   };
 
@@ -59,6 +60,7 @@ export const Login = () => {
       <div className="form-footer">
         <Link to="/forget-pass"><button className="outiline">Reset Password</button></Link>
       </div>
+      
     </div>
   );
 };

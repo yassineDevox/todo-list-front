@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
 import "./../../assets/style/auth.css"
 
 export const ThemeAUTH = ({children}) => {
@@ -18,6 +19,7 @@ export const ThemeAUTH = ({children}) => {
          {children}
         </main>
       </section>
+      <ToastContainer/>
     </main>
 
   );
