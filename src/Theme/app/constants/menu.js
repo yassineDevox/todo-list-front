@@ -11,7 +11,7 @@ class MenuItemData {
 }
 
 const MENU_DATA = [
-    new MenuItemData("fas fa-tachometer", "Dashboard", "/"),
+    new MenuItemData("fas fa-tachometer", "Dashboard", "/dashboard"),
     new MenuItemData("fas fa-bolt", "Checkpoints", "/checkpoints"),
     new MenuItemData("fas fa-puzzle-piece", "Projects", "/projects"),
     new MenuItemData("fas fa-chalkboard-teacher", "Interview", "/interview"),

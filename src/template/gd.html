@@ -435,9 +435,6 @@
             font-weight: bold;
           }
           /* filter */
-          .filters-container {
-            margin: 0px 49px;
-          }
           .filter {
             padding: 14px;
             width: fit-content;
@@ -455,7 +452,7 @@
           }
 
           .filter span {
-            font-size: 0.9em;
+            font-size: 0.8em;
             font-weight: bold;
           }
 
@@ -463,7 +460,6 @@
             font-size: 0.8em;
             color: #8080809e;
             margin-left: 2px;
-            /* margin-top: 1px; */
           }
         </style>
         <!-- PAGE CONTENT -->
@@ -493,11 +489,15 @@
               padding: 5px;
               margin-top: 5px;
               border-radius: 3px;
+              display: none;
             }
             .filter-choice-item label {
               font-size: 11px;
               font-weight: bold;
-              /* margin-top: -1px; */
+              width: 100%;
+              cursor: pointer;
+              transition: all 0.5s;
+              padding: 5px 11px;
             }
 
             .filter-choice-item {
@@ -507,7 +507,7 @@
             }
             .filter-choices {
               margin-top: 5px;
-              padding: 14px;
+              padding: 14px 0px;
               border: 0.5px solid;
               border-radius: 4px;
               margin: 7px auto;
@@ -522,58 +522,319 @@
               padding-left: 30px;
               transition: all 0.3s;
             }
-            .actions{
-                display: flex;
-                gap: 5px;
-                justify-content: flex-end;
+            .actions {
+              display: flex;
+              gap: 5px;
+              justify-content: flex-end;
             }
             .actions button.add {
-              color: rgba(0, 0, 0, 0.25) !important;
-              border-color: #d9d9d9 !important;
-              background-color: #f5f5f5 !important;
-              border: 2px solid #d9d9d9 !important;
-              color: #b4b4b4 !important;
-              min-width: 80px !important;
-              font-weight: normal !important;
+              color: rgba(0, 0, 0, 0.25);
+              border-color: #d9d9d9;
+              background-color: #f5f5f5;
+              border: 2px solid #d9d9d9;
+              color: #b4b4b4;
+              min-width: 80px;
+              font-weight: normal;
               cursor: pointer;
               transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
               height: 39px;
-              box-shadow: unset !important;
+              box-shadow: unset;
               outline: 0;
               border-radius: 3px;
               margin-right: 10px;
             }
-            .actions button.cancel{
-                border:none;
-                background-color: transparent;
-                cursor: pointer;
-
+            .actions button.cancel {
+              border: none;
+              background-color: transparent;
+              cursor: pointer;
+            }
+            /* pretty radio */
+            .filter-choice-item label > input[type="radio"] {
+              display: none;
+            }
+            .filter-choice-item label > input[type="radio"] + *::before {
+              content: "";
+              display: inline-block;
+              vertical-align: sub;
+              width: 0.6rem;
+              height: 0.6rem;
+              margin-right: 0.3rem;
+              border-radius: 50%;
+              border-style: solid;
+              border-width: 0.1rem;
+              border-color: gray;
+            }
+            .filter-choice-item label > input[type="radio"]:checked + * {
+              color: #1a0ab5;
+            }
+            .filter-choice-item
+              label
+              > input[type="radio"]:checked
+              + *::before {
+              background: radial-gradient(
+                #1a0ab5 0%,
+                #1a0ab5 40%,
+                transparent 50%,
+                transparent
+              );
+              border-color: #1a0ab5;
+            }
+            .filter-choice-item label:hover {
+              background-color: rgba(111, 192, 254, 0.12);
+            }
+            .actions .add-active {
+              background-color: #1a0ab5 !important;
+              border-color: #1a0ab5 !important;
+              border-radius: 5px !important;
+              color: white !important;
+            }
+            .filter-values-active,
+            .filter-choices-active,
+            .filter-active {
+              border: 1px solid #1a0ab5;
+            }
+            .filter-active i {
+              color: #1a0ab5;
+            }
+            .list-filters {
+              display: flex;
+              margin-left: 49px;
+              gap: 25px;
             }
           </style>
           <!-- filters -->
-          <div class="filters-container">
-            <div class="filter">
-              <span>Student Name</span>
-              <span><i class="fas fa-arrow-down"></i></span>
+          <div class="list-filters">
+            <div class="filters-container">
+              <div class="filter filter-active">
+                <span>Student Name</span>
+                <span><i class="fas fa-arrow-down"></i></span>
+              </div>
+              <div class="filter-values filter-values-active">
+                <div class="search-filter">
+                  <i class="fas fa-search"></i>
+                  <input type="search" placeholder="Type in to search" />
+                </div>
+                <div class="filter-choices filter-choices-active">
+                  <div class="filter-choice-item">
+                    <label>
+                      <input type="radio" name="radio-button" value="css" />
+                      <span>Contains</span>
+                    </label>
+                  </div>
+                  <div class="filter-choice-item">
+                    <label>
+                      <input type="radio" name="radio-button" value="no" />
+                      <span>Does not contains</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="cancel">Cancel</button>
+                  <button class="add add-active">Add</button>
+                </div>
+              </div>
             </div>
-            <div class="filter-values">
-              <div class="search-filter">
-                <i class="fas fa-search"></i>
-                <input type="search" placeholder="Type in to search" />
+            <div class="filters-container">
+              <div class="filter">
+                <span>Track</span>
+                <span><i class="fas fa-arrow-down"></i></span>
               </div>
-              <div class="filter-choices">
-                <div class="filter-choice-item">
-                  <input type="radio" name="a" id="a" />
-                  <label for="a">Contains</label>
+              <div class="filter-values">
+                <div class="search-filter">
+                  <i class="fas fa-search"></i>
+                  <input type="search" placeholder="Type in to search" />
                 </div>
-                <div class="filter-choice-item">
-                  <input type="radio" name="a" id="b" />
-                  <label for="b">Does not contains</label>
+                <div class="filter-choices">
+                  <div class="filter-choice-item">
+                    <label>
+                      <input type="radio" name="radio-button" value="css" />
+                      <span>Contains</span>
+                    </label>
+                  </div>
+                  <div class="filter-choice-item">
+                    <label>
+                      <input type="radio" name="radio-button" value="no" />
+                      <span>Does not contains</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="cancel">Cancel</button>
+                  <button class="add add-active">Add</button>
                 </div>
               </div>
-              <div class="actions">
-                <button class="cancel">Cancel</button>
-                <button class="add">Add</button>
+            </div>
+            <div class="filters-container">
+              <div class="filter">
+                <span>Checkpoint Name</span>
+                <span><i class="fas fa-arrow-down"></i></span>
+              </div>
+              <div class="filter-values">
+                <div class="search-filter">
+                  <i class="fas fa-search"></i>
+                  <input type="search" placeholder="Type in to search" />
+                </div>
+                <div class="filter-choices">
+                  <div class="filter-choice-item">
+                    <label>
+                      <input type="radio" name="radio-button" value="css" />
+                      <span>Contains</span>
+                    </label>
+                  </div>
+                  <div class="filter-choice-item">
+                    <label>
+                      <input type="radio" name="radio-button" value="no" />
+                      <span>Does not contains</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="cancel">Cancel</button>
+                  <button class="add add-active">Add</button>
+                </div>
+              </div>
+            </div>
+            <div class="filters-container">
+              <div class="filter">
+                <span>Status</span>
+                <span><i class="fas fa-arrow-down"></i></span>
+              </div>
+              <div class="filter-values">
+                <div class="search-filter">
+                  <i class="fas fa-search"></i>
+                  <input type="search" placeholder="Type in to search" />
+                </div>
+                <div class="filter-choices">
+                  <div class="filter-choice-item">
+                    <label>
+                      <input type="radio" name="radio-button" value="css" />
+                      <span>Contains</span>
+                    </label>
+                  </div>
+                  <div class="filter-choice-item">
+                    <label>
+                      <input type="radio" name="radio-button" value="no" />
+                      <span>Does not contains</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="cancel">Cancel</button>
+                  <button class="add add-active">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <style>
+            .table-container {
+              border: solid gainsboro;
+              margin: 30px 49px;
+            }
+            .table-header {
+              height: 60px;
+              border-bottom: 0.5px solid gainsboro;
+              display: flex;
+            }
+            .table-header > div {
+              flex-grow: 1;
+              flex-basis: 0;
+            }
+            .table-body {
+              height: 150px;
+            }
+            .table-body-empty {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            .table-body-empty .no-data {
+              display: block;
+            }
+            .no-data {
+              display: none;
+            }
+            .no-data p {
+              color: gainsboro;
+              font-weight: bold;
+            }
+            .table-header-item {
+              display: flex;
+              gap: 7px;
+              padding: 18px;
+              cursor: pointer;
+              transition: .7s all;
+              /* border: solid; */
+            }
+            .table-header-item:hover{
+              background-color: #dcdcdc4d;
+            }
+
+            .sort {
+              display: flex;
+              flex-direction: column;
+              /* gap: 0px; */
+            }
+            .sort i:first-child {
+              margin-top: 5px;
+            }
+            .sort i {
+              height: 1px;
+              font-size: 0.7em;
+              color: gainsboro;
+            }
+            .table-header-item span.name {
+              font-size: 1.2em;
+              color: #0f0f0f !important;
+              font-weight: 600;
+              font-family: monospace;
+            }
+          </style>
+          <div class="table-container">
+            <div class="table-header">
+              <div class="table-header-item">
+                <span class="name">Students</span>
+                <div class="sort">
+                  <i class="fas fa-sort-up"></i>
+                  <i class="fas fa-sort-down"></i>
+                </div>
+              </div>
+              <div class="table-header-item">
+                <span class="name">Status</span>
+                <div class="sort">
+                  <i class="fas fa-sort-up"></i>
+                  <i class="fas fa-sort-down"></i>
+                </div>
+              </div>
+              <div class="table-header-item">
+                <span class="name">Track</span>
+                <div class="sort">
+                  <i class="fas fa-sort-up"></i>
+                  <i class="fas fa-sort-down"></i>
+                </div>
+              </div>
+              <div class="table-header-item">
+                <span class="name">Checkpoint Name</span>
+                <div class="sort">
+                  <i class="fas fa-sort-up"></i>
+                  <i class="fas fa-sort-down"></i>
+                </div>
+              </div>
+              <div class="table-header-item">
+                <span class="name">Submitted Date</span>
+                <div class="sort">
+                  <i class="fas fa-sort-up"></i>
+                  <i class="fas fa-sort-down"></i>
+                </div>
+              </div>
+              <div class="table-header-item">
+                <span class="name">Action</span>
+              </div>
+            </div>
+            <div class="table-body table-body-empty">
+              <div class="no-data">
+                <img src="no-data.svg" alt="nodata" />
+                <br />
+                <p>No Data</p>
               </div>
             </div>
           </div>
