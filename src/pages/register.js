@@ -54,11 +54,15 @@ function RegisterPage() {
         data.e,
         `https://api.multiavatar.com/${data.l}${data.f}`,
         ROLE.DEV,
-        data.p
+        data.p,
+        data.rp
       );
       axios
         .post("http://localhost:9000/api/auth/register", user)
-        .then((response) => console.log(response))
+        .then((response) => {
+          setError("")
+          alert(response.data.msg)
+        })
         .catch((err) => setError(err.response.data.msg));
     }
   };
