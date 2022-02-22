@@ -1,22 +1,44 @@
 import React, { useState } from "react";
 import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { login } from "../../redux/ducks/auth";
+import Spinner from "../../Theme/shared/spinner";
 import logo from "./../../assets/img/loginLogo.svg";
 
 export const Login = () => {
+  //state
   const [error, setError] = useState(false);
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  //redux actions
+  const call = useDispatch();
+  //redux state
+  const errorServer = useSelector(s=>s.auth.error)
+  const isloading = useSelector(s=>s.auth.isLoading)
 
   const handleLoginSubmit = (e) => {
+
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     if (email === "" || password === "") setError(true);
     else {
-      toast("login to the server ... !")
+      
+      call(login({ identifier: email, password }));
+
+      if(errorServer!=="")
+        toast.error(errorServer, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
     }
   };
 
@@ -54,13 +76,14 @@ export const Login = () => {
             Please enter your Password !
           </span>
           <br />
-          <button type="submit">Login</button>
+          <button type="submit">{isloading ? <Spinner/> :"Login" }</button>
         </form>
       </div>
       <div className="form-footer">
-        <Link to="/forget-pass"><button className="outiline">Reset Password</button></Link>
+        <Link to="/forget-pass">
+          <button className="outiline">Reset Password</button>
+        </Link>
       </div>
-      
     </div>
   );
 };
