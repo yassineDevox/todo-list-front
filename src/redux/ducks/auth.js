@@ -4,11 +4,10 @@ import client from "../../tools/axios";
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ identifier, password }, { rejectWithValue }) => {
+  async ({ identifier, password }, { rejectWithValue,fulfillWithValue }) => {
     return client
       .post("/auth/local", new CredentialsModal(identifier, password))
-      .then((response) => response.json())
-      .then((data) => data)
+      .then((response) => fulfillWithValue(response.data))
       .catch((err) => rejectWithValue(err.response.data.error.message));
   }
 );
@@ -27,8 +26,9 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
-      console.log(action);
+      state.userInfo = action.payload    
       state.isLoading = false;
+      state.error=""
     },
     [login.rejected]: (state, { payload }) => {
       state.error = payload;
