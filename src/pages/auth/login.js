@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../../redux/ducks/auth";
 import Spinner from "../../Theme/shared/spinner";
@@ -12,11 +12,18 @@ export const Login = () => {
   const [error, setError] = useState(false);
   const emailRef = useRef("");
   const passwordRef = useRef("");
+
   //redux actions
   const call = useDispatch();
+
   //redux state
   const errorServer = useSelector((s) => s.auth.error);
   const isloading = useSelector((s) => s.auth.isLoading);
+  const userInfo = useSelector((s) => s.auth.userInfo);
+
+  //router hooks
+  const navigate = useNavigate();
+
   //on submit login
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -41,6 +48,12 @@ export const Login = () => {
         progress: undefined,
       });
   }, [errorServer]);
+
+  useEffect(() => {
+    if (Object.keys(userInfo).length === 2) {
+      navigate("/dashboard");
+    }
+  }, [userInfo]);
 
   const handleFocusInput = () => setError(false);
 
@@ -76,7 +89,7 @@ export const Login = () => {
             Please enter your Password !
           </span>
           <br />
-          <button type="submit">{isloading && <Spinner />} Login </button>
+          <button type="submit">{isloading ? <Spinner />:""} Login </button>
         </form>
       </div>
       <div className="form-footer">
