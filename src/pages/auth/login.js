@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -15,32 +15,32 @@ export const Login = () => {
   //redux actions
   const call = useDispatch();
   //redux state
-  const errorServer = useSelector(s=>s.auth.error)
-  const isloading = useSelector(s=>s.auth.isLoading)
-
+  const errorServer = useSelector((s) => s.auth.error);
+  const isloading = useSelector((s) => s.auth.isLoading);
+  //on submit login
   const handleLoginSubmit = (e) => {
-
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     if (email === "" || password === "") setError(true);
     else {
-      
       call(login({ identifier: email, password }));
-
-      if(errorServer!=="")
-        toast.error(errorServer, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
     }
   };
+  ///--display error msg
+  useEffect(() => {
+    if (errorServer !== "")
+      toast.error(errorServer, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+  }, [errorServer]);
 
   const handleFocusInput = () => setError(false);
 
@@ -76,7 +76,7 @@ export const Login = () => {
             Please enter your Password !
           </span>
           <br />
-          <button type="submit">{isloading ? <Spinner/> :"Login" }</button>
+          <button type="submit">{isloading && <Spinner />} Login </button>
         </form>
       </div>
       <div className="form-footer">
