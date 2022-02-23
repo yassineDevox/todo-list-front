@@ -2,22 +2,19 @@ import { ThemeAPP } from "./app/theme";
 import { ThemeAUTH } from "./auth/theme";
 
 import { useEffect ,useState} from 'react';
+import { useLocation } from "react-router-dom";
 
 const DoCodeAppTheme = ({ children }) => {
 
-    const [showAuthTheme, setShowAuthTheme] = useState()
-    const [currentPath, setCurrentPath] = useState()
+
+    const location = useLocation()
+    const [pathname,setPathname] = useState("")
 
     useEffect(() => {
-        let cP = window.location.href
-        setShowAuthTheme(
-            cP.toLocaleLowerCase().includes("pass") ||
-            cP[cP.length-1]==="/"  
-        ) 
-        setCurrentPath(cP)
-    }, [currentPath])
+       setPathname(location.pathname)
+    }, [location.pathname])
 
-    return showAuthTheme ? 
+    return pathname.includes('pass') || pathname[pathname.length-1]==="/" ? 
             <ThemeAUTH >{children}</ThemeAUTH> 
             : <ThemeAPP >{children}</ThemeAPP>
 
