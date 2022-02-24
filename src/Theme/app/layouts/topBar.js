@@ -1,3 +1,5 @@
+import { faMoon } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 
 const TopBar = ({ page }) => {
@@ -8,7 +10,9 @@ const TopBar = ({ page }) => {
                 <span className="title-page">{page}</span>
                 <div className="top-bar-right">
                     <div className="toggle-theme-mode">
-                        <div className="circle-icon"><i className="fas fa-moon" /></div>
+                        <div className="circle-icon">
+                            <FontAwesomeIcon icon={faMoon} color="yellow"/>
+                        </div>
                         <div className="toggle-support" />
                     </div>
                     <div className="notification">

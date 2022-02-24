@@ -33,6 +33,9 @@ export const Login = () => {
     if (email === "" || password === "") setError(true);
     else {
       call(login({ identifier: email, password }));
+      //clear inputs
+      emailRef.current.value = "";
+      passwordRef.current.value = "";
     }
   };
   ///--display error msg
@@ -89,7 +92,7 @@ export const Login = () => {
             Please enter your Password !
           </span>
           <br />
-          <button type="submit">{isloading ? <Spinner />:""} Login </button>
+          <button type="submit">{isloading ? <Spinner /> : ""} Login </button>
         </form>
       </div>
       <div className="form-footer">
