@@ -1,9 +1,12 @@
-import { faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faBell, faMoon, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const TopBar = ({ page }) => {
     const [showUserInfos, setShowUserInfos] = useState(false)
+    //redux state 
+    const {user} = useSelector(s=>s.auth.userInfo)
     return (
         <>
             <header className="top-bar">
@@ -16,10 +19,10 @@ const TopBar = ({ page }) => {
                         <div className="toggle-support" />
                     </div>
                     <div className="notification">
-                        <i className="far fa-bell" />
+                        <FontAwesomeIcon icon={faBell} className="fa-lg" />
                     </div>
                     <div className="support-ticket" title="Open Support Ticket">
-                        <i className="fas fa-user-cog" />
+                        <FontAwesomeIcon icon={faUserCog} />
                     </div>
                     {/* USER INFOS  */}
                     <div className="user-infos-continer">
@@ -29,8 +32,8 @@ const TopBar = ({ page }) => {
                         </div>
                         <div className="user-infos"
                             onClick={() => setShowUserInfos(!showUserInfos)}>
-                            <span>Yassine</span>
-                            <i className="fa fa-arrow-down" />
+                            <span>{user?.firstname}</span>
+                            <FontAwesomeIcon icon={faArrowDown} style={{marginLeft:"4px"}} size="sm"/>
                         </div>
                     </div>
                     {/* USER INFOS END */}
@@ -40,13 +43,13 @@ const TopBar = ({ page }) => {
             <div className={showUserInfos ? "user-infos-details" : "d-none"} >
                 <ul>
                     <li className="user-infos-item-disabled">
-                        <h3>Yassine Rassy</h3>
+                        <h3>{user?.firstname+" "+user?.lastname}</h3>
                         <span className="email">
-                            yassine.rassy1@gmail.com
+                            {user?.email}
                         </span>
                     </li>
                     <li className="user-infos-item-disabled">
-                        <span className="phone-number">+212 635 093 199</span>
+                        <span className="phone-number">{user?.phone}</span>
                         <i className="fas fa-phone" />
                     </li>
                     <li className="user-infos-item-disabled">

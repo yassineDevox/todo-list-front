@@ -6,7 +6,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ identifier, password }, { rejectWithValue,fulfillWithValue }) => {
     return client
-      .post("/auth/local", new CredentialsModal(identifier, password))
+      .post("/auth/local?populate=*", new CredentialsModal(identifier, password))
       .then((response) => fulfillWithValue(response.data))
       .catch((err) => rejectWithValue(err.response.data.error.message));
   }
