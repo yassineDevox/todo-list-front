@@ -4,9 +4,12 @@ import client from "../../tools/axios";
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ identifier, password }, { rejectWithValue,fulfillWithValue }) => {
+  async ({ identifier, password }, { rejectWithValue, fulfillWithValue }) => {
     return client
-      .post("/auth/local?populate=*", new CredentialsModal(identifier, password))
+      .post(
+        "/auth/local?populate=*",
+        new CredentialsModal(identifier, password)
+      )
       .then((response) => fulfillWithValue(response.data))
       .catch((err) => rejectWithValue(err.response.data.error.message));
   }
@@ -23,22 +26,25 @@ const authSlice = createSlice({
     setLoading(state, { payload }) {
       state.isLoading = payload;
     },
+    clearErrorMsg(state, _) {
+      state.error = "";
+    },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
-      state.userInfo = action.payload    
+      state.userInfo = action.payload;
       state.isLoading = false;
-      state.error=""
+      state.error = "";
     },
     [login.rejected]: (state, { payload }) => {
       state.error = payload;
       state.isLoading = false;
     },
-    [login.pending]:(state)=>{
-        state.isLoading=true
-    }
+    [login.pending]: (state) => {
+      state.isLoading = true;
+    },
   },
 });
 
-export const { setLoading } = authSlice.actions;
+export const { setLoading, clearErrorMsg } = authSlice.actions;
 export default authSlice.reducer;

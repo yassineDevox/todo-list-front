@@ -12,7 +12,7 @@ const DoCodeAppTheme = ({ children }) => {
 
     useEffect(() => {
        setPathname(location.pathname)
-    }, [location.pathname])
+    }, [])
 
     return pathname.includes('pass') || pathname[pathname.length-1]==="/" ? 
             <ThemeAUTH >{children}</ThemeAUTH> 

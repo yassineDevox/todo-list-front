@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login } from "../../redux/ducks/auth";
+import { clearErrorMsg, login } from "../../redux/ducks/auth";
 import Spinner from "../../Theme/shared/spinner";
 import logo from "./../../assets/img/loginLogo.svg";
 
@@ -40,8 +40,8 @@ export const Login = () => {
   };
   ///--display error msg
   useEffect(() => {
-    if (errorServer !== "")
-      toast.error(errorServer, {
+    if (errorServer !== ""){
+       toast.error(errorServer, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -50,6 +50,10 @@ export const Login = () => {
         draggable: true,
         progress: undefined,
       });
+      //clear errorServer 
+      call(clearErrorMsg())
+    }
+     
   }, [errorServer]);
 
   useEffect(() => {
