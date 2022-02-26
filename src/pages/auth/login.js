@@ -78,7 +78,6 @@ export const Login = () => {
             className={!error ? "" : "input-error"}
             type="text"
             placeholder="Email address"
-            autoComplete={false}
           />
 
           <span className={!error ? "" : "msg-error"}>

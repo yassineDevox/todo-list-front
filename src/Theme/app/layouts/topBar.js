@@ -1,12 +1,19 @@
 import { faArrowDown, faBell, faMoon, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../redux/ducks/auth';
 
 const TopBar = ({ page }) => {
     const [showUserInfos, setShowUserInfos] = useState(false)
     //redux state 
     const {user} = useSelector(s=>s.auth.userInfo)
+    //redux auth action
+    const call = useDispatch()
+    //events
+    const handleLogOutClick = ()=>{
+        call(logout())
+    }
     return (
         <>
             <header className="top-bar">
@@ -59,7 +66,8 @@ const TopBar = ({ page }) => {
                         <i className="far fa-building" />
                     </li>
                     <li className="user-infos-item">Account Settings</li>
-                    <li className="user-infos-item">Log out</li>
+                    <li className="user-infos-item" 
+                        onClick={handleLogOutClick}>Log out</li>
                 </ul>
             </div>
         </>

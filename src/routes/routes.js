@@ -21,13 +21,13 @@ import DoCodeAppTheme from "../Theme";
 
 //guards
 function AdminGuard() {
-  const { jwt } = useSelector((s) => s.auth.userInfo);
+  const jwt = window.localStorage.getItem("token")
   return jwt ? <Outlet /> : <Navigate to="/" />;
 }
 
 function AuthGuard() {
-    const { jwt } = useSelector((s) => s.auth.userInfo);
-    return jwt ? <Outlet /> : <Navigate to="dashboard" />;
+  const jwt = window.localStorage.getItem("token");
+  return !jwt ? <Outlet /> : <Navigate to="dashboard" />;
 }
 
 const AppRoutes = () => {
@@ -40,6 +40,7 @@ const AppRoutes = () => {
           <Route path="reset-pass" element={<ResetPassword />} />
           <Route path="forget-pass" element={<ForgetPassword />} />
         </Route>
+
         {/* admin routes */}
         <Route path="" element={<AdminGuard />}>
           <Route path="dashboard" element={<Dashboard />} />
