@@ -2,6 +2,7 @@ import { faArrowDown, faBell, faMoon, faUserCog } from '@fortawesome/free-solid-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../../../redux/ducks/auth';
 
 const TopBar = ({ page }) => {
@@ -10,9 +11,12 @@ const TopBar = ({ page }) => {
     const {user} = useSelector(s=>s.auth.userInfo)
     //redux auth action
     const call = useDispatch()
+    //router
+    const navTo = useNavigate()
     //events
     const handleLogOutClick = ()=>{
         call(logout())
+        navTo("/")
     }
     return (
         <>

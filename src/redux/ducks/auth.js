@@ -29,20 +29,26 @@ const authSlice = createSlice({
     clearErrorMsg(state, _) {
       state.error = "";
     },
-    logout(state,_){
-      state.userInfo = {}
-      window.localStorage.setItem("token","")
-      window.localStorage.setItem("user","")
-    }
+    logout(state, _) {
+      state.userInfo = {};
+      window.localStorage.setItem("token", "");
+      window.localStorage.setItem("user", "");
+      window.localStorage.clear()
+    },
+    loadUserSession(state, _) {
+      if (window.localStorage.getItem("user")) {
+        state.userInfo.user = JSON.parse(window.localStorage.getItem("user"));
+        state.userInfo.jwt = window.localStorage.getItem("token");
+      }
+    },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
       state.userInfo = action.payload;
-      window.localStorage.setItem("token",action.payload.jwt)
-      window.localStorage.setItem("user",JSON.stringify(action.payload.user))
+      window.localStorage.setItem("token", action.payload.jwt);
+      window.localStorage.setItem("user", JSON.stringify(action.payload.user));
       state.isLoading = false;
       state.error = "";
-
     },
     [login.rejected]: (state, { payload }) => {
       state.error = payload;
@@ -54,5 +60,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setLoading, clearErrorMsg,logout } = authSlice.actions;
+export const { setLoading, clearErrorMsg, logout, loadUserSession } =
+  authSlice.actions;
 export default authSlice.reducer;
