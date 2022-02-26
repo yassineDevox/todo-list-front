@@ -3,17 +3,24 @@ import Track from "../../components/track";
 
 
 
-import React from 'react';
+import "./../../assets/style/track.css"
 
 const StoreUI = ({ listTrack }) => {
   return (
     <div style={{ padding: "10px" }}>
-      <h2>Store</h2>
 
       <div className="d-flex">
-        {
+        {/* {
           listTrack?.map(t => <Track key={t.id} id={t.id} title={t.title} />)
-        }
+        } */}
+        <Track/>
+        <Track/>
+        <Track/>
+        <Track/>
+        <Track/>
+        <Track/>
+        <Track/>
+        <Track/>
       </div>
     </div>
 

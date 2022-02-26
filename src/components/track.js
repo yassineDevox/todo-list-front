@@ -1,10 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { TrackModel } from "../model/track";
 
-export default function Track(props) {
+export default function Track({tm = new TrackModel()}) {
   return (
-    <div className=' p-1 m-1' style={{border:'1px solid'}}>
-      <Link to={"/tracks/"+props.id+"/curriculum"}>{props.title}</Link>
-  </div>
-  )
+    <div className="card-track">
+      <div className="card-thumbnail">
+        <img src={tm.thumbnailURL} />
+      </div>
+      <div className="card-track-body">
+        <h6 className="track-title">
+          {tm.title}
+        </h6>
+        <p className="track-description">
+          {tm.description}
+        </p>
+      </div>
+      <div className="card-track-footer">
+        <div className="list-participients">
+          <p />
+          <p />
+          <p />
+          <p />
+        </div>
+        <span>{tm.nbStudents} student(s) and {tm.nbInstructors} instructor(s)</span>
+      </div>
+    </div>
+  );
 }
