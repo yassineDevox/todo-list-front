@@ -1,35 +1,34 @@
-import React, { useRef, useState } from "react";
 import "./../assets/style/register.css";
 import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css";
 import imgSignin from "./../assets/images/signin-image.jpg";
-import axios from "axios";
-import { CredentialsModel } from "../model/credantials";
 import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import axios from "axios";
 
-function LoginPage() {
+
+function ForgetPassPage() {
   //refs
   const emailRef = useRef("");
-  const passRef = useRef("");
   //state
   const [error, setError] = useState("");
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //valider les donne
     const em = emailRef.current.value;
-    const p = passRef.current.value;
-    if (!em || !p) alert("error empty values 😞");
+    if (!em) alert("error empty values 😞");
     else {
       //communication avec le serveur
       axios
         .post(
-          "http://localhost:9000/api/auth/login",
-          new CredentialsModel(em, p)
+          "http://localhost:9000/api/auth/forget-pass",
+          {email:em}
         )
         .then((response) => {
-          setError("");
+            setError("")
         })
-        .catch((errServer) => setError(errServer.response.data.msg));
+        .catch((errServer) =>setError(errServer.response.data.msg));
     }
   };
   return (
@@ -40,12 +39,15 @@ function LoginPage() {
             <figure>
               <img src={imgSignin} alt="sing up image" />
             </figure>
-            <Link to="/forget-pass" className="signup-image-link">forget password</Link>
-            <Link to="/register" className="signup-image-link">create account</Link>
+            
+            <Link to="/"  className="signup-image-link"> 
+            Login
+            </Link>
           </div>
           <div className="signin-form">
-            <h2 className="form-title">Sign In</h2>
-            <form className="register-form" onSubmit={handleSubmit}>
+            <h2 className="form-title">Forget Password</h2>
+            <form className="register-form" 
+            onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="your_name">
                   <i className="zmdi zmdi-account material-icons-name" />
@@ -56,35 +58,8 @@ function LoginPage() {
                   name="your_name"
                   id="your_name"
                   placeholder="Your Email"
-                  onFocus={() => setError("")}
+                  onFocus={()=>setError("")}
                 />
-              </div>
-              <div className="form-group">
-                <label htmlFor="your_pass">
-                  <i className="zmdi zmdi-lock" />
-                </label>
-                <input
-                  ref={passRef}
-                  type="password"
-                  name="your_pass"
-                  id="your_pass"
-                  placeholder="Password"
-                  onFocus={() => setError("")}
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="checkbox"
-                  name="remember-me"
-                  id="remember-me"
-                  className="agree-term"
-                />
-                <label htmlFor="remember-me" className="label-agree-term">
-                  <span>
-                    <span />
-                  </span>
-                  Remember me
-                </label>
               </div>
               <div className="form-group form-button">
                 <input
@@ -92,14 +67,11 @@ function LoginPage() {
                   name="signin"
                   id="signin"
                   className="form-submit"
-                  defaultValue="Log in"
+                  defaultValue="Send Email"
                 />
               </div>
             </form>
-            <div
-              className={error !== "" ? "alert alert-danger" : "d-none"}
-              role="alert"
-            >
+            <div className={error!=="" ? "alert alert-danger":"d-none"} role="alert">
               {error}
             </div>
             <div className="social-login">
@@ -129,4 +101,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default ForgetPassPage;

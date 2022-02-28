@@ -9,12 +9,14 @@ import {
 import RegisterPage from '../pages/register';
 import LoginPage from '../pages/login';
 import TodoPage from '../pages/todo';
+import ForgetPassPage from '../pages/forgetPass';
 
 const AppRoutes = () => {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<LoginPage />} />
+                <Route path="/forget-pass" element={<ForgetPassPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/todo" element={<TodoPage />} />
             </Routes>

@@ -8,6 +8,7 @@ import "./../assets/style/register.css";
 import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css";
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 // https://api.multiavatar.com/fn1.ln2
 
@@ -177,7 +178,7 @@ function RegisterPage() {
                 />
               </div>
             </form>
-            <div className="alert alert-danger" role="alert">
+            <div className={error?"alert alert-danger m-1":"d-none"} role="alert">
               {error}
             </div>
           </div>
@@ -185,9 +186,10 @@ function RegisterPage() {
             <figure>
               <img src={imgSignup} alt="sing up image" />
             </figure>
-            <a href="#" className="signup-image-link">
-              I am already member
-            </a>
+            <Link to="/" className="signup-image-link">
+            I am already member
+            </Link>
+          
           </div>
         </div>
       </div>
