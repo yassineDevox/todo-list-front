@@ -1,34 +1,41 @@
+import React, { useRef, useState } from "react";
 import "./../assets/style/register.css";
 import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css";
 import imgSignin from "./../assets/images/signin-image.jpg";
-import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
 import axios from "axios";
+import { CredentialsModel } from "../model/credantials";
+import { Link, useParams } from "react-router-dom";
 
-
-function ForgetPassPage() {
+function ResetPassPage() {
   //refs
-  const emailRef = useRef("");
+  const passRef = useRef("");
+  const rPassRef = useRef("");
+
   //state
   const [error, setError] = useState("");
 
+  //recuperer les params
+  const {code,email} = useParams()
 
+  //submit 
   const handleSubmit = (e) => {
     e.preventDefault();
     //valider les donne
-    const em = emailRef.current.value;
-    if (!em) alert("error empty values 😞");
+    const rp = rPassRef.current.value;
+    const p = passRef.current.value;
+    if (!rp || !p) alert("error empty values 😞");
+    else if(rp!==p) alert("Passwords should be matched 😞");
     else {
       //communication avec le serveur
       axios
         .post(
-          "http://localhost:9000/api/auth/forget-password",
-          {email:em}
+          `http://localhost:9000/api/auth/reset-password/code/${code}/email/${email}`,
+         {password:p,repeatedPassword:rp}
         )
         .then((response) => {
-            setError("")
+          setError("");
         })
-        .catch((errServer) =>setError(errServer.response.data.msg));
+        .catch((errServer) => setError(errServer.response.data.msg));
     }
   };
   return (
@@ -39,26 +46,37 @@ function ForgetPassPage() {
             <figure>
               <img src={imgSignin} alt="sing up image" />
             </figure>
-            
-            <Link to="/"  className="signup-image-link"> 
-            Login
-            </Link>
+            <Link to="/" className="signup-image-link">Login</Link>
           </div>
           <div className="signin-form">
-            <h2 className="form-title">Forget Password</h2>
-            <form className="register-form" 
-            onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="your_name">
-                  <i className="zmdi zmdi-account material-icons-name" />
+            <h2 className="form-title">Reset Password</h2>
+            <form className="register-form" onSubmit={handleSubmit}>
+              
+            <div className="form-group">
+                <label htmlFor="your_pass">
+                  <i className="zmdi zmdi-lock" />
                 </label>
                 <input
-                  ref={emailRef}
-                  type="text"
-                  name="your_name"
-                  id="your_name"
-                  placeholder="Your Email"
-                  onFocus={()=>setError("")}
+                  ref={passRef}
+                  type="password"
+                  name="your_pass"
+                  id="your_pass"
+                  placeholder="Password"
+                  onFocus={() => setError("")}
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="your_pass">
+                  <i className="zmdi zmdi-lock" />
+                </label>
+                <input
+                  ref={rPassRef}
+                  type="password"
+                  name="your_pass"
+                  id="your_pass"
+                  placeholder="Repeated Password"
+                  onFocus={() => setError("")}
                 />
               </div>
               <div className="form-group form-button">
@@ -67,11 +85,14 @@ function ForgetPassPage() {
                   name="signin"
                   id="signin"
                   className="form-submit"
-                  defaultValue="Send Email"
+                  defaultValue="Change Password"
                 />
               </div>
             </form>
-            <div className={error ? "alert alert-danger m-1":"d-none"} role="alert">
+            <div
+              className={error? "alert alert-danger" : "d-none"}
+              role="alert"
+            >
               {error}
             </div>
             <div className="social-login">
@@ -101,4 +122,4 @@ function ForgetPassPage() {
   );
 }
 
-export default ForgetPassPage;
+export default ResetPassPage;
