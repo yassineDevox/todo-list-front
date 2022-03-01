@@ -1,42 +1,36 @@
-import { connect } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Track from "../../components/track";
+import { loadTracks } from "../../redux/ducks/track";
+import Spinner from "../../Theme/shared/spinner";
+import "./../../assets/style/track.css";
 
+const ListTrack = ({ list }) => (
+  <>
+    {list.map((t) => (
+      <Track key={t.id} id={t.id} tm={t.attributes} />
+    ))}
+  </>
+);
 
+export const StorePage = () => {
+  //dispatch redux
+  const call = useDispatch();
 
-import "./../../assets/style/track.css"
+  //select track state
+  let isLoading = useSelector((s) => s.track.isLoading);
+  const allTracks = useSelector((s) => s.track.list);
 
-const StoreUI = ({ listTrack }) => {
+  //on cmp didmount
+  useEffect(() => {
+    call(loadTracks());
+  }, []);
+
   return (
-    <div style={{ padding: "10px" }}>
-
-      <div className="d-flex">
-        {/* {
-          listTrack?.map(t => <Track key={t.id} id={t.id} title={t.title} />)
-        } */}
-        <Track/>
-        <Track/>
-        <Track/>
-        <Track/>
-        <Track/>
-        <Track/>
-        <Track/>
-        <Track/>
+    <div style={{ padding: "10px"}}>
+      <div className=" list-tracks">
+        {isLoading ? <Spinner /> : <ListTrack list={allTracks} />}
       </div>
     </div>
-
-  )
+  );
 };
-
-
-export function Store() {
-  return <StoreUI />
-}
-
-const Connection = connect(
-    (state) => ({
-      listTrack: state.tracks
-    })
-  )
-export default Connection(StoreUI)
-
-

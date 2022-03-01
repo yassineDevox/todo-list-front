@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 //router
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
@@ -10,7 +9,7 @@ import {
   Dashboard,
   Interviews,
   Projects,
-  Store,
+  StorePage,
   Students,
   TrackDetails,
 } from "../pages/app";
@@ -48,7 +47,7 @@ const AppRoutes = () => {
           <Route path="projects" element={<Projects />} />
           <Route path="interviews" element={<Interviews />} />
           <Route path="students" element={<Students />} />
-          <Route path="store" element={<Store />} />
+          <Route path="store" element={<StorePage />} />
           <Route path="tracks/:id/curriculum" element={<TrackDetails />} />
         </Route>
       </Routes>
