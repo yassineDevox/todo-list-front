@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import imgSignup from "./../assets/images/signup-image.jpg";
-import { registerUser } from "../redux/ducks/user";
 import { useDispatch } from "react-redux";
 import { UserModel } from "./../model/user";
 import { ROLE } from "../model/role";

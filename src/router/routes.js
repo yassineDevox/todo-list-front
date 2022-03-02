@@ -19,7 +19,7 @@ const AppRoutes = () => {
           element={<ResetPassPage />}
         />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/todo" element={<TodoPage />} />
+        {/* <Route path="/todo" element={<TodoPage />} /> */}
       </Routes>
     </Router>
   );
