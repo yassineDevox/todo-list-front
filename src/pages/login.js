@@ -5,6 +5,7 @@ import imgSignin from "./../assets/images/signin-image.jpg";
 import axios from "axios";
 import { CredentialsModel } from "../model/credantials";
 import { Link } from "react-router-dom";
+import Spinner from "../shared/spinner/spinner";
 
 function LoginPage() {
   //refs
@@ -12,6 +13,7 @@ function LoginPage() {
   const passRef = useRef("");
   //state
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +22,8 @@ function LoginPage() {
     const p = passRef.current.value;
     if (!em || !p) alert("error empty values 😞");
     else {
+      // spinner tourne stp
+      setIsLoading(true);
       //communication avec le serveur
       axios
         .post(
@@ -28,8 +32,14 @@ function LoginPage() {
         )
         .then((response) => {
           setError("");
+          setIsLoading(false);
         })
-        .catch((errServer) => setError(errServer.response.data.msg));
+        .catch((errServer) => {
+          setIsLoading(false)
+          setError(errServer.response.data.msg);
+        });
+        emailRef.current.value="";
+        passRef.current.value="";
     }
   };
   return (
@@ -40,8 +50,12 @@ function LoginPage() {
             <figure>
               <img src={imgSignin} alt="sing up image" />
             </figure>
-            <Link to="/forget-pass" className="signup-image-link">forget password</Link>
-            <Link to="/register" className="signup-image-link">create account</Link>
+            <Link to="/forget-pass" className="signup-image-link">
+              forget password
+            </Link>
+            <Link to="/register" className="signup-image-link">
+              create account
+            </Link>
           </div>
           <div className="signin-form">
             <h2 className="form-title">Sign In</h2>
@@ -91,13 +105,14 @@ function LoginPage() {
                   type="submit"
                   name="signin"
                   id="signin"
-                  className="form-submit"
-                  defaultValue="Log in"
+                  className="form-submit me-1"
+                  value="Log in"
                 />
+                {isLoading ? <Spinner /> : ""}
               </div>
             </form>
             <div
-              className={error !== "" ? "alert alert-danger" : "d-none"}
+              className={error !== "" ? "alert alert-danger mt-2" : "d-none"}
               role="alert"
             >
               {error}
