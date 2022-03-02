@@ -82,10 +82,6 @@ const ListTodo = () => {
                     )
                 }
             </ul>
-            <Paggination
-                currentPage={page}
-                onPageIndexChange={(index) => dispatch(setPage(index))}
-            />
             <div>
                 {/* Modal */}
                 <Modal
