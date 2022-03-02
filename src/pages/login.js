@@ -6,6 +6,8 @@ import axios from "axios";
 import { CredentialsModel } from "../model/credantials";
 import { Link } from "react-router-dom";
 import Spinner from "../shared/spinner/spinner";
+import { loadUser } from "../redux/ducks/auth";
+import { useDispatch } from "react-redux";
 
 function LoginPage() {
   //refs
@@ -14,7 +16,10 @@ function LoginPage() {
   //state
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  //call redux actions 
+  const call = useDispatch()
 
+  //submit login
   const handleSubmit = (e) => {
     e.preventDefault();
     //valider les donne
@@ -33,6 +38,8 @@ function LoginPage() {
         .then((response) => {
           setError("");
           setIsLoading(false);
+          //appeler loadUser pour enregister le userInfo
+          call(loadUser(response.data))
         })
         .catch((errServer) => {
           setIsLoading(false)
