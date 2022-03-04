@@ -1,12 +1,18 @@
 import React from "react";
 
 //router
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { Routes, Route, BrowserRouter as Router, Navigate, Outlet } from "react-router-dom";
 import RegisterPage from "../pages/register";
 import LoginPage from "../pages/login";
 import TodoPage from "../pages/todo";
 import ForgetPassPage from "../pages/forgetPass";
 import ResetPassPage from "../pages/resetPassword";
+
+//private routes 
+function PrivateTodo() {
+  const user = window.localStorage.getItem("user-info");
+  return user ? <Outlet /> : <Navigate to="/" />;
+}
 
 const AppRoutes = () => {
   return (
@@ -19,7 +25,11 @@ const AppRoutes = () => {
           element={<ResetPassPage />}
         />
         <Route path="/register" element={<RegisterPage />} />
-        {/* <Route path="/todo" element={<TodoPage />} /> */}
+        {/* secure todo Page  */}
+        <Route path="/todo" element={<PrivateTodo/>}>
+          <Route  element={<TodoPage />} />
+        </Route>
+        
       </Routes>
     </Router>
   );

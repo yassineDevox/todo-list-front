@@ -4,12 +4,16 @@ import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css"
 import imgSignin from "./../assets/images/signin-image.jpg";
 import axios from "axios";
 import { CredentialsModel } from "../model/credantials";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Spinner from "../shared/spinner/spinner";
-import { loadUser } from "../redux/ducks/auth";
+import { loadUserFromAPI } from "../redux/ducks/auth";
 import { useDispatch } from "react-redux";
 
 function LoginPage() {
+
+  //router 
+  const navTo = useNavigate()
+
   //refs
   const emailRef = useRef("");
   const passRef = useRef("");
@@ -39,11 +43,13 @@ function LoginPage() {
           setError("");
           setIsLoading(false);
           //appeler loadUser pour enregister le userInfo
-          call(loadUser(response.data))
+          call(loadUserFromAPI(response.data))
+          //nav to todo list page 
+          navTo("/todo")
         })
         .catch((errServer) => {
           setIsLoading(false)
-          setError(errServer.response.data.msg);
+          setError(errServer.response.data?.msg);
         });
         emailRef.current.value="";
         passRef.current.value="";
