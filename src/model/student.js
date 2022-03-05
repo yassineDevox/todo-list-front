@@ -6,7 +6,8 @@ export class StudentModel {
         email = "",
         phone = "",
         github = "",
-        linkedIn = ""
+        linkedIn = "",
+        avatarURL = ""
     ) {
         this.id = id
         this.firstname = firstname
@@ -15,6 +16,7 @@ export class StudentModel {
         this.phone = phone
         this.github = github
         this.linkedIn = linkedIn
+        this.avatarURL = avatarURL
     }
 
 

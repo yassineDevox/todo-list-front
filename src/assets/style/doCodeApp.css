@@ -245,6 +245,7 @@ ul {
     width: fit-content;
     top: 90px;
     right: 10px;
+    background-color: #f7f7f7;
     border-radius: 5px;
     -moz-box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
     box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
