@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
-import "./../assets/style/register.css";
-import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css";
-import imgSignin from "./../assets/images/signin-image.jpg";
+import "assets/style/register.css";
+import "assets/fonts/material-icon/css/material-design-iconic-font.min.css";
+import imgSignin from "assets/images/signin-image.jpg";
 import axios from "axios";
-import { CredentialsModel } from "../model/credantials";
+import { CredentialsModel } from "model/credantials";
 import { Link, useParams } from "react-router-dom";
 
-function ResetPassPage() {
+export function ResetPassPage() {
   //refs
   const passRef = useRef("");
   const rPassRef = useRef("");
@@ -122,4 +122,3 @@ function ResetPassPage() {
   );
 }
 
-export default ResetPassPage;

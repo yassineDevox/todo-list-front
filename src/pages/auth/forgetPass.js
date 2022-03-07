@@ -1,12 +1,12 @@
-import "./../assets/style/register.css";
-import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css";
-import imgSignin from "./../assets/images/signin-image.jpg";
+import "assets/style/register.css";
+import "assets/fonts/material-icon/css/material-design-iconic-font.min.css";
+import imgSignin from "assets/images/signin-image.jpg";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
 
 
-function ForgetPassPage() {
+export function ForgetPassPage() {
   //refs
   const emailRef = useRef("");
   //state
@@ -101,4 +101,3 @@ function ForgetPassPage() {
   );
 }
 
-export default ForgetPassPage;

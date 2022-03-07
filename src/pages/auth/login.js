@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
-import "./../assets/style/register.css";
-import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css";
-import imgSignin from "./../assets/images/signin-image.jpg";
+import "assets/style/register.css";
+import "assets/fonts/material-icon/css/material-design-iconic-font.min.css";
+import imgSignin from "assets/images/signin-image.jpg";
 import axios from "axios";
-import { CredentialsModel } from "../model/credantials";
+import { CredentialsModel } from "model/credantials";
 import { Link, useNavigate } from "react-router-dom";
-import Spinner from "../shared/spinner/spinner";
-import { loadUserFromAPI } from "../redux/ducks/auth";
+import Spinner from "shared/spinner/spinner";
+import { loadUserFromAPI } from "redux/ducks/auth";
 import { useDispatch } from "react-redux";
 
-function LoginPage() {
+export function LoginPage() {
 
   //router 
   const navTo = useNavigate()
@@ -156,5 +156,3 @@ function LoginPage() {
     </section>
   );
 }
-
-export default LoginPage;

@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import AddTodo from "../components/AddTodo";
-import ListTodo from "../components/ListTodo";
+import AddTodo from "components/AddTodo";
+import ListTodo from "components/ListTodo";
 import {
   clearUserSession,
   loadUserFromLocalStorage,
-} from "../redux/ducks/auth";
+} from "redux/ducks/auth";
 
-const TodoPage = () => {
+export const TodoPage = () => {
   //route
   const navTo = useNavigate();
   //get global state from redux's store
@@ -47,4 +47,3 @@ const TodoPage = () => {
   );
 };
 
-export default TodoPage;

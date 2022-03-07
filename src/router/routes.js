@@ -1,14 +1,26 @@
 import React from "react";
 
 //router
-import { Routes, Route, BrowserRouter as Router, Navigate, Outlet } from "react-router-dom";
-import RegisterPage from "../pages/register";
-import LoginPage from "../pages/login";
-import TodoPage from "../pages/todo";
-import ForgetPassPage from "../pages/forgetPass";
-import ResetPassPage from "../pages/resetPassword";
+import {
+  Routes,
+  Route,
+  BrowserRouter as Router,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
+//auth
+import {
+  ForgetPassPage,
+  LoginPage,
+  RegisterPage,
+  ResetPassPage,
+} from "pages/auth";
+//errors
+import { Error404 } from "pages/errors";
+//website
+import { TodoPage } from "pages/website";
 
-//private routes 
+//private routes
 function PrivateTodo() {
   const user = window.localStorage.getItem("user-info");
   return user ? <Outlet /> : <Navigate to="/" />;
@@ -26,10 +38,10 @@ const AppRoutes = () => {
         />
         <Route path="/register" element={<RegisterPage />} />
         {/* secure todo Page  */}
-        <Route path="/todo" element={<PrivateTodo/>}>
-          <Route  element={<TodoPage />} />
+        <Route path="/todo" element={<PrivateTodo />}>
+          <Route element={<TodoPage />} />
         </Route>
-        
+        <Route path="*" element={<Error404 />}></Route>
       </Routes>
     </Router>
   );

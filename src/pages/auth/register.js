@@ -1,17 +1,17 @@
 import React, { useRef } from "react";
-import imgSignup from "./../assets/images/signup-image.jpg";
+import imgSignup from "assets/images/signup-image.jpg";
 import { useDispatch } from "react-redux";
-import { UserModel } from "./../model/user";
-import { ROLE } from "../model/role";
-import "./../assets/style/register.css";
-import "./../assets/fonts/material-icon/css/material-design-iconic-font.min.css";
+import { UserModel } from "model/user";
+import { ROLE } from "model/role";
+import "assets/style/register.css";
+import "assets/fonts/material-icon/css/material-design-iconic-font.min.css";
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // https://api.multiavatar.com/fn1.ln2
 
-function RegisterPage() {
+export function RegisterPage() {
   const call = useDispatch();
   //refs
   const fn = useRef();
@@ -195,5 +195,3 @@ function RegisterPage() {
     </section>
   );
 }
-
-export default RegisterPage;
