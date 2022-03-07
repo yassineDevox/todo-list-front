@@ -11,7 +11,6 @@ const AddTodo = () => {
   };
   return (
     <>
-      <h1 className="mb-5">Add Task</h1>
       <form
         className="d-flex flex-column gap-3 w-50 mx-auto align-items-center"
         onSubmit={handleSubmit}

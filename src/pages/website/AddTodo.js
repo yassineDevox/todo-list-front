@@ -8,6 +8,7 @@ import {
   clearUserSession,
   loadUserFromLocalStorage,
 } from "redux/ducks/auth";
+import NavBar from "shared/navBar/NavBar";
 
 export const AddTodoPage = () => {
   //route
@@ -32,13 +33,8 @@ export const AddTodoPage = () => {
 
   return (
     <div className="text-center">
-      <div className="d-flex justify-content-between mx-auto w-75 m-1 p-2">
-        <h4>Hello : {user?.firstname}</h4>
-        <button onClick={handleClickLogout} className="btn btn-warning">
-          <i className="fas fa-power-off"></i>
-        </button>
-      </div>
-      {/* <img src = {user?.avatarURL} height={100}/> */}
+      <NavBar/>
+      <h1 className="m-5">Add Task</h1>
       <AddTodo />
     </div>
   )
