@@ -9,7 +9,7 @@ import {
   loadUserFromLocalStorage,
 } from "redux/ducks/auth";
 
-export const TodoPage = () => {
+export const AddTodoPage = () => {
   //route
   const navTo = useNavigate();
   //get global state from redux's store
@@ -40,10 +40,6 @@ export const TodoPage = () => {
       </div>
       {/* <img src = {user?.avatarURL} height={100}/> */}
       <AddTodo />
-      <hr />
-      <h1>List des Taches </h1>
-      <ListTodo />
     </div>
-  );
-};
-
+  )
+}

@@ -18,7 +18,7 @@ import {
 //errors
 import { Error404 } from "pages/errors";
 //website
-import { TodoPage } from "pages/website";
+import { AddTodoPage, ListTodoPage } from "pages/website";
 
 //private routes
 function PrivateTodo() {
@@ -39,7 +39,8 @@ const AppRoutes = () => {
         <Route path="/register" element={<RegisterPage />} />
         {/* secure todo Page  */}
         <Route path="/todo" element={<PrivateTodo />}>
-          <Route element={<TodoPage />} />
+          <Route path="all" element={<ListTodoPage />} />
+          <Route path="add" element={<AddTodoPage />} />
         </Route>
         <Route path="*" element={<Error404 />}></Route>
       </Routes>

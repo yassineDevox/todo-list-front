@@ -45,7 +45,7 @@ export function LoginPage() {
           //appeler loadUser pour enregister le userInfo
           call(loadUserFromAPI(response.data))
           //nav to todo list page 
-          navTo("/todo")
+          navTo("/todo/all")
         })
         .catch((errServer) => {
           setIsLoading(false)
