@@ -19,6 +19,9 @@ export class StudentModel {
         this.avatarURL = avatarURL
     }
 
+    get fullName(){
+        return this.firstname+" "+this.lastname
+    }
 
 
 }

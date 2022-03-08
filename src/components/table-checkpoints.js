@@ -7,14 +7,14 @@ const StudentItem = ({ s = new StudentModel() }) => {
   return (
     <div className="student">
       <div className="avatar">
-        <img src={s.avatarURL} alt={s.firstname + " " + s.lastname} />
+        <img src={s.avatarURL} alt={s.fullName} />
       </div>
-      <p>{s.firstname + " " + s.lastname}</p>
+      <p>{s.fullName}</p>
     </div>
   );
 };
 
-const StatusItem = ({ status = "Closed" }) => {
+const StatusItem = ({ status }) => {
   return (
     <div className="status">
       <div className="status-content">
@@ -29,7 +29,7 @@ const CheckpointItem = ({ data: c = new CheckpointModel() }) => {
   return (
     <div className="data-item">
       <StudentItem s={c.student} />
-      <StatusItem  />
+      <StatusItem status={c.status} />
       <div className="track">
         <span>{c.chapter}</span>
       </div>
@@ -74,20 +74,24 @@ const TableHeaderItem = ({ label = "" }) => {
   );
 };
 
+const TableHeader = () => {
+  return (
+    <>
+      {["students", "status", "track", "checkpoint name", "Submitted Date"].map(
+        (l, i) => (
+          <TableHeaderItem key={i} label={l} />
+        )
+      )}
+    </>
+  );
+};
+
 const CheckpointsTable = ({ list = [new CheckpointModel()] }) => {
   return (
     <div className="table-container">
+      <TableHeader/>
       {/* table header  */}
       <div className="table-header">
-        {[
-          "students",
-          "status",
-          "track",
-          "checkpoint name",
-          "Submitted Date",
-        ].map((l, i) => (
-          <TableHeaderItem key={i} label={l} />
-        ))}
         <div className="table-header-item">
           <span className="name-action">Action</span>
         </div>
