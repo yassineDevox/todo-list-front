@@ -1,9 +1,9 @@
 import "./spinner.css"
 import React from 'react';
 
-const Spinner = () => {
+const Spinner = ({color="success"}) => {
     return (
-        <div className="spinner-border text-success" role="status">
+        <div className={`spinner-border text-${color}`} role="status">
             <span className="sr-only">Loading...</span>
         </div>
     );

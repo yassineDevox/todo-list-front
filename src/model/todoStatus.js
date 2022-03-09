@@ -1,4 +1,6 @@
 
+//enumeration
+
 export class TodoStatus {
     
     static get TODO () {
