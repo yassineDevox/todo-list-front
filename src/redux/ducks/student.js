@@ -66,4 +66,4 @@ export const {
     setPage
 } = studentSlice.actions
 
-export default studentSlice.reducer
+export const studentReducer =  studentSlice.reducer

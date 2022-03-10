@@ -89,9 +89,10 @@ const TableHeader = () => {
 const CheckpointsTable = ({ list = [new CheckpointModel()] }) => {
   return (
     <div className="table-container">
-      <TableHeader/>
+      
       {/* table header  */}
       <div className="table-header">
+        <TableHeader/>
         <div className="table-header-item">
           <span className="name-action">Action</span>
         </div>

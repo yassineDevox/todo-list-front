@@ -62,4 +62,4 @@ const authSlice = createSlice({
 
 export const { setLoading, clearErrorMsg, logout, loadUserSession } =
   authSlice.actions;
-export default authSlice.reducer;
+export const authReducer =  authSlice.reducer;

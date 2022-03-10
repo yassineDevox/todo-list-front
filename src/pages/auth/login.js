@@ -1,11 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { clearErrorMsg, login } from "../../redux/ducks/auth";
+import { Link } from "react-router-dom";
+import { Helper } from "../../helpers/helper";
+import { useClearError, useGuardAuth } from "../../hooks/login";
+import { login } from "../../redux/ducks/auth";
 import Spinner from "../../Theme/shared/spinner";
 import logo from "./../../assets/img/loginLogo.svg";
+
+const Input = ({
+  reff,
+  onFocus,
+  isError,
+  placeholder,
+  type = "text",
+  errorMsg,
+}) => (
+  <>
+    <input
+      ref={reff}
+      onFocus={onFocus}
+      className={!isError ? "" : "input-error"}
+      type={type}
+      placeholder={placeholder}
+    />
+    <span className={!isError ? "" : "msg-error"}>{errorMsg}</span>
+  </>
+);
 
 export const Login = () => {
   //state
@@ -17,50 +38,25 @@ export const Login = () => {
   const call = useDispatch();
 
   //redux state
-  const errorServer = useSelector((s) => s.auth.error);
   const isloading = useSelector((s) => s.auth.isLoading);
-  const userInfo = useSelector((s) => s.auth.userInfo);
+  
+  //hooks
+  useGuardAuth();
+  useClearError();
 
-  //router hooks
-  const navigate = useNavigate();
-
-  //on submit login
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
+    const email = Helper.REF.get(emailRef);
+    const password = Helper.REF.get(passwordRef);
 
-    if (email === "" || password === "") setError(true);
+    if (Helper.VALIDATION.isEmpty(email) || Helper.VALIDATION.isEmpty(password))
+      setError(true);
     else {
       call(login({ identifier: email, password }));
-      //clear inputs
-      emailRef.current.value = "";
-      passwordRef.current.value = "";
+      Helper.REF.set(emailRef, "");
+      Helper.REF.set(passwordRef, "");
     }
   };
-  ///--display error msg
-  useEffect(() => {
-    if (errorServer !== ""){
-       toast.error(errorServer, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      //clear errorServer 
-      call(clearErrorMsg())
-    }
-     
-  }, [errorServer]);
-
-  useEffect(() => {
-    if (Object.keys(userInfo).length === 2) {
-      navigate("/dashboard");
-    }
-  }, [userInfo]);
 
   const handleFocusInput = () => setError(false);
 
@@ -72,28 +68,25 @@ export const Login = () => {
       </div>
       <div className="form-body">
         <form onSubmit={handleLoginSubmit}>
-          <input
-            ref={emailRef}
+          <Input
+            reff={emailRef}
             onFocus={handleFocusInput}
-            className={!error ? "" : "input-error"}
-            type="text"
+            errorMsg="Please enter your email !"
             placeholder="Email address"
+            type="email"
+            isError={error}
           />
 
-          <span className={!error ? "" : "msg-error"}>
-            Please enter your email !
-          </span>
           <br />
-          <input
-            ref={passwordRef}
+          <Input
+            reff={passwordRef}
             onFocus={handleFocusInput}
-            type="password"
-            className={!error ? "" : "input-error"}
+            errorMsg="Please enter your password !"
             placeholder="Password "
+            type="password"
+            isError={error}
           />
-          <span className={!error ? "" : "msg-error"}>
-            Please enter your Password !
-          </span>
+
           <br />
           <button type="submit">{isloading ? <Spinner /> : ""} Login </button>
         </form>

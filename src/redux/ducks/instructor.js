@@ -64,4 +64,4 @@ export const {
     setPage
 } = instructorSlice.actions
 
-export default instructorSlice.reducer
+export const instructorReducer =  instructorSlice.reducer

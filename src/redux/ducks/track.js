@@ -74,4 +74,4 @@ export const listTrackSelector = (s) => [
 //export
 export const { add, del, edit, setPage } = trackSlice.actions;
 
-export default trackSlice.reducer;
+export const trackReducer =  trackSlice.reducer;

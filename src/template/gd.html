@@ -45,7 +45,7 @@
     }
 
     .side-bar {
-      width: 5%;
+      width: 17%;
       height: 100vh;
       background-color: #18204b;
       display: flex;
@@ -415,7 +415,7 @@
           /* tabs */
           nav.tabs {
             border-bottom: 1px solid rgba(128, 128, 128, 0.281);
-            margin: 49px 49px 34px 49px;
+            margin: 49px 49px 3px 49px;
           }
           nav.tabs ul {
             display: flex;
@@ -469,520 +469,151 @@
           <!-- tabs  -->
           <nav class="tabs">
             <ul>
-              <li>Checkpoints to validate</li>
-              <li>Closed checkpoints</li>
-              <li>Unlocked checkpoints</li>
+              <li>Todo</li>
+              <li>Profile</li>
+              <li>Tracks Preview</li>
+              <li>Password</li>
             </ul>
           </nav>
+          <!-- information  -->
           <style>
-            .search-filter {
-              position: relative;
-            }
-            .search-filter i {
-              position: relative;
-              left: 20px;
-              top: 1px;
-              z-index: 1;
-              font-size: 13px;
-            }
-            .filter-values {
-              border: 0.5px solid;
-              width: fit-content;
-              padding: 5px;
-              margin-top: 5px;
-              border-radius: 3px;
-              display: none;
-            }
-            .filter-choice-item label {
-              font-size: 11px;
-              font-weight: bold;
-              width: 100%;
-              cursor: pointer;
-              transition: all 0.5s;
-              padding: 5px 11px;
+            .main-page-content {
+              background-color: #f7f7f7;
             }
 
-            .filter-choice-item {
-              display: flex;
-              align-items: center;
-              gap: 6px;
+            .info-heading,
+            .contact-heading {
+              text-transform: uppercase;
+              font-weight: bold;
             }
-            .filter-choices {
-              margin-top: 5px;
-              padding: 14px 0px;
-              border: 0.5px solid;
-              border-radius: 4px;
-              margin: 7px auto;
-              width: 91%;
-            }
-            .search-filter input[type="search"] {
-              position: relative;
-              left: -9px;
-              border: 1px solid #d9d9d9;
-              border-radius: 4px;
-              padding: 4px 11px;
-              padding-left: 30px;
-              transition: all 0.3s;
-            }
-            .actions {
-              display: flex;
-              gap: 5px;
-              justify-content: flex-end;
-            }
-            .actions button.add {
-              color: rgba(0, 0, 0, 0.25);
-              border-color: #d9d9d9;
-              background-color: #f5f5f5;
-              border: 2px solid #d9d9d9;
-              color: #b4b4b4;
-              min-width: 80px;
-              font-weight: normal;
-              cursor: pointer;
-              transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-              height: 39px;
-              box-shadow: unset;
-              outline: 0;
-              border-radius: 3px;
-              margin-right: 10px;
-            }
-            .actions button.cancel {
-              border: none;
-              background-color: transparent;
-              cursor: pointer;
-            }
-            /* pretty radio */
-            .filter-choice-item label > input[type="radio"] {
-              display: none;
-            }
-            .filter-choice-item label > input[type="radio"] + *::before {
-              content: "";
-              display: inline-block;
-              vertical-align: sub;
-              width: 0.6rem;
-              height: 0.6rem;
-              margin-right: 0.3rem;
+
+            .info-body img {
+              height: 100px;
               border-radius: 50%;
-              border-style: solid;
-              border-width: 0.1rem;
-              border-color: gray;
             }
-            .filter-choice-item label > input[type="radio"]:checked + * {
-              color: #1a0ab5;
-            }
-            .filter-choice-item
-              label
-              > input[type="radio"]:checked
-              + *::before {
-              background: radial-gradient(
-                #1a0ab5 0%,
-                #1a0ab5 40%,
-                transparent 50%,
-                transparent
-              );
-              border-color: #1a0ab5;
-            }
-            .filter-choice-item label:hover {
-              background-color: rgba(111, 192, 254, 0.12);
-            }
-            .actions .add-active {
-              background-color: #1a0ab5 !important;
-              border-color: #1a0ab5 !important;
-              border-radius: 5px !important;
-              color: white !important;
-            }
-            .filter-values-active,
-            .filter-choices-active,
-            .filter-active {
-              border: 1px solid #1a0ab5;
-            }
-            .filter-active i {
-              color: #1a0ab5;
-            }
-            .list-filters {
+
+            .profile {
+              padding: 10px 48px;
               display: flex;
-              margin-left: 49px;
-              gap: 25px;
+              gap: 20px;
+              /* justify-content: space-around; */
             }
-          </style>
-          <!-- filters -->
-          <div class="list-filters">
-            <div class="filters-container">
-              <div class="filter filter-active">
-                <span>Student Name</span>
-                <span><i class="fas fa-arrow-down"></i></span>
-              </div>
-              <div class="filter-values filter-values-active">
-                <div class="search-filter">
-                  <i class="fas fa-search"></i>
-                  <input type="search" placeholder="Type in to search" />
-                </div>
-                <div class="filter-choices filter-choices-active">
-                  <div class="filter-choice-item">
-                    <label>
-                      <input type="radio" name="radio-button" value="css" />
-                      <span>Contains</span>
-                    </label>
-                  </div>
-                  <div class="filter-choice-item">
-                    <label>
-                      <input type="radio" name="radio-button" value="no" />
-                      <span>Does not contains</span>
-                    </label>
-                  </div>
-                </div>
-                <div class="actions">
-                  <button class="cancel">Cancel</button>
-                  <button class="add add-active">Add</button>
-                </div>
-              </div>
-            </div>
-            <div class="filters-container">
-              <div class="filter">
-                <span>Track</span>
-                <span><i class="fas fa-arrow-down"></i></span>
-              </div>
-              <div class="filter-values">
-                <div class="search-filter">
-                  <i class="fas fa-search"></i>
-                  <input type="search" placeholder="Type in to search" />
-                </div>
-                <div class="filter-choices">
-                  <div class="filter-choice-item">
-                    <label>
-                      <input type="radio" name="radio-button" value="css" />
-                      <span>Contains</span>
-                    </label>
-                  </div>
-                  <div class="filter-choice-item">
-                    <label>
-                      <input type="radio" name="radio-button" value="no" />
-                      <span>Does not contains</span>
-                    </label>
-                  </div>
-                </div>
-                <div class="actions">
-                  <button class="cancel">Cancel</button>
-                  <button class="add add-active">Add</button>
-                </div>
-              </div>
-            </div>
-            <div class="filters-container">
-              <div class="filter">
-                <span>Checkpoint Name</span>
-                <span><i class="fas fa-arrow-down"></i></span>
-              </div>
-              <div class="filter-values">
-                <div class="search-filter">
-                  <i class="fas fa-search"></i>
-                  <input type="search" placeholder="Type in to search" />
-                </div>
-                <div class="filter-choices">
-                  <div class="filter-choice-item">
-                    <label>
-                      <input type="radio" name="radio-button" value="css" />
-                      <span>Contains</span>
-                    </label>
-                  </div>
-                  <div class="filter-choice-item">
-                    <label>
-                      <input type="radio" name="radio-button" value="no" />
-                      <span>Does not contains</span>
-                    </label>
-                  </div>
-                </div>
-                <div class="actions">
-                  <button class="cancel">Cancel</button>
-                  <button class="add add-active">Add</button>
-                </div>
-              </div>
-            </div>
-            <div class="filters-container">
-              <div class="filter">
-                <span>Status</span>
-                <span><i class="fas fa-arrow-down"></i></span>
-              </div>
-              <div class="filter-values">
-                <div class="search-filter">
-                  <i class="fas fa-search"></i>
-                  <input type="search" placeholder="Type in to search" />
-                </div>
-                <div class="filter-choices">
-                  <div class="filter-choice-item">
-                    <label>
-                      <input type="radio" name="radio-button" value="css" />
-                      <span>Contains</span>
-                    </label>
-                  </div>
-                  <div class="filter-choice-item">
-                    <label>
-                      <input type="radio" name="radio-button" value="no" />
-                      <span>Does not contains</span>
-                    </label>
-                  </div>
-                </div>
-                <div class="actions">
-                  <button class="cancel">Cancel</button>
-                  <button class="add add-active">Add</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <style>
-            .table-container {
-              border: solid gainsboro;
-              margin: 30px 49px;
-            }
-            .table-header {
-              height: 60px;
-              border-bottom: 0.5px solid gainsboro;
+
+            .info-details,
+            .contact-details {
               display: flex;
+              gap: 13px;
             }
-            .table-header > div,
-            .data-item > div {
-              flex-grow: 1;
-              flex-basis: 0;
+
+            .info-details > div > div {
+              margin: 11px;
             }
-            .table-body {
-              height: 150px;
-            }
-            .table-body-empty {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            }
-            .table-body-empty .no-data {
-              display: block;
-            }
-            .no-data {
-              display: none;
-            }
-            .no-data p {
-              color: gainsboro;
+
+            .content p:first-child {
               font-weight: bold;
             }
-            .table-header-item {
-              display: flex;
-              gap: 7px;
-              padding: 18px;
-              cursor: pointer;
-              transition: 0.7s all;
-              /* border: solid; */
-            }
-            .table-header-item:hover {
-              background-color: #dcdcdc4d;
+
+            .infos,
+            .contacts {
+              width: 50%;
+              background-color: white;
+              border-radius: 4px;
+              padding: 17px;
+              box-shadow: 0px 1px 21px 0px #80808017;
             }
 
-            .sort {
+            .info-body {
+              /* border: solid; */
               display: flex;
-              flex-direction: column;
-              /* gap: 0px; */
+              gap: 30px;
+              padding: 30px;
             }
-            .sort i:first-child {
-              margin-top: 5px;
+
+            .contact-item {
+              /* border: solid; */
+              display: flex;
+              gap: 25px;
+              align-items: center;
+              /* padding: 6px; */
+              margin-top: 10px;
             }
-            .sort i {
-              height: 1px;
-              font-size: 0.7em;
-              color: gainsboro;
+
+            .contact-item i {
+              font-size: 1.6em;
+              color: #bdbdbd;
+              margin-top: -9px;
             }
-            .table-header-item span.name,
-            .name-action {
-              font-size: 1.2em;
-              color: #0f0f0f !important;
-              font-weight: 600;
-              font-family: monospace;
-            }
-            .name-action {
-              text-align: center !important;
+            .contact-details > div {
+              margin: 15px 0px;
             }
           </style>
-          <div class="table-container">
-            <div class="table-header">
-              <div class="table-header-item">
-                <span class="name">Students</span>
-                <div class="sort">
-                  <i class="fas fa-sort-up"></i>
-                  <i class="fas fa-sort-down"></i>
+          <div class="profile">
+            <div class="infos">
+              <div class="info-heading">Information</div>
+              <div class="info-body">
+                <img
+                  src="https://gomycodelearn.blob.core.windows.net/profiles/2b3edd8c-98c9-4a15-8b05-e6c92ab73a00-132735634787447366.jpg"
+                  alt=""
+                />
+
+                <div class="content">
+                  <p>Yassine Rassy</p>
+                  <div class="info-details">
+                    <div>
+                      <div>
+                        <p>Location</p>
+                        <p>Casablanca</p>
+                      </div>
+                      <div>
+                        <p>Contract</p>
+                        <p>freelance</p>
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <p>Work Schedule</p>
+                        <p>PART TIME</p>
+                      </div>
+                      <div>
+                        <p>Start Date</p>
+                        <p>2022-03-10</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="table-header-item">
-                <span class="name">Status</span>
-                <div class="sort">
-                  <i class="fas fa-sort-up"></i>
-                  <i class="fas fa-sort-down"></i>
-                </div>
-              </div>
-              <div class="table-header-item">
-                <span class="name">Track</span>
-                <div class="sort">
-                  <i class="fas fa-sort-up"></i>
-                  <i class="fas fa-sort-down"></i>
-                </div>
-              </div>
-              <div class="table-header-item">
-                <span class="name">Checkpoint Name</span>
-                <div class="sort">
-                  <i class="fas fa-sort-up"></i>
-                  <i class="fas fa-sort-down"></i>
-                </div>
-              </div>
-              <div class="table-header-item">
-                <span class="name">Submitted Date</span>
-                <div class="sort">
-                  <i class="fas fa-sort-up"></i>
-                  <i class="fas fa-sort-down"></i>
-                </div>
-              </div>
-              <div class="table-header-item">
-                <span class="name-action">Action</span>
               </div>
             </div>
-            <style>
-              .student {
-                display: flex;
-                gap: 10px;
-                align-items: center;
-              }
-              .student .avatar {
-                height: 40px;
-                width: 40px;
-                border-radius: 100%;
-                margin-left: 20px;
-                overflow: hidden;
-              }
-              .student .avatar img {
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-              }
-              .student p,
-              .data-item > div span {
-                font-size: 0.8em;
-                font-weight: bold;
-                overflow-wrap: break-word;
-              }
-              .data-item > div {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-              }
-              .data-item > div > span,
-              .data-item > div > div {
-                margin-left: 21px;
-              }
-              .action-item button {
-                margin-left: 20px;
-                background-color: #fefefe !important;
-                color: #1a0ab5 !important;
-                font-family: initial;
-                font-size: 13px;
-                font-size: 0.8125rem;
-                border: 1px solid #1a0ab5;
-                cursor: pointer;
-                transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-                height: 30px;
-                padding: 0px 8px;
-                font-size: 13px;
-                /* font-weight: bold; */
-                font-family: monospace;
-                border-radius: 4px;
-                color: rgba(0, 0, 0, 0.65);
-                background-color: #fff;
-                /* letter-spacing: 3px; */
-              }
-              .action-item button:hover {
-                color: #fefefe !important;
-                background-color: #1a0ab5 !important;
-              }
-              .data-item {
-                height: 60px;
-                border-bottom: 0.5px solid gainsboro;
-                display: flex;
-                transition: 0.5s all;
-              }
-              .data-item:hover {
-                background-color: #f7f5ff;
-              }
+            <!-- FIN INFOS  -->
+            <div class="contacts">
+              <div class="contact-heading">Contact</div>
+              <div class="contact-body">
+                <div class="content">
+                  <div class="contact-details">
+                    <div>
+                      <div class="contact-item">
+                        <i class="fa-regular fa-envelope"></i>
+                        <div>
+                          <p>Email</p>
+                          <p>yassine.rassy1@gmail.com</p>
+                        </div>
+                      </div>
 
-              .status-content {
-                align-items: center;
-                border: solid 1px #eeeff1;
-                padding: 4px 11px;
-                display: flex;
-                border-radius: 15px;
-                gap: 5px;
-              }
-              .type-status {
-                height: 6px;
-                width: 6px;
-                border-radius: 50%;
-                background: #ff00ff;
-              }
-            </style>
-            <div class="table-body">
-              <div class="no-data">
-                <img src="no-data.svg" alt="nodata" />
-                <br />
-                <p>No Data</p>
-              </div>
-              <div class="list-data">
-                <div class="data-item">
-                  <div class="student">
-                    <div class="avatar">
-                      <img
-                        src="https://gomycodelearndev.blob.core.windows.net/profiles/f39a3427-ebda-4abb-99ee-3494253324fa-132848204739901823.jpeg"
-                        alt="Reda Benmokhtar"
-                      />
+                      <div class="contact-item">
+                        <i class="fa-regular fa-envelope"></i>
+                        <div>
+                          <p>Phone</p>
+                          <p>+212 635 093199</p>
+                        </div>
+                      </div>
+                      <div class="contact-item">
+                        <i class="fa-regular fa-envelope"></i>
+
+                        <div>
+                          <p>Address</p>
+                          <p>Casablanca Maroc</p>
+                        </div>
+                      </div>
                     </div>
-                    <p>Reda Benmokhtar</p>
-                  </div>
-                  <div class="status">
-                    <div class="status-content">
-                      <div class="type-status"></div>
-                      <span>Closed</span>
-                    </div>
-                  </div>
-                  <div class="track">
-                    <span>JavaScript FullStack Bootcamp</span>
-                  </div>
-                  <div class="checkpoint-name">
-                    <span>React Router Checkpoint</span>
-                  </div>
-                  <div class="date-submition">
-                    <span>2022/02/16 09:30</span>
-                  </div>
-                  <div class="action-item">
-                    <button>Validate</button>
-                  </div>
-                </div>
-                <!-- fin data item  -->
-                <div class="data-item">
-                  <div class="student">
-                    <div class="avatar">
-                      <img
-                        src="https://gomycodelearn.blob.core.windows.net/profiles/0cc7667a-a87f-4a30-b5c4-ead205170bbc-132762805436654874.jpg"
-                        alt="Majdouline Msab"
-                      />
-                    </div>
-                    <p>Majdouline Msab...</p>
-                  </div>
-                  <div class="status">
-                    <div class="status-content">
-                      <div class="type-status"></div>
-                      <span>Closed</span>
-                    </div>
-                  </div>
-                  <div class="track">
-                    <span>JavaScript FullStack Bootcamp</span>
-                  </div>
-                  <div class="checkpoint-name">
-                    <span>React Router Checkpoint</span>
-                  </div>
-                  <div class="date-submition">
-                    <span>2022/02/16 09:30</span>
-                  </div>
-                  <div class="action-item">
-                    <button>Validate</button>
                   </div>
                 </div>
               </div>

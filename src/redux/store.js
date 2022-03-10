@@ -1,8 +1,11 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import trackReducer from "./ducks/track";
-import studentReducer from "./ducks/student";
-import instructorReducer from "./ducks/instructor";
-import authReducer from "./ducks/auth";
+import {
+  authReducer,
+  checkpointReducer,
+  instructorReducer,
+  studentReducer,
+  trackReducer,
+} from "./ducks";
 
 const storeRedux = configureStore({
   reducer: combineReducers({
@@ -10,6 +13,7 @@ const storeRedux = configureStore({
     student: studentReducer,
     instructor: instructorReducer,
     auth: authReducer,
+    checkpoint: checkpointReducer,
   }),
 });
 
