@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 // https://api.multiavatar.com/fn1.ln2
 
 export function RegisterPage() {
-  const call = useDispatch();
   //refs
   const fn = useRef();
   const ln = useRef();
