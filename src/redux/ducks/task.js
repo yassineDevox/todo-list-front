@@ -14,8 +14,11 @@ const taskSlice = createSlice({
       state.list.findIndex((t) => t.id == payload.todoId);
       state.list.splice(todoIndex, 1);
     },
+    addTaskFromAPI(state,{payload}){
+      state.list.push(payload)
+    }
   },
 });
 
-export const { loadTasksFromAPI,deleteTaskFromAPI } = taskSlice.actions;
+export const { loadTasksFromAPI,deleteTaskFromAPI,addTaskFromAPI } = taskSlice.actions;
 export default taskSlice.reducer;

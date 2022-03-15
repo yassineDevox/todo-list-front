@@ -1,7 +1,8 @@
 import { TodoModel } from "model/todo";
 import { TodoStatus } from "model/todoStatus";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addTaskFromAPI } from "redux/ducks/task";
 import Spinner from "shared/spinner/spinner";
 import AxiosClient from "tools/axios";
 
@@ -11,6 +12,7 @@ const setVal = (ref, value) => {
 };
 
 const AddTodo = () => {
+  console.log('rendred\n')
   //define a title ref on the input to get the value of it
   const titleRef = useRef();
   const descriptionRef = useRef();
@@ -18,6 +20,9 @@ const AddTodo = () => {
 
   //redux store
   const ConnectedUserId = useSelector((s) => s.auth.user.id);
+
+  //redux actions
+  const call = useDispatch();
 
   //state
   const [isLoading, setIsLoading] = useState(false);
@@ -45,17 +50,23 @@ const AddTodo = () => {
       console.log(statusTask);
     } else {
       setIsLoading(true);
-      AxiosClient.post(
-        "/todos",
-        new TodoModel(null, title, statusTask, description, ConnectedUserId)
-      )
+      const newTask = new TodoModel(
+        null,
+        title,
+        statusTask,
+        description,
+        ConnectedUserId
+      );
+      AxiosClient.post("/todos", newTask)
         .then((response) => {
           setIsLoading(false);
-          setMessage(response?.data.msg)
+          setMessage(response?.data.msg);
+          newTask.id = response.data.todoId
+          call(addTaskFromAPI(newTask));
         })
         .catch((err) => {
           setIsLoading(false);
-         setError(err.response?.data.msg);
+          setError(err.response?.data.msg);
         });
     }
     //vider linputs
@@ -64,11 +75,11 @@ const AddTodo = () => {
     setVal(statusTaskRef, TodoStatus.TODO);
   };
 
-  //hide alert 
-  const hideAlert = ()=>{
-    setError("")
-    setMessage("")
-  }
+  //hide alert
+  const hideAlert = () => {
+    setError("");
+    setMessage("");
+  };
 
   return (
     <>
@@ -98,7 +109,7 @@ const AddTodo = () => {
           <label htmlFor="floatingTextarea">Description</label>
         </div>
         <select
-            onFocus={hideAlert}
+          onFocus={hideAlert}
           ref={statusTaskRef}
           className="form-select"
           aria-label="Default select example"
@@ -120,7 +131,7 @@ const AddTodo = () => {
         {message}
       </div>
       <div
-        className={error !== "" ? "alert alert-danger mt-2" : "d-none"}
+        className={error ? "alert alert-danger mt-2" : "d-none"}
         role="alert"
       >
         {error}

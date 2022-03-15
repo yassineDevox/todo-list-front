@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import "./../assets/style/todo.css"
 import Todo from './Todo';
