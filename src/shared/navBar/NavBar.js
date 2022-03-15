@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { clearUserSession } from "redux/ducks/auth";
+import { setFilter } from "redux/ducks/filter";
 
 const NavBar = () => {
   //route
@@ -18,6 +19,11 @@ const NavBar = () => {
     //redirect to login page
     navTo("/");
   };
+
+  // handle change search input 
+  const handleChangeFilter = (e)=>{
+    call(setFilter(e.target.value))
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -61,8 +67,9 @@ const NavBar = () => {
             <input
               className="form-control me-2"
               type="search"
-              placeholder="Search"
+              placeholder="Filter Task By Title"
               aria-label="Search"
+              onChange={handleChangeFilter}
             />
             <button onClick={handleClickLogout} className="btn btn-warning">
               <i className="fas fa-power-off"></i>
