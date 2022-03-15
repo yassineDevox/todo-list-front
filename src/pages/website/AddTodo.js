@@ -3,11 +3,9 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AddTodo from "components/AddTodo";
-import {
-  clearUserSession,
-  loadUserFromLocalStorage,
-} from "redux/ducks/auth";
+import { clearUserSession, loadUserFromLocalStorage } from "redux/ducks/auth";
 import NavBar from "shared/navBar/NavBar";
+import Footer from "shared/footer/footer";
 
 export const AddTodoPage = () => {
   //route
@@ -27,14 +25,15 @@ export const AddTodoPage = () => {
     //call logout action
     call(clearUserSession());
     //redirect to login page
-    navTo("/")
+    navTo("/");
   };
 
   return (
     <div className="text-center">
-      <NavBar/>
-      <h1 className="m-5">Add Task</h1>
+      <NavBar />
+      <h1 className="m-5">Add Task</h1> 
       <AddTodo />
+      <Footer />
     </div>
-  )
-}
+  );
+};

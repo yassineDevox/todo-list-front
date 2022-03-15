@@ -6,6 +6,7 @@ import NavBar from "shared/navBar/NavBar";
 import AxiosClient from "tools/axios";
 import Spinner from "shared/spinner/spinner";
 import { loadTasksFromAPI } from "redux/ducks/task";
+import Footer from "shared/footer/footer";
 
 export const ListTodoPage = () => {
   //redux store 
@@ -40,7 +41,7 @@ export const ListTodoPage = () => {
       <NavBar />
       <h1 className="m-5">List des Taches </h1>
       {isLoading ? <Spinner /> : <ListTodo />}
-
+      <Footer />
     </div>
   );
 };
