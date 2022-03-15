@@ -1,13 +1,10 @@
-
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { clearUserSession } from "redux/ducks/auth";
 
-
 const NavBar = () => {
-
-    //route
+  //route
   const navTo = useNavigate();
   //get global state from redux's store
   const user = useSelector((s) => s.auth.user);
@@ -25,8 +22,8 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          Hello : {user?.firstname}
+        <a className="navbar-brand text-capitalize" href="#">
+          <span className="text-warning">Hello</span> : {user?.firstname} 🙂 
         </a>
         <button
           className="navbar-toggler"
@@ -42,18 +39,22 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link
-                className="nav-link active"
+              <NavLink
+                className={({ isActive }) => (isActive ? 'nav-link active ' : 'nav-link ')}
                 aria-current="page"
                 to="/todo/all"
               >
                 My Tasks
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/todo/add">
+            <NavLink
+                className={({ isActive }) => (isActive ? 'nav-link active ' : 'nav-link ')}
+                aria-current="page"
+                to="/todo/add"
+              >
                 New Task
-              </Link>
+              </NavLink>
             </li>
           </ul>
           <form className="d-flex">
