@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteTaskFromAPI } from "redux/ducks/task";
+import Badge from "shared/badge/badge";
 import Spinner from "shared/spinner/spinner";
 import AxiosClient from "tools/axios";
 
@@ -42,6 +43,7 @@ const Todo = ({ t = new TodoModel() }) => {
       style={{ opacity: isLoadoing ? ".7" : "1" }}
       className="list-group-item d-flex justify-content-between align-items-center"
     >
+
       <span
         className={
           t.status === TodoStatus.DONE
@@ -49,6 +51,8 @@ const Todo = ({ t = new TodoModel() }) => {
             : "fs-5"
         }
       >
+        <Badge content={t.status} />
+
         {t.title}
       </span>
       {isLoadoing ? <Spinner color="danger" /> : null}
@@ -56,12 +60,17 @@ const Todo = ({ t = new TodoModel() }) => {
         <button className="btn btn-danger me-2 p-1" onClick={handleClickDelete}>
           <i className="fas fa-trash"></i>
         </button>
+        <button className="btn btn-warning p-1 me-2">
+          <i className="fas fa-eye"></i>
+        </button>
         <button
           className="btn btn-success p-1"
           onClick={handleClickEdit}
+          title="mode details"
         >
           <i className="fas fa-edit"></i>
         </button>
+       
       </div>
     </li>
   );
