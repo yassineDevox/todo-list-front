@@ -5,7 +5,7 @@ import {
   instructorReducer,
   studentReducer,
   trackReducer,
-} from "ducks";
+} from "redux/ducks";
 
 const storeRedux = configureStore({
   reducer: combineReducers({

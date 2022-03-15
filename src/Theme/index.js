@@ -1,5 +1,5 @@
-import { ThemeAPP } from "app/theme";
-import { ThemeAUTH } from "auth/theme";
+import { ThemeAPP } from "pages/app/theme";
+import { ThemeAUTH } from "pages/auth/theme";
 
 import { useEffect ,useState} from 'react';
 import { useLocation } from "react-router-dom";
