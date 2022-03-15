@@ -1,7 +1,7 @@
 import React from "react";
-import { CheckpointModel } from "../model/checkpoint";
-import noDataSVG from "../assets/img/no-data.svg";
-import { StudentModel } from "../model/student";
+import { CheckpointModel } from "model/checkpoint";
+import noDataSVG from "assets/img/no-data.svg";
+import { StudentModel } from "model/student";
 
 const StudentItem = ({ s = new StudentModel() }) => {
   return (

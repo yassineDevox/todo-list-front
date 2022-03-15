@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import CheckpointsTable from "../../components/table-checkpoints";
-import "./../../assets/style/checkpoints.css";
+import CheckpointsTable from "components/table-checkpoints";
+import "assets/style/checkpoints.css";
 
 export const Checkpoints = () => {
 

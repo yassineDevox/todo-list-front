@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "./../../assets/img/loginLogo.svg";
-import "./../../assets/style/forgetPassword.css";
+import logo from "assets/img/loginLogo.svg";
+import "assets/style/forgetPassword.css";
 
 export const ForgetPassword = () => {
   const [error, setError] = useState(false);

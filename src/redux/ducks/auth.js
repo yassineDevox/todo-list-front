@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CredentialsModal } from "../../model/credentials";
-import client from "../../tools/axios";
+import { CredentialsModal } from "model/credentials";
+import client from "tools/axios";
 
 export const login = createAsyncThunk(
   "auth/login",

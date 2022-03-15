@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
-import "./../../assets/style/auth.css"
+import "assets/style/auth.css"
 
 export const ThemeAUTH = ({children}) => {
 

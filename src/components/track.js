@@ -1,5 +1,5 @@
-import { TrackModel } from "../model/track";
-import getTitlesTwoFirstLetters  from "../model/track";
+import { TrackModel } from "model/track";
+import getTitlesTwoFirstLetters  from "model/track";
 
 export default function Track({tm = new TrackModel()}) {
   

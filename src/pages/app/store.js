@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Track from "../../components/track";
-import { loadTracks } from "../../redux/ducks/track";
-import Spinner from "../../Theme/shared/spinner";
-import "./../../assets/style/track.css";
+import Track from "components/track";
+import { loadTracks } from "redux/ducks/track";
+import Spinner from "Theme/shared/spinner";
+import "assets/style/track.css";
 
 const ListTrack = ({ list }) => (
   <>

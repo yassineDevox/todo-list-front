@@ -1,4 +1,3 @@
-import { faGauge } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";

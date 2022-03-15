@@ -12,11 +12,11 @@ import {
   StorePage,
   Students,
   TrackDetails,
-} from "../pages/app";
+} from "pages/app";
 
 //auth pages
-import { ForgetPassword, Login, ResetPassword } from "../pages/auth";
-import DoCodeAppTheme from "../Theme";
+import { ForgetPassword, Login, ResetPassword } from "pages/auth";
+import DoCodeAppTheme from "Theme";
 
 //guards
 function AdminGuard() {

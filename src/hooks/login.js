@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Helper } from "../helpers/helper";
-import { clearErrorMsg } from "../redux/ducks/auth";
+import { Helper } from "helpers/helper";
+import { clearErrorMsg } from "redux/ducks/auth";
 
 export const useClearError = () => {
   const errorServer = useSelector((s) => s.auth.error);

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Helper } from "../../helpers/helper";
-import { useClearError, useGuardAuth } from "../../hooks/login";
-import { login } from "../../redux/ducks/auth";
-import Spinner from "../../Theme/shared/spinner";
-import logo from "./../../assets/img/loginLogo.svg";
+import { Helper } from "helpers/helper";
+import { useClearError, useGuardAuth } from "hooks/login";
+import { login } from "redux/ducks/auth";
+import Spinner from "Theme/shared/spinner";
+import logo from "assets/img/loginLogo.svg";
 
 const Input = ({
   reff,

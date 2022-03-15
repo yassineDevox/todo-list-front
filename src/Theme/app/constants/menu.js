@@ -7,7 +7,7 @@ import {
   faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import SideBareItem from "../layouts/sidebare-item";
+import SideBareItem from "layouts/sidebare-item";
 
 class MenuItemData {
   constructor(icon = "", page = "", path = "") {

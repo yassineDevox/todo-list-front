@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { InstructorModel } from "../../model/instructor";
+import { InstructorModel } from "model/instructor";
 
 //async thunk api 
 export const loadInstructors = createAsyncThunk("instructor/all", async ({ limit }) => {

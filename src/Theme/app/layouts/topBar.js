@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../../redux/ducks/auth';
+import { logout } from 'redux/ducks/auth';
 
 const TopBar = ({ page }) => {
     const [showUserInfos, setShowUserInfos] = useState(false)

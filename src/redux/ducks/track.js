@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TrackModel } from "../../model/track";
-import client from "../../tools/axios";
+import { TrackModel } from "model/track";
+import client from "tools/axios";
 
 //async thunk api
 export const loadTracks = createAsyncThunk(
