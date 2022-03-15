@@ -17,5 +17,5 @@ const taskSlice = createSlice({
   },
 });
 
-export const { loadTasksFromAPI } = taskSlice.actions;
+export const { loadTasksFromAPI,deleteTaskFromAPI } = taskSlice.actions;
 export default taskSlice.reducer;

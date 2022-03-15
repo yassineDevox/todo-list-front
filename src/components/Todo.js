@@ -1,7 +1,8 @@
 import { TodoModel } from "model/todo";
 import { TodoStatus } from "model/todoStatus";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTaskFromAPI } from "redux/ducks/task";
 import Spinner from "shared/spinner/spinner";
 import AxiosClient from "tools/axios";
 
@@ -10,20 +11,21 @@ const Todo = ({ t = new TodoModel() }) => {
   const [isLoadoing, setIsLoadoing] = useState(false);
   //get connectedUserId from redux store
   const connectedUserId = useSelector((s) => s.auth.user.id);
+  //redux actions
+  const call = useDispatch()
+  
+  //_____Actions___
   const handleClickDelete = () => {
     //use axios to delete task
     if (window.confirm("Are you sure 😨 ?")) {
       setIsLoadoing(true);
       AxiosClient.delete(`users/${connectedUserId}/todos/${t.id}`)
-        .then((response) => {
-          // window.location.reload()
-          
+        .then(_ => {
+          call(deleteTaskFromAPI({todoId:t.id}))
           setIsLoadoing(false);
-          console.log(response.data);
         })
-        .catch((err) => {
+        .catch(_ => {
           setIsLoadoing(false);
-          console.log(err);
         });
     }
   };
