@@ -2,6 +2,7 @@ import { TodoModel } from "model/todo";
 import { TodoStatus } from "model/todoStatus";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { deleteTaskFromAPI } from "redux/ducks/task";
 import Spinner from "shared/spinner/spinner";
 import AxiosClient from "tools/axios";
@@ -13,6 +14,8 @@ const Todo = ({ t = new TodoModel() }) => {
   const connectedUserId = useSelector((s) => s.auth.user.id);
   //redux actions
   const call = useDispatch()
+  //router 
+  const navTo = useNavigate()
   
   //_____Actions___
   const handleClickDelete = () => {
@@ -29,6 +32,10 @@ const Todo = ({ t = new TodoModel() }) => {
         });
     }
   };
+
+  const handleClickEdit = ()=>{
+    navTo(`/todo/edit/${t.id}`)
+  }
 
   return (
     <li
@@ -50,11 +57,10 @@ const Todo = ({ t = new TodoModel() }) => {
           <i className="fas fa-trash"></i>
         </button>
         <button
-          className="btn btn-warning p-1"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
+          className="btn btn-success p-1"
+          onClick={handleClickEdit}
         >
-          <i className="fas fa-edit"></i>{" "}
+          <i className="fas fa-edit"></i>
         </button>
       </div>
     </li>
