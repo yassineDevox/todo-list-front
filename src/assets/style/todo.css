@@ -1,7 +1,0 @@
-.btn-danger{
-    opacity:0!important;
-    transition:all 1s
-}
-li:hover button.btn-danger{
-    opacity: 1!important;
-}
