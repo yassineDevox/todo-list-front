@@ -3,7 +3,7 @@ import { TodoStatus } from "model/todoStatus";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addTaskFromAPI } from "redux/ducks/task";
+import { updateTaskFromAPI } from "redux/ducks/task";
 import Spinner from "shared/spinner/spinner";
 import AxiosClient from "tools/axios";
 
@@ -53,7 +53,8 @@ const EditTodo = () => {
     const statusTask = val(statusTaskRef);
 
     //validation des donnee
-    if (!title || !description || !statusTask) alert("Empty values error 😈 !");
+    if (!title || !description || !statusTask) 
+    alert("Empty values error 😈 !");
     else if (
       statusTask !== TodoStatus.DONE &&
       statusTask !== TodoStatus.CANCELED &&
@@ -64,19 +65,18 @@ const EditTodo = () => {
       console.log(statusTask);
     } else {
       setIsLoading(true);
-      const newTask = new TodoModel(
-        null,
+      const updatedTask = new TodoModel(
+        Number(todoId),
         title,
         statusTask,
         description,
         ConnectedUserId
       );
-      AxiosClient.post("/todos", newTask)
+      AxiosClient.put(`users/${ConnectedUserId}/todos/${todoId}`, {updatedTask})
         .then((response) => {
           setIsLoading(false);
           setMessage(response?.data.msg);
-          newTask.id = response.data.todoId;
-          call(addTaskFromAPI(newTask));
+          call(updateTaskFromAPI({updatedTask}));
         })
         .catch((err) => {
           setIsLoading(false);
@@ -135,7 +135,7 @@ const EditTodo = () => {
         </select>
 
         <button className="btn btn-success" type="submit">
-          {isLoading ? <Spinner color="light" /> : null} Save
+          {isLoading ? <Spinner color="light" /> : null} Update
         </button>
       </form>
       <div

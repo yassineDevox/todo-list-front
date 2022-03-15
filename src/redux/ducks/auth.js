@@ -16,8 +16,6 @@ const authSlice = createSlice({
       );
     },
     loadUserFromLocalStorage(state) {
-      // state.user={a:1}
-      // console.log(state.user.firstname===undefined)
       if (state.user.firstname===undefined)
         state.user = JSON.parse(window.localStorage.getItem("user-info"));
     },
