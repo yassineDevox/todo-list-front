@@ -1,3 +1,5 @@
+import { TodoModel } from "model/todo";
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const taskSlice = createSlice({
@@ -7,7 +9,7 @@ const taskSlice = createSlice({
   },
   reducers: {
     loadTasksFromAPI(state, { payload }) {
-      state.list = payload.tasks;
+     state.list = payload.tasks   
     },
     deleteTaskFromAPI(state, { payload }) {
       const todoIndex = state.list.findIndex((t) => t.id == payload.todoId);
@@ -18,7 +20,8 @@ const taskSlice = createSlice({
     },
     updateTaskFromAPI(state, { payload }) {
       state.list = state.list.map((t) =>
-        t.id === payload.updatedTask.id ? { ...payload.updatedTask } : t
+        t.id === payload.updatedTask.id ? 
+        { ...payload.updatedTask } : t
       );
     },
   },

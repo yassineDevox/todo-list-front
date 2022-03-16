@@ -37,10 +37,10 @@ const EditTodo = () => {
   //retrieve the edited task from redux store
   useEffect(() => {
     const editedTask = list.find(t=>t.id===Number(todoId))
-    titleRef.current.value = editedTask?.title
-    descriptionRef.current.value = editedTask?.description
-    statusTaskRef.current.value = editedTask?.status
-
+    setVal(titleRef,editedTask?.title)
+    setVal(descriptionRef,editedTask?.description)  
+    setVal(statusTaskRef,editedTask?.status) 
+    //i added list as a dependency to keep it in track 
   }, [list]);
 
   //on submit form
@@ -76,6 +76,8 @@ const EditTodo = () => {
         .then((response) => {
           setIsLoading(false);
           setMessage(response?.data.msg);
+          updatedTask.startedAt = response.data.startedAt
+          updatedTask.doneAt = response.data.doneAt
           call(updateTaskFromAPI({updatedTask}));
         })
         .catch((err) => {

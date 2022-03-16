@@ -6,12 +6,16 @@ export class TodoModel {
     title = "",
     status = TodoStatus.TODO,
     description = "",
-    userId = 1
+    userId = 1,
+    startedAt ="",
+    doneAt = ""
   ) {
     this.id = id;
     this.userId = userId;
     this.title = title;
     this.description = description;
     this.status = status;
+    this.startedAt = startedAt;
+    this.doneAt = doneAt;
   }
 }

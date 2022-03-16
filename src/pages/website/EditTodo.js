@@ -22,7 +22,7 @@ export const EditTodoPage = () => {
   return (
     <div className="text-center">
       <NavBar/>
-      <h1 className="m-5">Add Task</h1>
+      <h1 className="m-5">Edit Task</h1>
       <EditTodo />
       <Footer />
     </div>
