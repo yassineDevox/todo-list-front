@@ -18,8 +18,12 @@ import {
 //errors
 import { Error404 } from "pages/errors";
 //website
-import { AddTodoPage, EditTodoPage, ListTodoPage } from "pages/website";
-import TodoDetailsPage from "pages/website/TodoDetails";
+import {
+  AddTodoPage,
+  EditTodoPage,
+  ListTodoPage,
+  TodoDetailsPage,
+} from "pages/website";
 
 //private routes
 function PrivateTodo() {
