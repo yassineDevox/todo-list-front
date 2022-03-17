@@ -2,3 +2,4 @@
  export { Footer }  from "./footer/footer";
  export { NavBar }  from "./navBar/NavBar";
  export { Spinner }  from "./spinner/spinner";
+ export { Message }  from "./message/message";

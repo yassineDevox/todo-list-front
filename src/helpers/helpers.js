@@ -21,8 +21,24 @@ export const useHelper = {
     const sec = Math.floor((durration - min * 60000) / 1000);
     return `${min}m${sec}s`;
   },
-  getRefVal: (ref) => ref.current.value,
-  setRefVal: (ref, value) => {
-    ref.current.value = value;
+  REF: {
+    get: (ref) => ref.current.value,
+    set: (ref, value) => (ref.current.value = value),
+  },
+  VALIDATION: {
+    isEmpty: (fields) => {
+      for (const k in fields) {
+        if (!fields[k]) return true;
+        return true;
+      }
+    },
+    inTaskStatusVals: (val) => {
+      return (
+        val !== TodoStatus.DONE &&
+        val !== TodoStatus.CANCELED &&
+        val !== TodoStatus.INPROGRESS &&
+        val !== TodoStatus.TODO
+      );
+    },
   },
 };
