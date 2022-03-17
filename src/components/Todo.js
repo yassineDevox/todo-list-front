@@ -48,6 +48,9 @@ const Todo = ({ t = new TodoModel() }) => {
     navTo(`/todo/edit/${t.id}`);
   };
 
+  const handleClickMoreDetails = ()=>{
+    navTo(`/todo/${t.id}/details`);
+  }
   return (
     <li
       style={{ opacity: isLoadoing ? ".7" : "1" }}
@@ -91,7 +94,9 @@ const Todo = ({ t = new TodoModel() }) => {
         <button className="btn btn-danger me-2 p-1" onClick={handleClickDelete}>
           <i className="fas fa-trash"></i>
         </button>
-        <button className="btn btn-warning p-1 me-2">
+        <button 
+          onClick={handleClickMoreDetails}
+        className="btn btn-warning p-1 me-2">
           <i className="fas fa-eye"></i>
         </button>
         <button

@@ -7,7 +7,7 @@ export const Error404 = () => {
   return (
     <div className="d-flex flex-column gap-3 justify-content-center align-items-center vh-100">
       <img src={Page404} alt="not found page" width="500" height="400" />
-      <button className="btn btn-success" onClick={() => navTo("/todo")}>
+      <button className="btn btn-success" onClick={() => navTo("/todo/all")}>
         Back Home 😇
       </button>
     </div>

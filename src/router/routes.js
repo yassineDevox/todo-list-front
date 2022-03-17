@@ -19,6 +19,7 @@ import {
 import { Error404 } from "pages/errors";
 //website
 import { AddTodoPage, EditTodoPage, ListTodoPage } from "pages/website";
+import TodoDetailsPage from "pages/website/TodoDetails";
 
 //private routes
 function PrivateTodo() {
@@ -42,6 +43,7 @@ const AppRoutes = () => {
           <Route path="all" element={<ListTodoPage />} />
           <Route path="add" element={<AddTodoPage />} />
           <Route path="edit/:todoId" element={<EditTodoPage />} />
+          <Route path=":todoId/details" element={<TodoDetailsPage />} />
         </Route>
         <Route path="*" element={<Error404 />}></Route>
       </Routes>
