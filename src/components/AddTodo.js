@@ -3,8 +3,12 @@ import { Message } from "shared";
 
 export const AddTodo = () => {
 
-  const { hideAlert, handleSubmit, isLoading, error, message } =
-    USE_HOOK.useAddTodo();
+  const { 
+    hideAlert,
+     handleSubmit,
+     isLoading,
+     error,
+     message } = USE_HOOK.useAddTodo();
 
   return (
     <>

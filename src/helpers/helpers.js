@@ -41,4 +41,10 @@ export const useHelper = {
       );
     },
   },
+  SELECTOR: {
+    tasks: (s) => {
+      if (s.filter.query === "") return s.task.list;
+      else return s.task.list.filter((t) => t.title.includes(s.filter.query));
+    },
+  },
 };

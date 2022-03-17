@@ -12,6 +12,7 @@ export const USE_HOOK = {
   useFetchTodoDetails,
   useAddTodo,
   useEditTodo,
+  useDeleteTodo
 };
 
 //_______LIST_TODO __________
@@ -210,4 +211,47 @@ const useEditTodo = () => {
     setMessage("");
   };
   return { hideAlert, handleSubmit, isLoading, message, error };
+};
+
+//___TODO-DELETE___
+const useDeleteTodo = () => {
+  //state
+  const [isLoadoing, setIsLoadoing] = useState(false);
+  //get connectedUserId from redux store
+  const connectedUserId = useSelector((s) => s.auth.user.id);
+  //redux actions
+  const call = useDispatch();
+  //router
+  const navTo = useNavigate();
+
+  //_____Actions___
+  const handleClickDelete = () => {
+    //use axios to delete task
+    if (window.confirm("Are you sure 😨 ?")) {
+      setIsLoadoing(true);
+      AxiosClient.delete(`users/${connectedUserId}/todos/${t.id}`)
+        .then((_) => {
+          call(deleteTaskFromAPI({ todoId: t.id }));
+          setIsLoadoing(false);
+        })
+        .catch((_) => {
+          setIsLoadoing(false);
+        });
+    }
+  };
+
+  const handleClickEdit = () => {
+    navTo(`/todo/edit/${t.id}`);
+  };
+
+  const handleClickMoreDetails = () => {
+    navTo(`/todo/${t.id}/details`);
+  };
+
+  return {
+    isLoadoing,
+    handleClickEdit,
+    handleClickDelete,
+    handleClickMoreDetails,
+  };
 };

@@ -1,16 +1,11 @@
-import React from "react";
 import { useSelector } from "react-redux";
+import { useHelper } from "helpers/helpers";
+import { Todo } from "./Todo";
 import "assets/style/todo.css";
-import Todo from "./Todo";
 
 export const ListTodo = () => {
-  // get tasks from redux store
-  const myTasks = useSelector((s) =>{
-    if(s.filter.query==="")  
-    return s.task.list
-    else 
-    return s.task.list.filter(t=>t.title.includes(s.filter.query))
-    });
+
+  const myTasks = useSelector(useHelper.SELECTOR.tasks);
 
   return (
     <>
