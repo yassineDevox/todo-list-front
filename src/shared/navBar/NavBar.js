@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { clearUserSession } from "redux/ducks/auth";
 import { setFilter } from "redux/ducks/filter";
 
-const NavBar = () => {
+export const NavBar = () => {
   //route
   const navTo = useNavigate();
   //get global state from redux's store
@@ -80,5 +80,3 @@ const NavBar = () => {
     </nav>
   );
 };
-
-export default NavBar;

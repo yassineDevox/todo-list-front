@@ -1,4 +1,5 @@
 
+import { useHelper } from "helpers/helpers";
 import { TodoModel, TodoStatus } from "model";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,17 +9,9 @@ import Badge from "shared/badge/badge";
 import Spinner from "shared/spinner/spinner";
 import AxiosClient from "tools/axios";
 
-const getDurration = (startedAt,doneAt)=>{
-  const s = new Date(startedAt)
-  const d = new Date(doneAt)
-  const durration = (d-s)
-  const min = Math.floor(durration/60000)
-  const sec = Math.floor((durration - min*60000)/1000)
-  return `${min}m${sec}s`
-}
 
 
-const Todo = ({ t = new TodoModel() }) => {
+export const Todo = ({ t = new TodoModel() }) => {
   //state
   const [isLoadoing, setIsLoadoing] = useState(false);
   //get connectedUserId from redux store
@@ -85,7 +78,7 @@ const Todo = ({ t = new TodoModel() }) => {
           }
         >
           {t.doneAt.replace("T", " ").replace(".000Z", "")}<br/>
-          @lastedtime({getDurration(t.startedAt,t.doneAt) })
+          @lastedtime({useHelper.getDurration(t.startedAt,t.doneAt) })
         </span>
       </div>
       {isLoadoing ? <Spinner color="danger" /> : null}
@@ -110,5 +103,3 @@ const Todo = ({ t = new TodoModel() }) => {
     </li>
   );
 };
-
-export default Todo;

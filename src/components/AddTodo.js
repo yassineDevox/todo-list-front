@@ -1,3 +1,4 @@
+import { useHelper } from "helpers/helpers";
 import { TodoModel } from "model/todo";
 import { TodoStatus } from "model/todoStatus";
 import { useRef, useState } from "react";
@@ -6,13 +7,8 @@ import { addTaskFromAPI } from "redux/ducks/task";
 import Spinner from "shared/spinner/spinner";
 import AxiosClient from "tools/axios";
 
-const val = (ref) => ref.current.value;
-const setVal = (ref, value) => {
-  ref.current.value = value;
-};
 
-const AddTodo = () => {
-  console.log('rendred\n')
+export const AddTodo = () => {
   //define a title ref on the input to get the value of it
   const titleRef = useRef();
   const descriptionRef = useRef();
@@ -34,9 +30,9 @@ const AddTodo = () => {
     e.preventDefault();
 
     //get values
-    const title = val(titleRef);
-    const description = val(descriptionRef);
-    const statusTask = val(statusTaskRef);
+    const title = useHelper.getRefVal(titleRef);
+    const description = useHelper.getRefVal(descriptionRef);
+    const statusTask = useHelper.getRefVal(statusTaskRef);
 
     //validation des donnee
     if (!title || !description || !statusTask) alert("Empty values error 😈 !");
@@ -70,9 +66,9 @@ const AddTodo = () => {
         });
     }
     //vider linputs
-    setVal(titleRef, "");
-    setVal(descriptionRef, "");
-    setVal(statusTaskRef, TodoStatus.TODO);
+    useHelper.setRefVal(titleRef, "");
+    useHelper.setRefVal(descriptionRef, "");
+    useHelper.setRefVal(statusTaskRef, TodoStatus.TODO);
   };
 
   //hide alert
@@ -140,4 +136,3 @@ const AddTodo = () => {
   );
 };
 
-export default AddTodo;

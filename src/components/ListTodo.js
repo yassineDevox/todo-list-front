@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "assets/style/todo.css";
 import Todo from "./Todo";
 
-const ListTodo = () => {
+export const ListTodo = () => {
   // get tasks from redux store
   const myTasks = useSelector((s) =>{
     if(s.filter.query==="")  
@@ -24,4 +24,3 @@ const ListTodo = () => {
   );
 };
 
-export default ListTodo;

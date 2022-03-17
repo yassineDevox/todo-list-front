@@ -11,7 +11,7 @@ const setVal = (ref, value) => {
   ref.current.value = value;
 };
 
-const EditTodo = () => {
+export const EditTodo = () => {
 
   //define a title ref on the input to get the value of it
   const titleRef = useRef();
@@ -155,4 +155,3 @@ const EditTodo = () => {
   );
 };
 
-export default EditTodo;

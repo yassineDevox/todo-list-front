@@ -1,32 +1,12 @@
+import { useHelper } from "helpers/helpers";
 import { TodoModel, TodoStatus } from "model";
 import React from "react";
 
-const getDurration = (startedAt, doneAt) => {
-  const s = new Date(startedAt);
-  const d = new Date(doneAt);
-  const durration = d - s;
-  const min = Math.floor(durration / 60000);
-  const sec = Math.floor((durration - min * 60000) / 1000);
-  return `${min}m${sec}s`;
-};
-const getColor = (content) => {
-  switch (content) {
-    case TodoStatus.TODO:
-      return "primary";
-    case TodoStatus.DONE:
-      return "success";
-    case TodoStatus.INPROGRESS:
-      return "info";
-    case TodoStatus.CANCELED:
-      return "danger";
-  }
-};
-
-const TodoDetails = ({ t = new TodoModel() }) => {
+export const TodoDetails = ({ t = new TodoModel() }) => {
   return (
     <>
       <div
-        className={`mx-auto card text-white bg-${getColor(t.status)} mb-3`}
+        className={`mx-auto card text-white bg-${useHelper.getColor(t.status)} mb-3`}
         style={{ maxWidth: "18rem" }}
       >
         <div className="card-header">{t.status}</div>
@@ -49,7 +29,7 @@ const TodoDetails = ({ t = new TodoModel() }) => {
           >
             {t.doneAt?.replace("T", " ").replace(".000Z", "")}
             <br />
-            @lastedtime({getDurration(t.startedAt, t.doneAt)})
+            @lastedtime({useHelper.getDurration(t.startedAt, t.doneAt)})
           </p>
         </div>
       </div>
@@ -57,4 +37,3 @@ const TodoDetails = ({ t = new TodoModel() }) => {
   );
 };
 
-export default TodoDetails;
