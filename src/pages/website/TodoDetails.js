@@ -29,11 +29,13 @@ const TodoDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   //call redux action
   const call = useDispatch();
+  
   //when page is loaded (comp did mount)
   useEffect(() => {
     //call loadUserFromLocalStorage action
     call(loadUserFromLocalStorage());
   }, []);
+
   const { todoId } = useParams();
   useEffect(() => {
     setIsLoading(true);
