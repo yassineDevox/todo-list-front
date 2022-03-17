@@ -1,5 +1,4 @@
-import { TodoModel } from "model/todo";
-import { TodoStatus } from "model/todoStatus";
+import { TodoModel, TodoStatus } from "model";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";

@@ -1,5 +1,5 @@
-import { TodoModel } from "model/todo";
-import { TodoStatus } from "model/todoStatus";
+
+import { TodoModel, TodoStatus } from "model";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -11,9 +11,10 @@ import AxiosClient from "tools/axios";
 const getDurration = (startedAt,doneAt)=>{
   const s = new Date(startedAt)
   const d = new Date(doneAt)
-  let r = (d-s)/6000
-  console.log(r)
-  return r
+  const durration = (d-s)
+  const min = Math.floor(durration/60000)
+  const sec = Math.floor((durration - min*60000)/1000)
+  return `${min}m${sec}s`
 }
 
 
@@ -80,10 +81,12 @@ const Todo = ({ t = new TodoModel() }) => {
               : "d-none"
           }
         >
-          {t.doneAt.replace("T", " ").replace(".000Z", "")}<br/>{getDurration(t.startedAt,t.doneAt) }
+          {t.doneAt.replace("T", " ").replace(".000Z", "")}<br/>
+          @lastedtime({getDurration(t.startedAt,t.doneAt) })
         </span>
-        {isLoadoing ? <Spinner color="danger" /> : null}
       </div>
+      {isLoadoing ? <Spinner color="danger" /> : null}
+
       <div>
         <button className="btn btn-danger me-2 p-1" onClick={handleClickDelete}>
           <i className="fas fa-trash"></i>
