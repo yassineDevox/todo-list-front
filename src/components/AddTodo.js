@@ -38,7 +38,7 @@ const AddTodo = () => {
     const description = val(descriptionRef);
     const statusTask = val(statusTaskRef);
 
-    //validation des donnee
+    //validation des donnee est ce qui l est vide 
     if (!title || !description || !statusTask) alert("Empty values error 😈 !");
     else if (
       statusTask !== TodoStatus.DONE &&
@@ -57,7 +57,7 @@ const AddTodo = () => {
         description,
         ConnectedUserId
       );
-      AxiosClient.post("/todos", newTask)
+      AxiosClient.post(`/users/${ConnectedUserId}/todos`, newTask)
         .then((response) => {
           setIsLoading(false);
           setMessage(response?.data.msg);
