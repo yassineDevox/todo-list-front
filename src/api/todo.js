@@ -1,26 +1,23 @@
 import { TodoModel } from "model";
 import { AxiosClient } from "tools/axios";
 
-class TodoApi {
-
-  get(todoId = "") {
+export class TodoApi {
+  static get(todoId = "") {
     return AxiosClient.get(`/todos/${todoId}`);
   }
 
-  getAll(connectedUserId = "") {
+  static getAll(connectedUserId = "") {
     return AxiosClient.get(`/users/${connectedUserId}/todos`);
   }
 
-  add(newTask = new TodoModel(), connectedUserId = "") {
+  static add(newTask = new TodoModel(), connectedUserId = "") {
     return AxiosClient.post(`/users/${connectedUserId}/todos`, newTask);
   }
 
-  edit(updatedTask = new TodoModel(), connectedUserId = "") {
+  static edit(updatedTask = new TodoModel(), connectedUserId = "") {
     return AxiosClient.put(`/users/${connectedUserId}/todos`, updatedTask);
   }
-  delete(todoId = "", connectedUserId = "") {
+  static delete(todoId = "", connectedUserId = "") {
     return AxiosClient.delete(`/users/${connectedUserId}/todos/${todoId}`);
   }
 }
-
-export const todoApi = new TodoApi()

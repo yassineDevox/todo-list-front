@@ -1,4 +1,3 @@
-import { TodoModel } from "model/todo";
 
 const { createSlice } = require("@reduxjs/toolkit");
 

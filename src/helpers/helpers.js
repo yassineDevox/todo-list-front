@@ -1,6 +1,25 @@
 import { TodoStatus } from "model";
 
 export const useHelper = {
+  UTIL: {
+    If: (cd, resolve, reject) => {
+      if (cd) resolve();
+      else reject();
+    },
+
+    callApi: async (apiFunc,setLoader,onError,onSuccess) => {
+      try {
+        let res = await apiFunc();
+        onSuccess(res.data)
+        setLoader(false);
+      } catch (err) {
+        setLoader(false);
+        if (useHelper.VALIDATION.isEmpty(err.response.data)) {
+          onError(err.response.data);
+        }
+      }
+    },
+  },
   getColorByStatusTask: (content) => {
     switch (content) {
       case TodoStatus.TODO:
@@ -26,12 +45,13 @@ export const useHelper = {
     set: (ref, value) => (ref.current.value = value),
   },
   VALIDATION: {
-    isEmpty: (fields) => {
+    isThereAnInputEmpty: (fields) => {
       for (const k in fields) {
         if (!fields[k]) return true;
         return true;
       }
     },
+    isUndefined: (val) => val === undefined,
     inTaskStatusVals: (val) => {
       return (
         val !== TodoStatus.DONE &&
@@ -40,6 +60,7 @@ export const useHelper = {
         val !== TodoStatus.TODO
       );
     },
+    isEmpty: (val) => val.length === 0,
   },
   SELECTOR: {
     tasks: (s) => {

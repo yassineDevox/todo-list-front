@@ -1,4 +1,4 @@
-import { todoApi } from "api/todo";
+import { TodoApi } from "api/todo";
 import { useHelper } from "helpers/helpers";
 import { TodoModel } from "model";
 import { useRef, useState } from "react";
@@ -12,30 +12,34 @@ export const USE_HOOK = {
   useFetchTodoDetails,
   useAddTodo,
   useEditTodo,
-  useDeleteTodo
+  useDeleteTodo,
 };
+
+const {
+  UTIL: { If, callApi },
+  VALIDATION: { isEmpty, isUndefined },
+} = useHelper;
 
 //_______LIST_TODO __________
 const useFetchTodos = () => {
-  const connectedUserId = useSelector((s) => s.auth.user.id);
-  const listTask = useSelector((s) => s.task.list);
-  const [isLoading, setIsLoading] = useState(false);
+  const { userId, mytasks } = useSelector((s) => ({
+    userId: s.auth.user.id,
+    mytasks: s.task.list,
+  }));
+
+  const [isLoading, setLoading] = useState(false);
+
   const call = useDispatch();
 
   useEffect(() => {
-    //get all todos of connected user
-    if (connectedUserId !== undefined && listTask.length === 0) {
-      setIsLoading(true);
-      try {
-        let res = await todoApi.getAll(connectedUserId);
-        setIsLoading(false);
-        call(loadTasksFromAPI(res.data));
-      } catch (error) {
-        setIsLoading(false);
-        console.log(error);
-      }
-    }
-  }, [connectedUserId]);
+    const getAllTodos = () => TodoApi.getAll(userId);
+    const loadTasksFromAPI = (val) => call(loadTasksFromAPI(val));
+
+    If(
+      isUndefined(userId) && isEmpty(mytasks),
+      callApi(getAllTodos, setLoading, setError, loadTasksFromAPI)
+    );
+  }, [userId]);
 
   return { isLoading };
 };
@@ -43,21 +47,18 @@ const useFetchTodos = () => {
 //______TODO-DETAILS________
 const useFetchTodoDetails = () => {
   const [todo, setTodo] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const { todoId } = useParams();
+
   useEffect(() => {
-    setIsLoading(true);
-    try {
-      let res = todoApi.get(todoId);
-      setIsLoading(false);
-      setTodo(res.data.todo);
-    } catch (error) {
-      setIsLoading(false);
-      console.log(error);
-    }
+    const getTodoById = () => TodoApi.get(todoId);
+    const displayTodoDetails = (val) => setTodo(val);
+
+    callApi(getTodoById, setLoading, setError, displayTodoDetails);
   }, []);
 
-  return { isLoading, todo };
+  return { isLoading, todo, error };
 };
 
 //____ADD-TODO_____
@@ -71,7 +72,7 @@ const useAddTodo = () => {
 
   const call = useDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -83,32 +84,29 @@ const useAddTodo = () => {
     const statusTask = useHelper.getRefVal(statusTaskRef);
 
     //validation des donnee
-    if (useHelper.VALIDATION.isEmpty({ title, description, statusTask }))
+    if (
+      useHelper.VALIDATION.isThereAnInputEmpty({
+        title,
+        description,
+        statusTask,
+      })
+    )
       alert("Empty values error 😈 !");
     else if (useHelper.VALIDATION.inTaskStatusVals(statusTask)) {
       alert("Invalid status task value 😈 !");
-      console.log(statusTask);
     } else {
-      setIsLoading(true);
-      const newTask = new TodoModel(
-        null,
-        title,
-        statusTask,
-        description,
-        ConnectedUserId
-      );
 
-      AxiosClient.post("/todos", newTask)
-        .then((response) => {
-          setIsLoading(false);
-          setMessage(response?.data.msg);
-          newTask.id = response.data.todoId;
-          call(addTaskFromAPI(newTask));
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          setError(err.response?.data.msg);
-        });
+      const postTodo = () =>
+        TodoApi.add(
+          new TodoModel(null, title, statusTask, description, ConnectedUserId)
+        );
+
+      const onSuccess = (data) => {
+        setMessage(data.msg);
+        call(addTaskFromAPI(data.todo));
+      };
+
+      callApi(postTodo, setLoading, setError, onSuccess)
     }
     //vider linputs
     useHelper.setRefVal(titleRef, "");
@@ -127,13 +125,16 @@ const useAddTodo = () => {
 
 //___EDIT-TODO____
 const useEditTodo = () => {
-  //define a title ref on the input to get the value of it
+
+  const { userId, mytasks } = useSelector((s) => ({
+    userId: s.auth.user.id,
+    mytasks: s.task.list,
+  }));
+
+
   const titleRef = useRef();
   const descriptionRef = useRef();
   const statusTaskRef = useRef();
-
-  //redux store
-  const ConnectedUserId = useSelector((s) => s.auth.user.id);
 
   //redux actions
   const call = useDispatch();
@@ -143,8 +144,6 @@ const useEditTodo = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  //redux selector
-  const list = useSelector((s) => s.task.list);
   //get the todoId param
   const { todoId } = useParams();
   //retrieve the edited task from redux store
@@ -182,9 +181,9 @@ const useEditTodo = () => {
         title,
         statusTask,
         description,
-        ConnectedUserId
+        userId
       );
-      AxiosClient.put(`users/${ConnectedUserId}/todos/${todoId}`, {
+      AxiosClient.put(`users/${userId}/todos/${todoId}`, {
         updatedTask,
       })
         .then((response) => {
