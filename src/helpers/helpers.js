@@ -2,12 +2,12 @@ import { TodoStatus } from "model";
 
 export const useHelper = {
   UTIL: {
-    If: (cd, resolve, reject) => {
+    If: (cd, resolve) => {
       if (cd) resolve();
-      else reject();
     },
 
-    callApi: async (apiFunc, setLoader, onError, onSuccess) => {
+    callApi:(apiFunc, setLoader, onError, onSuccess) => async () => {
+      setLoader(true)
       try {
         let res = await apiFunc();
         onSuccess(res.data);

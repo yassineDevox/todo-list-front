@@ -14,13 +14,7 @@ import {
 
 const {
   UTIL: { If, callApi },
-  VALIDATION: {
-    isEmpty,
-    isUndefined,
-    isThereAnInputEmpty,
-    inTaskStatusVals,
-    isNull,
-  },
+  VALIDATION: { isEmpty, isThereAnInputEmpty, inTaskStatusVals, isNull },
   SELECTOR: { tasksAndUserId, userId },
   REF: { set, get },
 } = useHelper;
@@ -34,13 +28,14 @@ const useFetchTodos = () => {
   const call = useDispatch();
 
   useEffect(() => {
-    const getAllTodos = () => TodoApi.getAll(userId);
-    const loadTasksInRedux = (val) => call(loadTasksFromAPI(val));
-
-    If(
-      isUndefined(userId) && isEmpty(mytasks),
-      callApi(getAllTodos, setLoading, null, loadTasksInRedux)
-    );
+    if (userId) {
+      const getAllTodos = () => TodoApi.getAll(userId);
+      const loadTasksInRedux = (val) => call(loadTasksFromAPI(val));
+      If(
+        isEmpty(mytasks),
+        callApi(getAllTodos, setLoading, null, loadTasksInRedux)
+      );
+    }
   }, [userId, mytasks, call]);
 
   return { isLoading };
@@ -151,21 +146,27 @@ const useEditTodo = () => {
 
   const handleOnFocus = () => (error ? setError("") : setMessage(""));
 
-  return { handleOnFocus, handleSubmit, isLoading, message, error ,
+  return {
+    handleOnFocus,
+    handleSubmit,
+    isLoading,
+    message,
+    error,
     titleRef,
     descriptionRef,
-    statusTaskRef,};
+    statusTaskRef,
+  };
 };
 
 //___TODO-DELETE___
 const useDeleteTodo = (t = new TodoModel()) => {
   const [isLoadoing, setLoadoing] = useState(false);
-  const userId = useSelector((s) => userId(s));
+  const UID = useSelector((s) => userId(s));
   const call = useDispatch();
   const navTo = useNavigate();
 
   const handleClickDelete = () => {
-    const deleteTaskById = () => TodoApi.delete(t.id);
+    const deleteTaskById = () => TodoApi.delete(t.id, UID);
     const onSuccess = () => call(deleteTaskFromAPI({ todoId: t.id }));
 
     If(
@@ -214,7 +215,9 @@ const onSubmitTodoForm = (
 
     const onSuccess = (data) => {
       setMessage(data.msg);
-      dispatch((isNull(todoId) ? addTaskFromAPI : updateTaskFromAPI)(data.todo));
+      dispatch(
+        (isNull(todoId) ? addTaskFromAPI : updateTaskFromAPI)(data.todo)
+      );
     };
 
     callApi(postTodo, setLoading, setError, onSuccess);
