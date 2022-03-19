@@ -1,4 +1,6 @@
+import { TodoStatus } from "model";
 import React from "react";
+import { Spinner } from "shared";
 
 export const TodoForm = ({action="save",data,handlers}) => {
   return (
@@ -40,7 +42,7 @@ export const TodoForm = ({action="save",data,handlers}) => {
       </select>
 
       <button className="btn btn-success text-capitalize" type="submit">
-        {isLoading ? <Spinner color="light" /> : null} {action}
+        {data.isLoading ? <Spinner color="light" /> : null} {action}
       </button>
     </form>
   );
