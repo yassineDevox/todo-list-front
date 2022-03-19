@@ -11,7 +11,7 @@ const taskSlice = createSlice({
      state.list = payload.tasks   
     },
     deleteTaskFromAPI(state, { payload }) {
-      const todoIndex = state.list.findIndex((t) => t.id == payload.todoId);
+      const todoIndex = state.list.findIndex((t) => t.id === payload.todoId);
       state.list.splice(todoIndex, 1);
     },
     addTaskFromAPI(state, { payload }) {

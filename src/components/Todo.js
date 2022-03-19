@@ -10,7 +10,7 @@ export const Todo = ({ t = new TodoModel() }) => {
     handleClickDelete,
     handleClickEdit,
     handleClickMoreDetails,
-  } = USE_HOOK.useDeleteTodo();
+  } = USE_HOOK.useDeleteTodo(t);
   
   return (
     <li

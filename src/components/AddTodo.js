@@ -1,14 +1,18 @@
 import { USE_HOOK } from "hooks/hooks";
-import { Message } from "shared";
+import { TodoStatus } from "model";
+import { Message, Spinner } from "shared";
 
 export const AddTodo = () => {
 
   const { 
-    hideAlert,
+    handleOnFocus,
      handleSubmit,
      isLoading,
      error,
-     message } = USE_HOOK.useAddTodo();
+     message,
+     titleRef,
+     descriptionRef,
+     statusTaskRef } = USE_HOOK.useAddTodo();
 
   return (
     <>
@@ -18,7 +22,7 @@ export const AddTodo = () => {
       >
         <div className="form-floating">
           <input
-            onFocus={hideAlert}
+            onFocus={handleOnFocus}
             className="form-control m-1"
             type="text"
             placeholder="title"
@@ -29,7 +33,7 @@ export const AddTodo = () => {
         </div>
         <div className="form-floating">
           <textarea
-            onFocus={hideAlert}
+            onFocus={handleOnFocus}
             className="form-control"
             placeholder="Leave a description here"
             id="floatingTextarea"
@@ -38,7 +42,7 @@ export const AddTodo = () => {
           <label htmlFor="floatingTextarea">Description</label>
         </div>
         <select
-          onFocus={hideAlert}
+          onFocus={handleOnFocus}
           ref={statusTaskRef}
           className="form-select"
           aria-label="Default select example"

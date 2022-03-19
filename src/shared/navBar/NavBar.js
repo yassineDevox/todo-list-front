@@ -28,7 +28,7 @@ export const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand text-capitalize" href="#">
+        <a className="navbar-brand text-capitalize" href="/">
           <span className="text-warning">Hello</span> : {user?.firstname} 🙂 
         </a>
         <button

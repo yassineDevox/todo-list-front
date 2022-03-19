@@ -7,10 +7,10 @@ export const useHelper = {
       else reject();
     },
 
-    callApi: async (apiFunc,setLoader,onError,onSuccess) => {
+    callApi: async (apiFunc, setLoader, onError, onSuccess) => {
       try {
         let res = await apiFunc();
-        onSuccess(res.data)
+        onSuccess(res.data);
         setLoader(false);
       } catch (err) {
         setLoader(false);
@@ -28,7 +28,7 @@ export const useHelper = {
         return "success";
       case TodoStatus.INPROGRESS:
         return "info";
-      case TodoStatus.CANCELED:
+      default:
         return "danger";
     }
   },
@@ -61,8 +61,14 @@ export const useHelper = {
       );
     },
     isEmpty: (val) => val.length === 0,
+    isNull: (val) => val === null,
   },
   SELECTOR: {
+    userId: (s) => s.auth.user.id,
+    tasksAndUserId: (s) => ({
+      userId: useHelper.SELECTOR.userId(s),
+      mytasks: useHelper.SELECTOR.tasks(s),
+    }),
     tasks: (s) => {
       if (s.filter.query === "") return s.task.list;
       else return s.task.list.filter((t) => t.title.includes(s.filter.query));

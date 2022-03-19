@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
-import "assets/style/register.css";
-import "assets/fonts/material-icon/css/material-design-iconic-font.min.css";
-import imgSignin from "assets/images/signin-image.jpg";
-import axios from "axios";
 import { CredentialsModel } from "model/credantials";
 import { Link, useNavigate } from "react-router-dom";
-import Spinner from "shared/spinner/spinner";
 import { loadUserFromAPI } from "redux/ducks/auth";
 import { useDispatch } from "react-redux";
+import { Spinner } from "shared";
+import { AxiosClient } from "tools/axios";
+import imgSignin from "assets/images/signin-image.jpg";
+import "assets/style/register.css";
+import "assets/fonts/material-icon/css/material-design-iconic-font.min.css";
 
 export function LoginPage() {
 
@@ -34,9 +34,9 @@ export function LoginPage() {
       // spinner tourne stp
       setIsLoading(true);
       //communication avec le serveur
-      axios
+      AxiosClient
         .post(
-          "http://localhost:9000/api/auth/login",
+          "auth/login",
           new CredentialsModel(em, p)
         )
         .then((response) => {
@@ -61,7 +61,7 @@ export function LoginPage() {
         <div className="signin-content">
           <div className="signin-image">
             <figure>
-              <img src={imgSignin} alt="sing up image" />
+              <img src={imgSignin} alt="sing up" />
             </figure>
             <Link to="/forget-pass" className="signup-image-link">
               forget password
@@ -134,17 +134,17 @@ export function LoginPage() {
               <span className="social-label">Or login with</span>
               <ul className="socials">
                 <li>
-                  <a href="#">
+                  <a href="/">
                     <i className="display-flex-center zmdi zmdi-facebook"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="/">
                     <i className="display-flex-center zmdi zmdi-twitter"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="/">
                     <i className="display-flex-center zmdi zmdi-google"></i>
                   </a>
                 </li>
