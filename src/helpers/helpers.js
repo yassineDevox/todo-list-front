@@ -6,16 +6,17 @@ export const useHelper = {
       if (cd) resolve();
     },
 
-    callApi:(apiFunc, setLoader, onError, onSuccess) => async () => {
-      setLoader(true)
+    callApi: (apiFunc, setLoader, onError, onSuccess) => async () => {
+      setLoader(true);
       try {
+        // console.log(apiFunc,onSuccess)
         let res = await apiFunc();
         onSuccess(res.data);
         setLoader(false);
       } catch (err) {
         setLoader(false);
-        if (useHelper.VALIDATION.isEmpty(err.response.data)) {
-          onError(err.response.data);
+        if (!useHelper.VALIDATION.isUndefined(err.response)) {
+          onError(Object.keys(err.response));
         }
       }
     },
@@ -46,10 +47,9 @@ export const useHelper = {
   },
   VALIDATION: {
     isThereAnInputEmpty: (fields) => {
-      for (const k in fields) {
-        if (!fields[k]) return true;
-        return true;
-      }
+      console.log(fields);
+      for (const k in fields) if (!fields[k]) return true;
+      return false;
     },
     isUndefined: (val) => val === undefined,
     inTaskStatusVals: (val) => {

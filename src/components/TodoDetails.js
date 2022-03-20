@@ -6,7 +6,7 @@ export const TodoDetails = ({ t = new TodoModel() }) => {
   return (
     <>
       <div
-        className={`mx-auto card text-white bg-${useHelper.getColor(t.status)} mb-3`}
+        className={`mx-auto card text-white bg-${useHelper.getColorByStatusTask(t.status)} mb-3`}
         style={{ maxWidth: "18rem" }}
       >
         <div className="card-header">{t.status}</div>

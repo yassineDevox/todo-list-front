@@ -14,7 +14,13 @@ import {
 
 const {
   UTIL: { If, callApi },
-  VALIDATION: { isEmpty, isThereAnInputEmpty, inTaskStatusVals, isNull },
+  VALIDATION: {
+    isEmpty,
+    isThereAnInputEmpty,
+    inTaskStatusVals,
+    isNull,
+    isUndefined,
+  },
   SELECTOR: { tasksAndUserId, userId },
   REF: { set, get },
 } = useHelper;
@@ -28,14 +34,13 @@ const useFetchTodos = () => {
   const call = useDispatch();
 
   useEffect(() => {
-    if (userId) {
-      const getAllTodos = () => TodoApi.getAll(userId);
-      const loadTasksInRedux = (val) => call(loadTasksFromAPI(val));
-      If(
-        isEmpty(mytasks),
-        callApi(getAllTodos, setLoading, null, loadTasksInRedux)
-      );
-    }
+    const getAllTodos = () => TodoApi.getAll(userId);
+    const loadTasksInRedux = (val) => call(loadTasksFromAPI(val));
+
+    If(
+      isEmpty(mytasks) && !isUndefined(userId),
+      callApi(getAllTodos, setLoading, null, loadTasksInRedux)
+    );
   }, [userId, mytasks, call]);
 
   return { isLoading };
@@ -44,7 +49,6 @@ const useFetchTodos = () => {
 //______TODO-DETAILS________
 const useFetchTodoDetails = () => {
   const [todo, setTodo] = useState({});
-
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -52,8 +56,11 @@ const useFetchTodoDetails = () => {
 
   useEffect(() => {
     const getTodoById = () => TodoApi.get(todoId);
-    const displayTodoDetails = (val) => setTodo(val);
-    callApi(getTodoById, setLoading, setError, displayTodoDetails);
+    const displayTodoDetails = (data) => setTodo(data.todo);
+    If(
+      !isEmpty(todoId),
+      callApi(getTodoById, setLoading, setError, displayTodoDetails)
+    );
   }, [todoId]);
 
   return { isLoading, todo, error };
@@ -135,7 +142,8 @@ const useEditTodo = () => {
       descriptionRef,
       statusTaskRef,
       call,
-      userId
+      userId,
+      todoId
     );
 
     //vider linputs
@@ -200,27 +208,32 @@ const onSubmitTodoForm = (
 ) => {
   const formData = {
     1: get(titleRef),
-    2: get(descriptionRef),
     3: get(statusTaskRef),
+    2: get(descriptionRef),
   };
+  console.log(
+    new TodoModel(todoId, formData[1], formData[3], formData[2], userId)
+  );
   if (isThereAnInputEmpty(formData)) alert("Empty values error 😈 !");
   else if (inTaskStatusVals(formData[3]))
     alert("Invalid status task value 😈 !");
   else {
     const postTodo = () => {
-      (isNull(todoId) ? TodoApi.add : TodoApi.edit)(
-        new TodoModel(todoId, ...formData, userId)
+      let f = isNull(todoId) ? TodoApi.add : TodoApi.edit;
+      f(
+        new TodoModel(todoId, formData[1], formData[3], formData[2], userId),
+        userId
       );
+
     };
 
     const onSuccess = (data) => {
       setMessage(data.msg);
-      dispatch(
-        (isNull(todoId) ? addTaskFromAPI : updateTaskFromAPI)(data.todo)
-      );
+      let ra = isNull(todoId) ? addTaskFromAPI : updateTaskFromAPI;
+      dispatch(ra(data.todo));
     };
 
-    callApi(postTodo, setLoading, setError, onSuccess);
+    callApi(postTodo, setLoading, setError, onSuccess)()
 
     set(titleRef, "");
     set(descriptionRef, "");

@@ -1,5 +1,4 @@
 import { TodoStatus } from "model";
-import React from "react";
 import { Spinner } from "shared";
 
 export const TodoForm = ({action="save",data,handlers}) => {
