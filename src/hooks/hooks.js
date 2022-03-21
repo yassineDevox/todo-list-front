@@ -4,6 +4,7 @@ import { TodoModel, TodoStatus } from "model";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { setFilter } from "redux/ducks/filter";
 
 import {
   addTaskFromAPI,
@@ -28,15 +29,14 @@ const {
 //_______LIST_TODO __________
 const useFetchTodos = () => {
   const { userId, mytasks } = useSelector((s) => tasksAndUserId(s));
-
   const [isLoading, setLoading] = useState(false);
-
   const call = useDispatch();
+
+  useEffect(() => call(setFilter("")), []);
 
   useEffect(() => {
     const getAllTodos = () => TodoApi.getAll(userId);
     const loadTasksInRedux = (val) => call(loadTasksFromAPI(val));
-
     If(
       isEmpty(mytasks) && !isUndefined(userId),
       callApi(getAllTodos, setLoading, null, loadTasksInRedux)
@@ -197,7 +197,7 @@ const onSubmitTodoForm = (
       setMessage(data.msg);
       isNull(todoId)
         ? dispatch(addTaskFromAPI(data.todo))
-        : dispatch(updateTaskFromAPI(data.todo));
+        : dispatch(updateTaskFromAPI({ updatedTask: data.todo }));
     };
 
     callApi(postTodo, setLoading, setError, onSuccess)();

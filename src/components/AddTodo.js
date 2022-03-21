@@ -20,8 +20,8 @@ export const AddTodo = () => {
         data={{ titleRef, descriptionRef, statusTaskRef, isLoading }}
         handlers={{ handleOnFocus, handleSubmit }}
       />
-      <Message content={message} />
-      <Message content={error} color="danger" />
+      <Message content={message} color="success" />
+      <Message content={error}  />
     </>
   );
 };
