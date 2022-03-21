@@ -16,7 +16,6 @@ export class TodoApi {
   }
 
   static edit(updatedTask = new TodoModel(), connectedUserId = "") {
-    console.log(1)
     return AxiosClient.put(`/users/${connectedUserId}/todos/${updatedTask.id}`, updatedTask);
   }
   static delete(todoId = "", connectedUserId = "") {

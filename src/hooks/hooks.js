@@ -67,13 +67,10 @@ const useFetchTodoDetails = () => {
 };
 
 //____ADD-TODO_____
-
-const useAddTodo = () => {
+const usePostTodo = (p) => {
   const titleRef = useRef();
   const descriptionRef = useRef();
   const statusTaskRef = useRef();
-
-  const UID = useSelector((s) => userId(s));
 
   const call = useDispatch();
 
@@ -91,7 +88,8 @@ const useAddTodo = () => {
       descriptionRef,
       statusTaskRef,
       call,
-      UID
+      p.UID,
+      p.todoId
     );
   };
 
@@ -109,61 +107,26 @@ const useAddTodo = () => {
   };
 };
 
+const useAddTodo = () => {
+  const UID = useSelector((s) => userId(s));
+  return usePostTodo({ UID, todoId: null });
+};
+
 //___EDIT-TODO____
 const useEditTodo = () => {
   const { userId, mytasks } = useSelector((s) => tasksAndUserId(s));
-
-  const titleRef = useRef();
-  const descriptionRef = useRef();
-  const statusTaskRef = useRef();
-
-  const call = useDispatch();
-
-  const [isLoading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-
   const { todoId } = useParams();
+
+  const postTodo = usePostTodo({ UID: userId, todoId });
 
   useEffect(() => {
     const editedTask = mytasks.find((t) => t.id === Number(todoId));
-    set(titleRef, editedTask?.title);
-    set(descriptionRef, editedTask?.description);
-    set(statusTaskRef, editedTask?.status);
+    set(postTodo.titleRef, editedTask?.title);
+    set(postTodo.descriptionRef, editedTask?.description);
+    set(postTodo.statusTaskRef, editedTask?.status);
   }, [userId, mytasks, todoId]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmitTodoForm(
-      setLoading,
-      setMessage,
-      setError,
-      titleRef,
-      descriptionRef,
-      statusTaskRef,
-      call,
-      userId,
-      todoId
-    );
-
-    //vider linputs
-    set(titleRef, "");
-    set(descriptionRef, "");
-    set(statusTaskRef, TodoStatus.TODO);
-  };
-
-  const handleOnFocus = () => (error ? setError("") : setMessage(""));
-
-  return {
-    handleOnFocus,
-    handleSubmit,
-    isLoading,
-    message,
-    error,
-    titleRef,
-    descriptionRef,
-    statusTaskRef,
-  };
+  return postTodo;
 };
 
 //___TODO-DELETE___
@@ -194,6 +157,18 @@ const useDeleteTodo = (t = new TodoModel()) => {
   };
 };
 
+const clearForm = (t, d, s) => {
+  set(t, "");
+  set(d, "");
+  set(s, TodoStatus.TODO);
+};
+
+const getFormData = (t, d, s) => ({
+  title: get(t),
+  description: get(d),
+  status: get(s),
+});
+
 //___common-func____
 const onSubmitTodoForm = (
   setLoading,
@@ -206,38 +181,27 @@ const onSubmitTodoForm = (
   userId,
   todoId = null
 ) => {
-  const formData = {
-    1: get(titleRef),
-    3: get(statusTaskRef),
-    2: get(descriptionRef),
-  };
-  console.log(
-    new TodoModel(todoId, formData[1], formData[3], formData[2], userId)
-  );
-  if (isThereAnInputEmpty(formData)) alert("Empty values error 😈 !");
-  else if (inTaskStatusVals(formData[3]))
-    alert("Invalid status task value 😈 !");
+  const FD = getFormData(titleRef, descriptionRef, statusTaskRef);
+  if (isThereAnInputEmpty(FD)) alert("Empty values error 😈 !");
+  else if (inTaskStatusVals(FD.status)) alert("Invalid status task value 😈 !");
   else {
     const postTodo = () => {
       let f = isNull(todoId) ? TodoApi.add : TodoApi.edit;
-      f(
-        new TodoModel(todoId, formData[1], formData[3], formData[2], userId),
+      return f(
+        new TodoModel(todoId, FD.title, FD.status, FD.description, userId),
         userId
       );
-
     };
 
     const onSuccess = (data) => {
       setMessage(data.msg);
-      let ra = isNull(todoId) ? addTaskFromAPI : updateTaskFromAPI;
-      dispatch(ra(data.todo));
+      isNull(todoId)
+        ? dispatch(addTaskFromAPI(data.todo))
+        : dispatch(updateTaskFromAPI(data.todo));
     };
 
-    callApi(postTodo, setLoading, setError, onSuccess)()
-
-    set(titleRef, "");
-    set(descriptionRef, "");
-    set(statusTaskRef, TodoStatus.TODO);
+    callApi(postTodo, setLoading, setError, onSuccess)();
+    if (isNull(todoId)) clearForm(titleRef, descriptionRef, statusTaskRef);
   }
 };
 

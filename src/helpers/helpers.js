@@ -9,14 +9,13 @@ export const useHelper = {
     callApi: (apiFunc, setLoader, onError, onSuccess) => async () => {
       setLoader(true);
       try {
-        // console.log(apiFunc,onSuccess)
         let res = await apiFunc();
         onSuccess(res.data);
         setLoader(false);
       } catch (err) {
         setLoader(false);
         if (!useHelper.VALIDATION.isUndefined(err.response)) {
-          onError(Object.keys(err.response));
+          onError(err.response.data?.msg);
         }
       }
     },

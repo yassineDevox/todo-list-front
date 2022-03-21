@@ -21,8 +21,8 @@ export const EditTodo = () => {
         handlers={{ handleOnFocus, handleSubmit }}
         action="update"
       />
-      <Message content={message} />
-      <Message content={error} color="danger" />
+      <Message content={message} color="success"/>
+      <Message content={error} />
     </>
   );
 };
